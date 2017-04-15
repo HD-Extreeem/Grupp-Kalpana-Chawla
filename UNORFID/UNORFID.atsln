@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "UNORFID", "UNORFID\UNORFID.cproj", "{1417F16E-836F-434A-888A-9091A443A927}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1417F16E-836F-434A-888A-9091A443A927}.Debug|AVR.ActiveCfg = Debug|AVR
+		{1417F16E-836F-434A-888A-9091A443A927}.Debug|AVR.Build.0 = Debug|AVR
+		{1417F16E-836F-434A-888A-9091A443A927}.Release|AVR.ActiveCfg = Release|AVR
+		{1417F16E-836F-434A-888A-9091A443A927}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
