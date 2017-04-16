@@ -2,7 +2,11 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-PwmTest.c
+main.c
+
+src\PwmFunctions.c
+
+src\PwmTest.c
 
 src\ASF\common\services\clock\sam3x\sysclk.c
 

@@ -7,11 +7,11 @@
 
 
 #include "asf.h"
-
+#include "PwmTest.h"
 /*Defining pin for PWM*/
 #define PWM_PIN IOPORT_CREATE_PIN(PIOC, 21)
 pwm_channel_t pwm_channel_instance;
-int main(void)
+int test(void)
 {
     /* Initialize the SAM system */
     SystemInit();

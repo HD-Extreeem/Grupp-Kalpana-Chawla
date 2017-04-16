@@ -1,7 +1,5 @@
-src/ASF/sam/drivers/pio/pio_handler.d \
- src/ASF/sam/drivers/pio/pio_handler.o: \
- ../src/ASF/sam/drivers/pio/pio_handler.c \
- ../src/ASF/sam/drivers/pio/pio.h ../src/ASF/sam/utils/compiler.h \
+src/PwmTest.d src/PwmTest.o: ../src/PwmTest.c ../src/asf.h \
+ ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -107,9 +105,27 @@ src/ASF/sam/drivers/pio/pio_handler.d \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\alloca.h \
  ../src/ASF/common/utils/interrupt.h \
  ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h
+ ../src/ASF/sam/utils/status_codes.h \
+ ../src/ASF/common/services/delay/delay.h \
+ ../src/ASF/common/services/clock/sysclk.h ../src/config/conf_clock.h \
+ ../src/ASF/common/services/clock/sam3x/sysclk.h \
+ ../src/ASF/common/services/clock/osc.h \
+ ../src/ASF/common/services/clock/sam3x/osc.h \
+ ../src/ASF/common/boards/board.h \
+ ../src/ASF/sam/boards/arduino_due_x/arduino_due_x.h \
+ ../src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.h \
+ ../src/ASF/sam/drivers/pmc/pmc.h ../src/ASF/common/services/clock/pll.h \
+ ../src/ASF/common/services/clock/sam3x/pll.h \
+ ../src/ASF/common/services/delay/sam/cycle_counter.h \
+ ../src/ASF/common/services/gpio/gpio.h \
+ ../src/ASF/common/services/gpio/sam_gpio/sam_gpio.h \
+ ../src/ASF/sam/drivers/pio/pio.h \
+ ../src/ASF/common/services/ioport/ioport.h \
+ ../src/ASF/common/services/ioport/sam/ioport_pio.h \
+ ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/PwmTest.h
 
-../src/ASF/sam/drivers/pio/pio.h:
+../src/asf.h:
 
 ../src/ASF/sam/utils/compiler.h:
 
@@ -323,4 +339,48 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.h:
 
+../src/ASF/sam/utils/status_codes.h:
+
+../src/ASF/common/services/delay/delay.h:
+
+../src/ASF/common/services/clock/sysclk.h:
+
+../src/config/conf_clock.h:
+
+../src/ASF/common/services/clock/sam3x/sysclk.h:
+
+../src/ASF/common/services/clock/osc.h:
+
+../src/ASF/common/services/clock/sam3x/osc.h:
+
+../src/ASF/common/boards/board.h:
+
+../src/ASF/sam/boards/arduino_due_x/arduino_due_x.h:
+
+../src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.h:
+
+../src/ASF/sam/drivers/pmc/pmc.h:
+
+../src/ASF/common/services/clock/pll.h:
+
+../src/ASF/common/services/clock/sam3x/pll.h:
+
+../src/ASF/common/services/delay/sam/cycle_counter.h:
+
+../src/ASF/common/services/gpio/gpio.h:
+
+../src/ASF/common/services/gpio/sam_gpio/sam_gpio.h:
+
+../src/ASF/sam/drivers/pio/pio.h:
+
+../src/ASF/common/services/ioport/ioport.h:
+
+../src/ASF/common/services/ioport/sam/ioport_pio.h:
+
+../src/ASF/sam/drivers/pmc/sleep.h:
+
+../src/ASF/sam/drivers/pwm/pwm.h:
+
 ../src/ASF/sam/drivers/pio/pio_handler.h:
+
+../src/PwmTest.h:
