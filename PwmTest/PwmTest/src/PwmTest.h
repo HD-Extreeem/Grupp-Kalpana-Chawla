@@ -9,7 +9,7 @@
 #ifndef PWMTEST_H_
 #define PWMTEST_H_
 
-int test(void);
+void something(void);
 
 
 #endif /* PWMTEST_H_ */

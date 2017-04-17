@@ -11,7 +11,7 @@
 /*Defining pin for PWM*/
 #define PWM_PIN IOPORT_CREATE_PIN(PIOC, 21)
 pwm_channel_t pwm_channel_instance;
-int test(void)
+void something(void)
 {
     /* Initialize the SAM system */
     SystemInit();
@@ -56,5 +56,6 @@ int test(void)
 			pwm_channel_update_duty(PWM, &pwm_channel_instance, i );
 			delay_us(5500);
 		}
-    }
+	}
+	
 }
