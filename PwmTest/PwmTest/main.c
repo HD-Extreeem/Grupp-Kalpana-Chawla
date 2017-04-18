@@ -14,13 +14,57 @@ int main(void)
 	/*Initialize the board configurations*/
 	board_init();
 	PWM_init();
-	while (1)
-	{
-		for(uint32_t i=800; i<=1500; i+=50){
+	
+	delay_s(5);
+		for(uint32_t i=1500; i>=800; i-=50){
 			pwm_pin_21(i);
 			pwm_pin_22(i);
-			//pwm_channel_update_duty(PWM, &PWM_pin_22, i );
+			delay_ms(500);
 		}
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+		delay_s(3);
+		for(uint32_t i=1500; i<=2200; i+=50){
+			pwm_pin_21(i);
+			pwm_pin_22(i);
+			delay_ms(500);
+		}
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+	delay_s(3);
+	while (1)
+	{
+		for(uint32_t i=1500; i>=800; i-=50){
+			pwm_pin_21(i);
+			pwm_pin_22(1500);
+			delay_ms(500);
+		}
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+		delay_s(3);
+		for(uint32_t i=1500; i<=2200; i+=50){
+			pwm_pin_21(i);
+			pwm_pin_22(1500);
+			delay_ms(500);
+		}
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+		delay_s(3);
+		for(uint32_t i=1500; i>=800; i-=50){
+			pwm_pin_21(1500);
+			pwm_pin_22(i);
+			delay_ms(500);
+		}
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+		delay_s(3);
+		for(uint32_t i=1500; i<=2200; i+=50){
+			pwm_pin_21(1500);
+			pwm_pin_22(i);
+			delay_ms(500);
+		}
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
 	}
 	
 }
