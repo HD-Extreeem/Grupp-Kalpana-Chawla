@@ -4,6 +4,12 @@
 
 main.c
 
+src\ASF\sam\drivers\adc\adc.c
+
+src\ASF\sam\drivers\adc\adc_sam3u.c
+
+src\InterruptStepCounter.c
+
 src\PwmFunctions.c
 
 src\PwmTest.c

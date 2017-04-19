@@ -6,6 +6,7 @@
  */ 
 #include "asf.h"
 #include "PwmFunctions.h"
+#include "InterruptStepCounter.h"
 
 int main(void)
 {
@@ -13,6 +14,10 @@ int main(void)
 	SystemInit();
 	/*Initialize the board configurations*/
 	board_init();
+	
+	configInterrupts();
+	
+	/**
 	PWM_init();
 	
 	delay_s(5);
@@ -66,5 +71,5 @@ int main(void)
 		pwm_pin_21(1500);
 		pwm_pin_22(1500);
 	}
-	
+	*/
 }

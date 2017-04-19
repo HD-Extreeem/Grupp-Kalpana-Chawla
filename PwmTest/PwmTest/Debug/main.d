@@ -1,4 +1,5 @@
-main.d main.o: .././main.c ../src/asf.h ../src/ASF/sam/utils/compiler.h \
+main.d main.o: .././main.c ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
+ ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -122,9 +123,12 @@ main.d main.o: .././main.c ../src/asf.h ../src/ASF/sam/utils/compiler.h \
  ../src/ASF/common/services/ioport/ioport.h \
  ../src/ASF/common/services/ioport/sam/ioport_pio.h \
  ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/PwmFunctions.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/PwmFunctions.h \
+ ../src/InterruptStepCounter.h
 
 ../src/asf.h:
+
+../src/ASF/sam/drivers/adc/adc.h:
 
 ../src/ASF/sam/utils/compiler.h:
 
@@ -383,3 +387,5 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
 ../src/PwmFunctions.h:
+
+../src/InterruptStepCounter.h:

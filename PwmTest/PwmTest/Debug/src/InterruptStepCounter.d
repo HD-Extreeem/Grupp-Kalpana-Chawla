@@ -1,4 +1,5 @@
-src/PwmTest.d src/PwmTest.o: ../src/PwmTest.c ../src/asf.h \
+src/InterruptStepCounter.d src/InterruptStepCounter.o: \
+ ../src/InterruptStepCounter.c ../src/asf.h \
  ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
@@ -123,7 +124,7 @@ src/PwmTest.d src/PwmTest.o: ../src/PwmTest.c ../src/asf.h \
  ../src/ASF/common/services/ioport/ioport.h \
  ../src/ASF/common/services/ioport/sam/ioport_pio.h \
  ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/PwmTest.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/InterruptStepCounter.h
 
 ../src/asf.h:
 
@@ -385,4 +386,4 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/PwmTest.h:
+../src/InterruptStepCounter.h:
