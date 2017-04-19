@@ -123,8 +123,13 @@ main.d main.o: .././main.c ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
  ../src/ASF/common/services/ioport/ioport.h \
  ../src/ASF/common/services/ioport/sam/ioport_pio.h \
  ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
+ ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h \
+ ../src/ASF/common/services/serial/serial.h \
+ ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
+ ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
+ ../src/config/conf_uart_serial.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/PwmFunctions.h \
- ../src/InterruptStepCounter.h
+ ../src/InterruptStepCounter.h ../src/consoleFunctions.h
 
 ../src/asf.h:
 
@@ -384,8 +389,22 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/sam/drivers/pwm/pwm.h:
 
+../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h:
+
+../src/ASF/common/services/serial/serial.h:
+
+../src/ASF/common/services/serial/sam_uart/uart_serial.h:
+
+../src/ASF/sam/drivers/uart/uart.h:
+
+../src/ASF/sam/drivers/usart/usart.h:
+
+../src/config/conf_uart_serial.h:
+
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
 ../src/PwmFunctions.h:
 
 ../src/InterruptStepCounter.h:
+
+../src/consoleFunctions.h:

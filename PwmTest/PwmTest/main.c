@@ -7,16 +7,26 @@
 #include "asf.h"
 #include "PwmFunctions.h"
 #include "InterruptStepCounter.h"
-
+#include "consoleFunctions.h"
 int main(void)
 {
 	/* Initialize the SAM system */
 	SystemInit();
 	/*Initialize the board configurations*/
 	board_init();
-	
+	configureConsole();
+	printf("main");
+	pio_set_output(PIOB, PIO_PB27, LOW, DISABLE, ENABLE);
+	pio_set_output(PIOD, PIO_PD8, LOW, DISABLE, ENABLE);
 	configInterrupts();
-	
+	for(int i=0; i<=9;i++){
+	pio_set(PIOD, PIO_PD8);
+	pio_set(PIOB, PIO_PB27);
+	delay_ms(25);
+	 pio_clear(PIOD, PIO_PD8);
+  pio_clear(PIOB, PIO_PB27);
+  delay_ms(25);
+}
 	/**
 	PWM_init();
 	

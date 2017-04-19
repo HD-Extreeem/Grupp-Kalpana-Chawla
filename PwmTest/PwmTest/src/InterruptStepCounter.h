@@ -2,7 +2,7 @@
  * InterruptStepCounter.h
  *
  * Created: 2017-04-19 11:29:16
- *  Author: Yurdaer
+ *  Author: Yurdaer Dalkic
  */ 
 
 
