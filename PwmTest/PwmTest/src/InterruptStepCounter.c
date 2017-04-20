@@ -8,7 +8,8 @@
 #include "InterruptStepCounter.h"
 #include "consoleFunctions.h"
 
-
+static uint16_t counter_1=0;
+static uint16_t counter_2=0;
 
 
 void configInterrupts(void){
@@ -44,14 +45,22 @@ void configInterrupts(void){
 
 void pin12_edge_handler(const uint32_t id, const uint32_t index){
 	if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
-		printf("pin51");
+		
+		counter_1++;
+		printf("one");
+		printf("%d",counter_1);
+			printf("-");
 	}
 	
 	
 }
 void pin14_edge_handler(const uint32_t id, const uint32_t index){
 	if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
-			printf("pin 53");
+			
+			counter_2++;
+				printf("two");
+			printf("%d",counter_2);
+				printf("-");
 	}
 	
 
