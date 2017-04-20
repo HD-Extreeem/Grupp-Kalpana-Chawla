@@ -7680,27 +7680,27 @@ OUTPUT(PwmTest.elf elf32-littlearm)
  .debug_macro   0x0001849c       0x41 src/ASF/sam/utils/syscalls/gcc/syscalls.o
  .debug_macro   0x000184dd      0x120 src/ASF/sam/utils/syscalls/gcc/syscalls.o
 
-.debug_line     0x00000000    0x10346
- .debug_line    0x00000000      0xefd main.o
- .debug_line    0x00000efd      0xd1b src/ASF/common/services/serial/usart_serial.o
- .debug_line    0x00001c18      0xad9 src/ASF/common/utils/stdio/read.o
- .debug_line    0x000026f1      0xacf src/ASF/common/utils/stdio/write.o
- .debug_line    0x000031c0      0xc8f src/ASF/sam/drivers/uart/uart.o
- .debug_line    0x00003e4f     0x11aa src/ASF/sam/drivers/usart/usart.o
- .debug_line    0x00004ff9     0x10a1 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o
- .debug_line    0x0000609a      0xfa5 src/ConsoleFunctions.o
- .debug_line    0x0000703f      0xf29 src/InterruptStepCounter.o
- .debug_line    0x00007f68      0xf25 src/PwmFunctions.o
- .debug_line    0x00008e8d      0xaf2 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
- .debug_line    0x0000997f      0xcdf src/ASF/sam/boards/arduino_due_x/init.o
- .debug_line    0x0000a65e      0xe42 src/ASF/sam/drivers/pio/pio.o
- .debug_line    0x0000b4a0      0xb8d src/ASF/sam/drivers/pio/pio_handler.o
- .debug_line    0x0000c02d     0x1045 src/ASF/sam/drivers/pmc/pmc.o
- .debug_line    0x0000d072      0xe5d src/ASF/sam/drivers/pwm/pwm.o
- .debug_line    0x0000decf      0xab5 src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
- .debug_line    0x0000e984      0xb05 src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
- .debug_line    0x0000f489      0xb22 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
- .debug_line    0x0000ffab      0x39b src/ASF/sam/utils/syscalls/gcc/syscalls.o
+.debug_line     0x00000000    0x10344
+ .debug_line    0x00000000      0xefb main.o
+ .debug_line    0x00000efb      0xd1b src/ASF/common/services/serial/usart_serial.o
+ .debug_line    0x00001c16      0xad9 src/ASF/common/utils/stdio/read.o
+ .debug_line    0x000026ef      0xacf src/ASF/common/utils/stdio/write.o
+ .debug_line    0x000031be      0xc8f src/ASF/sam/drivers/uart/uart.o
+ .debug_line    0x00003e4d     0x11aa src/ASF/sam/drivers/usart/usart.o
+ .debug_line    0x00004ff7     0x10a1 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o
+ .debug_line    0x00006098      0xfa5 src/ConsoleFunctions.o
+ .debug_line    0x0000703d      0xf29 src/InterruptStepCounter.o
+ .debug_line    0x00007f66      0xf25 src/PwmFunctions.o
+ .debug_line    0x00008e8b      0xaf2 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_line    0x0000997d      0xcdf src/ASF/sam/boards/arduino_due_x/init.o
+ .debug_line    0x0000a65c      0xe42 src/ASF/sam/drivers/pio/pio.o
+ .debug_line    0x0000b49e      0xb8d src/ASF/sam/drivers/pio/pio_handler.o
+ .debug_line    0x0000c02b     0x1045 src/ASF/sam/drivers/pmc/pmc.o
+ .debug_line    0x0000d070      0xe5d src/ASF/sam/drivers/pwm/pwm.o
+ .debug_line    0x0000decd      0xab5 src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
+ .debug_line    0x0000e982      0xb05 src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
+ .debug_line    0x0000f487      0xb22 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
+ .debug_line    0x0000ffa9      0x39b src/ASF/sam/utils/syscalls/gcc/syscalls.o
 
 .debug_str      0x00000000    0x613d2
  .debug_str     0x00000000    0x5d3d3 main.o

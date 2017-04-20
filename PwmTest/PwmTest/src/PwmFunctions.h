@@ -3,6 +3,8 @@
  *
  * Created: 2017-04-16 22:58:09
  *  Author: Yurdaer Dalkic & Hadi Deknache
+ *
+ * Header file to PwmFunctions.c
  */ 
 
 

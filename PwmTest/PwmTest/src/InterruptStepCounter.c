@@ -2,27 +2,29 @@
  * InterruptStepCounter.c
  *
  * Created: 2017-04-19 11:28:36
- *  Author: Yurdaer Dalkic
+ *  Author: Yurdaer Dalkic & Hadi Deknache
+ *
+ * This source file initialize and configure interrupt for pin 51 and 53 on Arduino Due.
+ * 
  */ 
+
+
+
 #include <asf.h>
 #include "InterruptStepCounter.h"
 #include "consoleFunctions.h"
 
+
+// Counter for Arlo Robot encoders for right and left wheel
 static uint16_t counter_1=0;
 static uint16_t counter_2=0;
 
 
 void configInterrupts(void){
-	printf("config");
-	pmc_set_writeprotect(0);
 	//Enable the module clock to the PIOB peripheral
 	pmc_enable_periph_clk(ID_PIOB);
 	//Enable the module clock to the PIOC peripheral
-	pmc_enable_periph_clk(ID_PIOC);
-	
-		//test
-		
-		
+	pmc_enable_periph_clk(ID_PIOC);	
 	//Set pin 12 direction on PIOC as input, with pullup
 	pio_set_input(PIOC,PIO_PC12,PIO_PULLUP);
 	//Set pin 14 direction on PIOB as input, with pullup
@@ -43,26 +45,22 @@ void configInterrupts(void){
 
 }
 
-void pin12_edge_handler(const uint32_t id, const uint32_t index){
+// Handler which calls when pin 53 is toggle.  
+void pin12_edge_handler(){
+	// Check if pin 53 is high
 	if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
-		
+		//increase the counter value
 		counter_1++;
-		printf("one");
 		printf("%d",counter_1);
-			printf("-");
-	}
-	
-	
+	}	
 }
-void pin14_edge_handler(const uint32_t id, const uint32_t index){
+
+// Handler which calls when pin 51 is toggle. 
+void pin14_edge_handler(){
+	// Checks if pin 51 is high
 	if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
-			
+	//Increase the counter value
 			counter_2++;
-				printf("two");
 			printf("%d",counter_2);
-				printf("-");
 	}
-	
-
-
 }

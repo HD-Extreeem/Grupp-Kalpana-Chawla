@@ -29,11 +29,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  12 .debug_macro  000185fd  00000000  00000000  00027ffd  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   00010346  00000000  00000000  000405fa  2**0
+ 13 .debug_line   00010344  00000000  00000000  000405fa  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    000613d2  00000000  00000000  00050940  2**0
+ 14 .debug_str    000613d2  00000000  00000000  0005093e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00002230  00000000  00000000  000b1d14  2**2
+ 15 .debug_frame  00002230  00000000  00000000  000b1d10  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -152,16 +152,10 @@ int main(void)
 	configureConsole();
    80152:	4b09      	ldr	r3, [pc, #36]	; (80178 <main+0x30>)
    80154:	4798      	blx	r3
-// 	printf("main");
-// 	pio_set_output(PIOB, PIO_PB27, LOW, DISABLE, ENABLE);
 
-// 	pio_set_output(PIOD, PIO_PD8, LOW, DISABLE, ENABLE);
 	configInterrupts();
    80156:	4b09      	ldr	r3, [pc, #36]	; (8017c <main+0x34>)
    80158:	4798      	blx	r3
-//     pio_clear(PIOD, PIO_PD8);
-//     pio_clear(PIOB, PIO_PB27);
-//     delay_ms(25);
 
 	
 	PWM_init();

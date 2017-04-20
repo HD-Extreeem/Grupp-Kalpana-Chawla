@@ -511,12 +511,6 @@
     <Compile Include="src\PwmFunctions.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\PwmTest.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\PwmTest.h">
-      <SubType>compile</SubType>
-    </Compile>
     <None Include="src\ASF\common\services\clock\genclk.h">
       <SubType>compile</SubType>
     </None>
