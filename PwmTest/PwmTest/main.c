@@ -20,12 +20,47 @@ int main(void)
 
 	
 	PWM_init();
-		pwm_pin_21(1000);
-		pwm_pin_22(1000);
-		while(1){
-			
+	while(1){
+		delay_ms(6000);
+		pwm_pin_21(1800);
+		pwm_pin_22(1800);
+	    delay_ms(3000);
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+	    delay_ms(3000);
+		pwm_pin_21(1200);
+		pwm_pin_22(1200);
+		delay_ms(3000);
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+		delay_ms(3000);
+		pwm_pin_21(1500);
+		pwm_pin_22(1200);
+	    delay_ms(3000);
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+	    delay_ms(3000);
+		pwm_pin_21(1500);
+		pwm_pin_22(1800);
+		delay_ms(3000);
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+		delay_ms(3000);
+		pwm_pin_21(1200);
+		pwm_pin_22(1500);
+	    delay_ms(3000);
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
+		delay_ms(3000);
+		pwm_pin_21(1800);
+		pwm_pin_22(1500);
+		delay_ms(3000);
+		pwm_pin_21(1500);
+		pwm_pin_22(1500);
 		
-		}
+		
+	}
+	
 }
 	
 
