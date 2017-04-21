@@ -19,22 +19,17 @@ void task_unoComm(void *pvParameters)
 	
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 	
-	ioport_set_pin_dir (PIO_PA24_IDX, IOPORT_DIR_OUTPUT);	// A1 (green LED)
+	ioport_set_pin_dir (PIO_PA23_IDX, IOPORT_DIR_OUTPUT);	// A1 (green LED)
+	
+	printf("Startar UnoComm task\r\n");
 	
 	while (1)
 	{
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle.
+		ioport_set_pin_level(PIO_PA23_IDX, HIGH);
+		printf("TASK UnoComm INNE\r\n");
 		
-		out++;
-		ioport_set_pin_level(PIO_PA24_IDX, out);
-		
-		if (out == 0)
-		{
-			out = 1;
-		}
-		else 
-		{
-			out = 0;
-		}
+		delay_ms(100);
+		ioport_set_pin_level(PIO_PA23_IDX, LOW);
 	}
 }
