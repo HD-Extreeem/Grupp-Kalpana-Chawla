@@ -6,6 +6,8 @@ src\ASF\common\utils\stdio\read.c
 
 src\ASF\sam\drivers\tc\tc.c
 
+src\ConsoleFunctions.c
+
 src\Task_UnoComm.c
 
 src\ASF\sam\drivers\usart\usart.c

@@ -9,7 +9,8 @@
 #ifndef TASK_GETCORDINATES_H_
 #define TASK_GETCORDINATES_H_
 #define TASK_GET_STACK_SIZE     (1024/sizeof(portSTACK_TYPE))
-#define TASK_GET_STACK_PRIORITY     (1)//tskIDLE_PRIORITY
+#define TASK_GET_STACK_PRIORITY     (3)//tskIDLE_PRIORITY
+#define M 3
 
 void task_getCordinates( void *pvParameters);
 

@@ -19,9 +19,34 @@ void task_getCordinates(void *pvParameters)
 	
 	xLastWakeTime = xTaskGetTickCount(); //Initialise the xLastWakeTime variable with the current time.
 	
-	while (1) {
+		ioport_set_pin_dir (PIO_PA23_IDX, IOPORT_DIR_OUTPUT);						// Pin A2		LED YELLOW
+		ioport_set_pin_dir (PIO_PA16_IDX, IOPORT_DIR_OUTPUT);						//Pin A0		LED RED
+		ioport_set_pin_dir (PIO_PA24_IDX, IOPORT_DIR_OUTPUT);						// Pin A1		LED GREEN
+		printf("TASK GetCord INNE\r\n");
+		
+		uint32_t out = 0;
+	
+	while (1) {	
 		
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
+		//ioport_set_pin_dir (PIO_PA24_IDX, IOPORT_DIR_OUTPUT);						// Pin A1		LED GREEN
+		//ioport_set_pin_level(PIO_PA24_IDX,HIGH);
+		
+		
+		//ioport_set_pin_dir (PIO_PA16_IDX, IOPORT_DIR_OUTPUT);						//Pin A0		LED RED
+		//ioport_set_pin_level(PIO_PA16_IDX,LOW);										//RED LED OFF
+		
+		//ioport_set_pin_dir (PIO_PA23_IDX, IOPORT_DIR_OUTPUT);						// Pin A2		LED YELLOW
+		//ioport_set_pin_level(PIO_PA23_IDX,LOW);										//YELLOW LED OFF
+		
+		
+		
+		ioport_set_pin_level(PIO_PA23_IDX,out);
+		printf("TASK GetCord INNE\r\n");
+		if (out == 0)
+		out = 1;
+		else
+		out = 0;
 		
 	}
 
