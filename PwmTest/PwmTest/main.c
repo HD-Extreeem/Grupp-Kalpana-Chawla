@@ -11,6 +11,12 @@
 
 extern uint16_t counter_1;
 extern uint16_t counter_2;
+int setPoint=0;
+int m_value=0;
+int s_value=0;
+int e=0;
+uint16_t kp = 1;
+uint16_t speed = 1800;
 
 int main(void)
 {
@@ -22,22 +28,20 @@ int main(void)
 	configInterrupts();
 	PWM_init();
 	printf("Startar");
-	pwm_pin_22(1500);
-	while(counter_2 <= 183){
-		
-		pwm_pin_21(1700);
-	}
+	pwm_pin_22(1800);
 	
-	pwm_pin_21(1500);
-	delay_s(3);
-	printf("\n");
-	printf("Nästa\n");
-	
-	while (counter_1 <= 183)
+	while (1)
 	{
-		pwm_pin_22(1700);
+		//setPoint = 2*setPoint;
+		m_value = (counter_2-counter_1);
+		e = (setPoint - m_value);
+		s_value = (kp*e);
+		pwm_pin_21((speed+s_value));
+		printf("\n e = %d",e);
+		printf("\n s_value = %d",s_value);
+		printf("\n m_value = %d",m_value);
+		
 	}
-	pwm_pin_22(1500);
 	
 }
 	
