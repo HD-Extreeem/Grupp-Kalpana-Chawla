@@ -19,7 +19,7 @@ void task_unoComm(void *pvParameters)
 	
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 	
-	ioport_set_pin_dir (PIO_PA23_IDX, IOPORT_DIR_OUTPUT);	// A1 (green LED)
+	//ioport_set_pin_dir (PIO_PA23_IDX, IOPORT_DIR_OUTPUT);	// A1 (green LED)
 	
 	printf("Startar UnoComm task\r\n");
 	

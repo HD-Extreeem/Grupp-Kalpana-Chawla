@@ -534,6 +534,12 @@
     <Compile Include="src\consoleFunctions.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\StepCounter_ISR.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\StepCounter_ISR.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\Task_UnoComm.c">
       <SubType>compile</SubType>
     </Compile>

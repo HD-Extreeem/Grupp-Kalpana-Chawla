@@ -1,5 +1,5 @@
-src/main.d src/main.o: ../src/main.c ../src/asf.h \
- ../src/ASF/sam/utils/compiler.h \
+src/StepCounter_ISR.d src/StepCounter_ISR.o: ../src/StepCounter_ISR.c \
+ ../src/asf.h ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -148,9 +148,9 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Task_Move.h \
- ../src/Task_GetCordinates.h ../src/Task_UnoComm.h \
- ../src/consoleFunctions.h ../src/StepCounter_ISR.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ ../src/StepCounter_ISR.h
 
 ../src/asf.h:
 
@@ -462,12 +462,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/Task_Move.h:
-
-../src/Task_GetCordinates.h:
-
-../src/Task_UnoComm.h:
-
-../src/consoleFunctions.h:
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
 
 ../src/StepCounter_ISR.h:

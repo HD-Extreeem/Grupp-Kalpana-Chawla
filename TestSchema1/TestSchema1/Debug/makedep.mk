@@ -8,6 +8,8 @@ src\ASF\sam\drivers\tc\tc.c
 
 src\ConsoleFunctions.c
 
+src\StepCounter_ISR.c
+
 src\Task_UnoComm.c
 
 src\ASF\sam\drivers\usart\usart.c

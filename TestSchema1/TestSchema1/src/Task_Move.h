@@ -12,7 +12,6 @@
 
 #define TASK_MOVE_STACK_SIZE     (1024/sizeof(portSTACK_TYPE))
 #define TASK_MOVE_STACK_PRIORITY     (2)//tskIDLE_PRIORITY
-#define M 2
 
 void task_move(void *pvParameters);
 
