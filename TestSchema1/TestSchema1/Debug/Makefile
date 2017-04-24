@@ -102,6 +102,7 @@ C_SRCS +=  \
 ../src/ASF/common/utils/stdio/read.c \
 ../src/ASF/sam/drivers/tc/tc.c \
 ../src/ConsoleFunctions.c \
+../src/StepCounter_ISR.c \
 ../src/Task_UnoComm.c \
 ../src/ASF/sam/drivers/usart/usart.c \
 ../src/ASF/common/utils/stdio/write.c \
@@ -141,6 +142,7 @@ OBJS +=  \
 src/ASF/common/utils/stdio/read.o \
 src/ASF/sam/drivers/tc/tc.o \
 src/ConsoleFunctions.o \
+src/StepCounter_ISR.o \
 src/Task_UnoComm.o \
 src/ASF/sam/drivers/usart/usart.o \
 src/ASF/common/utils/stdio/write.o \
@@ -173,6 +175,7 @@ OBJS_AS_ARGS +=  \
 src/ASF/common/utils/stdio/read.o \
 src/ASF/sam/drivers/tc/tc.o \
 src/ConsoleFunctions.o \
+src/StepCounter_ISR.o \
 src/Task_UnoComm.o \
 src/ASF/sam/drivers/usart/usart.o \
 src/ASF/common/utils/stdio/write.o \
@@ -205,6 +208,7 @@ C_DEPS +=  \
 src/ASF/common/utils/stdio/read.d \
 src/ASF/sam/drivers/tc/tc.d \
 src/ConsoleFunctions.d \
+src/StepCounter_ISR.d \
 src/Task_UnoComm.d \
 src/ASF/sam/drivers/usart/usart.d \
 src/ASF/common/utils/stdio/write.d \
@@ -237,6 +241,7 @@ C_DEPS_AS_ARGS +=  \
 src/ASF/common/utils/stdio/read.d \
 src/ASF/sam/drivers/tc/tc.d \
 src/ConsoleFunctions.d \
+src/StepCounter_ISR.d \
 src/Task_UnoComm.d \
 src/ASF/sam/drivers/usart/usart.d \
 src/ASF/common/utils/stdio/write.d \
@@ -280,6 +285,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
