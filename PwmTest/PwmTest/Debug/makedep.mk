@@ -26,8 +26,6 @@ src\InterruptStepCounter.c
 
 src\PwmFunctions.c
 
-src\PwmTest.c
-
 src\ASF\common\services\clock\sam3x\sysclk.c
 
 src\ASF\common\services\delay\sam\cycle_counter.c

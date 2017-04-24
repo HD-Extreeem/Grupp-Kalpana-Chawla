@@ -107,7 +107,6 @@ C_SRCS +=  \
 ../src/ConsoleFunctions.c \
 ../src/InterruptStepCounter.c \
 ../src/PwmFunctions.c \
-../src/PwmTest.c \
 ../src/ASF/common/services/clock/sam3x/sysclk.c \
 ../src/ASF/common/services/delay/sam/cycle_counter.c \
 ../src/ASF/common/utils/interrupt/interrupt_sam_nvic.c \
@@ -142,7 +141,6 @@ src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
 src/ConsoleFunctions.o \
 src/InterruptStepCounter.o \
 src/PwmFunctions.o \
-src/PwmTest.o \
 src/ASF/common/services/clock/sam3x/sysclk.o \
 src/ASF/common/services/delay/sam/cycle_counter.o \
 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o \
@@ -170,7 +168,6 @@ src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
 src/ConsoleFunctions.o \
 src/InterruptStepCounter.o \
 src/PwmFunctions.o \
-src/PwmTest.o \
 src/ASF/common/services/clock/sam3x/sysclk.o \
 src/ASF/common/services/delay/sam/cycle_counter.o \
 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o \
@@ -198,7 +195,6 @@ src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
 src/ConsoleFunctions.d \
 src/InterruptStepCounter.d \
 src/PwmFunctions.d \
-src/PwmTest.d \
 src/ASF/common/services/clock/sam3x/sysclk.d \
 src/ASF/common/services/delay/sam/cycle_counter.d \
 src/ASF/common/utils/interrupt/interrupt_sam_nvic.d \
@@ -226,7 +222,6 @@ src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
 src/ConsoleFunctions.d \
 src/InterruptStepCounter.d \
 src/PwmFunctions.d \
-src/PwmTest.d \
 src/ASF/common/services/clock/sam3x/sysclk.d \
 src/ASF/common/services/delay/sam/cycle_counter.d \
 src/ASF/common/utils/interrupt/interrupt_sam_nvic.d \
@@ -256,8 +251,6 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
-
-
 
 
 

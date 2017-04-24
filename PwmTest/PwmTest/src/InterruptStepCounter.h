@@ -11,7 +11,7 @@
 #define INTERRUPTCOUNTER_H_
 
 void configInterrupts (void);
-void pin12_edge_handler(void);
-void pin14_edge_handler(void);
+void pin12_edge_handler(const uint32_t id, const uint32_t index);
+void pin14_edge_handler(const uint32_t id, const uint32_t index);
 
 #endif /* INTERRUPTCOUNTER_H_ */

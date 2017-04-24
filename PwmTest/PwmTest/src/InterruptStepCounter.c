@@ -16,11 +16,12 @@
 
 
 // Counter for Arlo Robot encoders for right and left wheel
-static uint16_t counter_1=0;
-static uint16_t counter_2=0;
+ uint16_t counter_1 = 0;
+ uint16_t counter_2 = 0;
 
 
 void configInterrupts(void){
+	
 	//Enable the module clock to the PIOB peripheral
 	pmc_enable_periph_clk(ID_PIOB);
 	//Enable the module clock to the PIOC peripheral
@@ -46,7 +47,7 @@ void configInterrupts(void){
 }
 
 // Handler which calls when pin 53 is toggle.  
-void pin12_edge_handler(){
+void pin12_edge_handler(const uint32_t id, const uint32_t index){
 	// Check if pin 53 is high
 	if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
 		//increase the counter value
@@ -56,7 +57,7 @@ void pin12_edge_handler(){
 }
 
 // Handler which calls when pin 51 is toggle. 
-void pin14_edge_handler(){
+void pin14_edge_handler(const uint32_t id, const uint32_t index){
 	// Checks if pin 51 is high
 	if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
 	//Increase the counter value

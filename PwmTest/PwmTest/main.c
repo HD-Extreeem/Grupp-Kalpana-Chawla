@@ -8,6 +8,10 @@
 #include "PwmFunctions.h"
 #include "InterruptStepCounter.h"
 #include "consoleFunctions.h"
+
+extern uint16_t counter_1;
+extern uint16_t counter_2;
+
 int main(void)
 {
 	/* Initialize the SAM system */
@@ -15,51 +19,25 @@ int main(void)
 	/*Initialize the board configurations*/
 	board_init();
 	configureConsole();
-
 	configInterrupts();
-
-	
 	PWM_init();
-	while(1){
-		delay_ms(6000);
-		pwm_pin_21(1800);
-		pwm_pin_22(1800);
-	    delay_ms(3000);
-		pwm_pin_21(1500);
-		pwm_pin_22(1500);
-	    delay_ms(3000);
-		pwm_pin_21(1200);
-		pwm_pin_22(1200);
-		delay_ms(3000);
-		pwm_pin_21(1500);
-		pwm_pin_22(1500);
-		delay_ms(3000);
-		pwm_pin_21(1500);
-		pwm_pin_22(1200);
-	    delay_ms(3000);
-		pwm_pin_21(1500);
-		pwm_pin_22(1500);
-	    delay_ms(3000);
-		pwm_pin_21(1500);
-		pwm_pin_22(1800);
-		delay_ms(3000);
-		pwm_pin_21(1500);
-		pwm_pin_22(1500);
-		delay_ms(3000);
-		pwm_pin_21(1200);
-		pwm_pin_22(1500);
-	    delay_ms(3000);
-		pwm_pin_21(1500);
-		pwm_pin_22(1500);
-		delay_ms(3000);
-		pwm_pin_21(1800);
-		pwm_pin_22(1500);
-		delay_ms(3000);
-		pwm_pin_21(1500);
-		pwm_pin_22(1500);
+	printf("Startar");
+	pwm_pin_22(1500);
+	while(counter_2 <= 183){
 		
-		
+		pwm_pin_21(1700);
 	}
+	
+	pwm_pin_21(1500);
+	delay_s(3);
+	printf("\n");
+	printf("Nästa\n");
+	
+	while (counter_1 <= 183)
+	{
+		pwm_pin_22(1700);
+	}
+	pwm_pin_22(1500);
 	
 }
 	
