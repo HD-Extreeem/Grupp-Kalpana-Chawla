@@ -65,3 +65,8 @@ void pin14_edge_handler(const uint32_t id, const uint32_t index){
 			//printf("\n c2 = %d",counter_2);
 	}
 }
+
+void reset_Counter(void){
+	counter_1=0;
+	counter_2=0;
+}

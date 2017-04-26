@@ -54,7 +54,7 @@ void initPin21(void){
 		PWM_pin_21.ul_prescaler = PWM_CMR_CPRE_CLKA;
 		PWM_pin_21.polarity = PWM_LOW;
 		PWM_pin_21.alignment = PWM_ALIGN_LEFT;
-		PWM_pin_21.ul_period = 8000;
+		PWM_pin_21.ul_period = 7500;
 		PWM_pin_21.ul_duty = 0;
 		
 	/*Initializing channel after setting things up*/
@@ -74,7 +74,7 @@ void initPin22(void){
 		PWM_pin_22.ul_prescaler = PWM_CMR_CPRE_CLKA;
 		PWM_pin_22.polarity = PWM_LOW;
 		PWM_pin_22.alignment = PWM_ALIGN_LEFT;
-		PWM_pin_22.ul_period = 8000;
+		PWM_pin_22.ul_period = 7500;
 		PWM_pin_22.ul_duty = 0;
 		
 		/*Initializing channel after setting things up*/
@@ -92,7 +92,7 @@ void pwm_pin_21(uint32_t duty){
 		duty=2200;
 	}
 	// Change the duty cycle of the PWM channel
-	pwm_channel_update_duty(PWM, &PWM_pin_21, duty );
+	pwm_channel_update_duty(PWM, &PWM_pin_21, 2 );
 }
 
  /* This method changes the duty cycle of PWM signal on pin 8. The duty cycle is limited between 0.8 ms and 2.2 ms  */
@@ -106,4 +106,5 @@ void pwm_pin_22(uint32_t duty){
 	}
 	// Change the duty cycle of the PWM channel
 	pwm_channel_update_duty(PWM, &PWM_pin_22, duty );
+	
 }
