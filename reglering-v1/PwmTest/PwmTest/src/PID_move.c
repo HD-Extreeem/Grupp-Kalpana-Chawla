@@ -16,9 +16,9 @@ int setPoint=0;
 int m_value=0;
 int s_value=0;
 int e=1;
-double kp = 1;
+double kp = 10;
 uint16_t speed = 1500;
-int faktor;
+int faktor=1;
 int rotationSpeed=100;
 int rotationValue;
 
@@ -45,23 +45,27 @@ void move (int distance, int degree){
 
 void rotation (int degree){
 	
-	pwm_pin_21(1500);
-	pwm_pin_22(1500);
-	if(degree>180){
-	    degree=degree-360;
-		faktor=-1;
-	}
-    rotationValue=((degree*faktor)/2);
+	rightWheel(1500);
+	leftWheel(1500);
+// 	if(degree>180){
+// 	    degree=degree-360;
+// 		faktor=-1;
+// 	}
+    rotationValue=((degree*faktor));
 	reset_Counter();
 	while ((counter_1+counter_2) != rotationValue)
 	{
-		pwm_pin_21(1500+(rotationSpeed*faktor));
-		pwm_pin_22(1500-(rotationSpeed*faktor));
+		m_value = (counter_1-counter_2);
+		e = (m_value);
+		s_value = (kp*e);
+		leftWheel(1500 + ( (rotationSpeed*faktor) + (s_value*faktor)) );
+		rightWheel(1500 - ( (rotationSpeed*faktor) - (s_value*faktor)) );
 	}
 	
-	pwm_pin_21(1500);
-	pwm_pin_22(1500);
+	rightWheel(1500);
+	leftWheel(1500);
 	reset_Counter();
 	faktor=1;
+	printf("finish");
 }
 

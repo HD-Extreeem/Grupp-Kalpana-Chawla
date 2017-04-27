@@ -84,7 +84,7 @@ void initPin22(void){
 		pwm_channel_enable(PWM, PWM_CHANNEL_5);
 }
  /* This method changes the duty cycle of PWM signal on pin 9. The duty cycle is limited between 0.8 ms and 2.2 ms  */
-void pwm_pin_21(uint32_t duty){
+void leftWheel(uint32_t duty){
 	if(duty<800){
 		duty=800;
 	}
@@ -92,11 +92,11 @@ void pwm_pin_21(uint32_t duty){
 		duty=2200;
 	}
 	// Change the duty cycle of the PWM channel
-	pwm_channel_update_duty(PWM, &PWM_pin_21, 2 );
+	pwm_channel_update_duty(PWM, &PWM_pin_21, duty );
 }
 
  /* This method changes the duty cycle of PWM signal on pin 8. The duty cycle is limited between 0.8 ms and 2.2 ms  */
-void pwm_pin_22(uint32_t duty){
+void rightWheel(uint32_t duty){
 	
 	if(duty<800){
 		duty=800;

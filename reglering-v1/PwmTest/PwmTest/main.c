@@ -31,12 +31,16 @@ int main(void)
 	PWM_init();
 	printf("Startar");
 	delay_s(3);
-   pwm_pin_22(1500);
-   pwm_pin_21(1500);
-	while (1)
+   rightWheel(1700);
+   delay_us(100);
+   leftWheel(1700);
+//    delay_s(3);
+//     rightWheel(1500);
+//     leftWheel(1500);
+	while (0)
 	{
 		  //move(0,-30);
-		  rotation(180);
+		  rotation(45);
 		  delay_s(3);
 	//	  rotation(-90);
 		//setPoint = 2*setPoint;

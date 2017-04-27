@@ -14,7 +14,7 @@
 void PWM_init(void);
 void initPin21(void);
 void initPin22(void);
-void pwm_pin_21(uint32_t duty);
-void pwm_pin_22(uint32_t duty);
+void rightWheel(uint32_t duty);
+void leftWheel(uint32_t duty);
 
 #endif /* PWMFUNCTIONS_H_ */

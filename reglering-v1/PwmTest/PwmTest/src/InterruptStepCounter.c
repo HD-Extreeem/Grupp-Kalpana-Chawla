@@ -51,7 +51,7 @@ void pin12_edge_handler(const uint32_t id, const uint32_t index){
 	// Check if pin 53 is high
 	if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
 		//increase the counter value
-		counter_1++;
+		counter_2++;
 		//printf("\n c1= %d",counter_1);
 	}	
 }
@@ -61,7 +61,7 @@ void pin14_edge_handler(const uint32_t id, const uint32_t index){
 	// Checks if pin 51 is high
 	if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
 	//Increase the counter value
-			counter_2++;
+			counter_1++;
 			//printf("\n c2 = %d",counter_2);
 	}
 }
