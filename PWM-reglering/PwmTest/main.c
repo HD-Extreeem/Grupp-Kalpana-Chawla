@@ -8,16 +8,17 @@
 #include "PwmFunctions.h"
 #include "InterruptStepCounter.h"
 #include "consoleFunctions.h"
+#include "PID_move.h"
 
-extern uint16_t counter_1;
-extern uint16_t counter_2;
-uint16_t loop_counter;
-int setPoint=0;
-int m_value=0;
-double s_value=0;
-int e=0;
-double kp = 2;
-uint16_t speed = 1700;
+// extern uint16_t counter_1;
+// extern uint16_t counter_2;
+// uint16_t loop_counter;
+// int setPoint=0;
+// int m_value=0;
+// double s_value=0;
+// int e=0;
+// double kp = 2;
+// uint16_t speed = 1700;
 
 int main(void)
 {
@@ -30,11 +31,15 @@ int main(void)
 	PWM_init();
 	printf("Startar");
 	delay_s(3);
-	pwm_pin_22(1700);
-	pwm_pin_21(1700);
-	
+ 	pwm_pin_22(1700);
+ 	pwm_pin_21(1700);
+   delay_s(3);
+   pwm_pin_22(1500);
+   pwm_pin_21(1500);
 	while (1)
 	{
+		  move(0,-30);
+		  delay_s(3);
 		//setPoint = 2*setPoint;
 // 		m_value = (counter_2-counter_1);
 // 		e = (setPoint - m_value);

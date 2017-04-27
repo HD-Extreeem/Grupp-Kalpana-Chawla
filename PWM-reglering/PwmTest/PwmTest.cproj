@@ -439,15 +439,15 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="main.c">
-      <SubType>compile</SubType>
-    </Compile>
     <None Include="src\ASF\common\services\serial\sam_uart\uart_serial.h">
       <SubType>compile</SubType>
     </None>
     <None Include="src\ASF\common\services\serial\serial.h">
       <SubType>compile</SubType>
     </None>
+    <Compile Include="main.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\ASF\common\services\serial\usart_serial.c">
       <SubType>compile</SubType>
     </Compile>
@@ -503,6 +503,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\InterruptStepCounter.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\PID_move.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\PID_move.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\PwmFunctions.c">
