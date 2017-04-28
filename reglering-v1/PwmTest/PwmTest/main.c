@@ -30,17 +30,16 @@ int main(void)
 	configInterrupts();
 	PWM_init();
 	printf("Startar");
-	delay_s(3);
-   rightWheel(1700);
-   delay_us(100);
-   leftWheel(1700);
-//    delay_s(3);
+    delay_s(2);
 //     rightWheel(1500);
 //     leftWheel(1500);
-	while (0)
+
+	while (1)
 	{
-		  //move(0,-30);
-		  rotation(45);
+		
+		  rotation(30,100);
+		  delay_s(3);
+		  rotation(30,100);
 		  delay_s(3);
 	//	  rotation(-90);
 		//setPoint = 2*setPoint;

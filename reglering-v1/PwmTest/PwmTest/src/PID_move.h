@@ -9,8 +9,8 @@
 #ifndef PID_MOVE_H_
 #define PID_MOVE_H_
 
-void move(int distance, int degree);
-void rotation (int degree);
+void moveTo (int distance, int direktion);
+void rotation (int degree, int rotationSpeed);
 
 
 #endif /* PID_MOVE_H_ */
