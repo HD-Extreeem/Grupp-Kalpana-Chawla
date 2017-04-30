@@ -17,7 +17,6 @@ extern uint16_t counter_2;
 
 
 void moveTo (int distance, int direktion){
-    uint16_t loop_counter;
     uint16_t totalPulses=distance/1.35;
 	uint16_t speed = 1600;
 	int error=0;
@@ -39,7 +38,6 @@ void moveTo (int distance, int direktion){
 			leftWheel((speed-controlValue));
 			error=error*-1;
 	}
-    loop_counter++;
 }
 
 
@@ -52,7 +50,7 @@ void rotation (int degree, int rotationSpeed){
 	int controlValue=0;
 	int measurementValue=0;
 	int gain = 5;
-	int checkValue=-2;
+	int checkValue=0;
 	int totalPulses;
 	
 	int course=1;     // rotation course, 1 to right -1 to left  
@@ -68,15 +66,17 @@ void rotation (int degree, int rotationSpeed){
 	reset_Counter();
 	while ((counter_1+counter_2) < totalPulses)  
 	{
-		if ((counter_1+counter_2) >= checkValue)
+		if ((counter_1+counter_2) > checkValue)
 		{
  		measurementValue = (counter_2-counter_1);
  		controlValue = (gain*measurementValue);
+		// update wheels speed
  		leftWheel(1500 + ( (rotationSpeed*course) + (controlValue*course)) );
 		rightWheel(1500 - ( (rotationSpeed*course) - (controlValue*course)) );
 		checkValue=counter_1+counter_2;
 		}
 	}
+	//  stop wheels
 	rightWheel(1500);
 	leftWheel(1500);	
 	reset_Counter();
