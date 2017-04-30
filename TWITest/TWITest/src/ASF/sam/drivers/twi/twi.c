@@ -331,37 +331,39 @@ uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
 	uint32_t status;
 	uint32_t cnt = p_packet->length;
 	uint8_t *buffer = p_packet->buffer;
-
+	
 	/* Check argument */
 	if (cnt == 0) {
 		return TWI_INVALID_ARGUMENT;
 	}
-
+	
 	/* Set write mode, slave address and 3 internal address byte lengths */
 	p_twi->TWI_MMR = 0;
 	p_twi->TWI_MMR = TWI_MMR_DADR(p_packet->chip) |
 			((p_packet->addr_length << TWI_MMR_IADRSZ_Pos) &
 			TWI_MMR_IADRSZ_Msk);
-
+	
 	/* Set internal address for remote chip */
 	p_twi->TWI_IADR = 0;
 	p_twi->TWI_IADR = twi_mk_addr(p_packet->addr, p_packet->addr_length);
-
+	
 	/* Send all bytes */
 	while (cnt > 0) {
 		status = p_twi->TWI_SR;
 		if (status & TWI_SR_NACK) {
 			return TWI_RECEIVE_NACK;
 		}
-
+		
 		if (!(status & TWI_SR_TXRDY)) {
+			// printf("Resending byte..\r\n");
 			continue;
 		}
+		
 		p_twi->TWI_THR = *buffer++;
-
+		printf("byte : %d\r\n", cnt);
 		cnt--;
 	}
-
+	
 	while (1) {
 		status = p_twi->TWI_SR;
 		if (status & TWI_SR_NACK) {
@@ -374,7 +376,7 @@ uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
 	}
 
 	p_twi->TWI_CR = TWI_CR_STOP;
-
+	
 	while (!(p_twi->TWI_SR & TWI_SR_TXCOMP)) {
 	}
 

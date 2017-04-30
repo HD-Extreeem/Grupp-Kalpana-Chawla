@@ -20,12 +20,12 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
-    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
   <options>
@@ -35,9 +35,9 @@
     <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
     <option id="sam.drivers.pio" value="Add" config="" content-id="Atmel.ASF" />
-    <option id="thirdparty.wireless.addons.sio2host" value="Add" config="uart" content-id="Atmel.ASF" />
-    <option id="sam.drivers.uart" value="Add" config="" content-id="Atmel.ASF" />
     <option id="sam.drivers.twi" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="sam.drivers.uart" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="thirdparty.wireless.addons.sio2host" value="Add" config="uart" content-id="Atmel.ASF" />
     <option id="common.applications.user_application" value="Add" config="" content-id="Atmel.ASF" />
     <option id="sam.utils.cmsis.sam3x.source.template" value="Add" config="" content-id="Atmel.ASF" />
   </options>
@@ -290,11 +290,6 @@
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
   <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x8/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
-  <armgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src/ASF/sam/drivers/twi</Value>
-    </ListValues>
-  </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM3=true -DBOARD=ARDUINO_DUE_X -D__SAM3X8E__ -Dprintf=iprintf -Dscanf=iscanf</armgcc.preprocessingassembler.general.AssemblerFlags>
   <armgcc.preprocessingassembler.general.DefaultIncludePath>False</armgcc.preprocessingassembler.general.DefaultIncludePath>
   <armgcc.preprocessingassembler.general.IncludePaths>
@@ -403,11 +398,6 @@
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
   <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x8/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
-  <armgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src/ASF/sam/drivers/twi</Value>
-    </ListValues>
-  </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
   <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM3=true -DBOARD=ARDUINO_DUE_X -D__SAM3X8E__ -Dprintf=iprintf -Dscanf=iscanf</armgcc.preprocessingassembler.general.AssemblerFlags>
   <armgcc.preprocessingassembler.general.DefaultIncludePath>False</armgcc.preprocessingassembler.general.DefaultIncludePath>

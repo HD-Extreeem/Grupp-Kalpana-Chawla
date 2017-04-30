@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "HB25Test", "HB25Tester\HB25Test.cproj", "{B2C2B721-8936-4BBE-BD82-083B73D9257A}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "TWITest", "TWITest\TWITest.cproj", "{B2C2B721-8936-4BBE-BD82-083B73D9257A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
