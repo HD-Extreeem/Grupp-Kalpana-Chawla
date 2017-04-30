@@ -14,6 +14,8 @@ src\ASF\sam\drivers\adc\adc.c
 
 src\ASF\sam\drivers\adc\adc_sam3u.c
 
+src\ASF\sam\drivers\tc\tc.c
+
 src\ASF\sam\drivers\uart\uart.c
 
 src\ASF\sam\drivers\usart\usart.c
@@ -23,6 +25,8 @@ src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 src\ConsoleFunctions.c
 
 src\InterruptStepCounter.c
+
+src\MathFunctions.c
 
 src\PID_move.c
 

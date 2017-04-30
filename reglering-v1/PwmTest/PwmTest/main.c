@@ -9,6 +9,7 @@
 #include "InterruptStepCounter.h"
 #include "consoleFunctions.h"
 #include "PID_move.h"
+#include "MathFunctions.h"
 
 // extern uint16_t counter_1;
 // extern uint16_t counter_2;
@@ -37,10 +38,28 @@ int main(void)
 	while (1)
 	{
 		
-		  rotation(30,100);
-		  delay_s(3);
-		  rotation(30,100);
-		  delay_s(3);
+// 		printf("0 %d\n",calculateDistance(0,0,0,0));
+// 		
+// 		printf("212 %d\n",calculateDistance(500,500,620,675));
+// 		
+// 		printf("167 %d\n",calculateDistance(500,500,425,650));
+// 		
+// 		printf("185 %d\n",calculateDistance(500,500,425,330));
+
+// 		printf("0 %d\n",radianToDegree(0));		
+// 		printf("30 %d\n",radianToDegree(0.52359));		
+// 		printf("45 %d\n",radianToDegree(0.785398));		
+// 		printf("60 %d\n",radianToDegree(1.0471));		
+// 		printf("90 %d\n",radianToDegree(1.5707));		
+// 		printf("130 %d\n",radianToDegree(2.26892));
+// 		printf("180 %d\n",radianToDegree(3.14159));
+// 		printf("270 %d\n",radianToDegree(4.71238));
+// 		printf("360 %d\n",radianToDegree(6.265732));
+		
+// 		  rotation(30,100);
+// 		  delay_s(3);
+// 		  rotation(30,100);
+// 		  delay_s(3);
 	//	  rotation(-90);
 		//setPoint = 2*setPoint;
 // 		m_value = (counter_2-counter_1);

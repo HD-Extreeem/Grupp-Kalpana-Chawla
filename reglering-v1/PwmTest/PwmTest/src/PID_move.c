@@ -56,11 +56,12 @@ void rotation (int degree, int rotationSpeed){
 	int course=1;     // rotation course, 1 to right -1 to left  
 	rightWheel(1500);
 	leftWheel(1500);
-	// if its more then 180 turn to the left
- 	if(degree>180){    
- 	    degree=360-degree;
- 		course=-1;
- 	}
+	
+     if (degree<0)
+     {
+		 course=-1;
+		 degree=degree*course;
+     }
 	// total number of pulses required for rotation
     totalPulses=((degree)/2);
 	reset_Counter();
