@@ -32,54 +32,62 @@ int main(void)
 	PWM_init();
 	printf("Startar");
     delay_s(2);
+	moveTo(100,1);
 //     rightWheel(1500);
 //     leftWheel(1500);
-
-	while (1)
-	{
+// 		printf("0 :%d",(int) calculateDistance(0,0,0,0));
+// 		printf("212 :%d",(int) calculateDistance(500,500,620,675));
+// 		printf("167 :%d",(int) calculateDistance(500,500,425,650));
+// 		printf("185 :%d",(int) calculateDistance(500,500,425,330)); 
+// 		printf("0 :%d\n",(int)radianToDegree(0));		
+// 		printf("30 :%d\n",(int) radianToDegree(0.5235987756));		
+// 		printf("45 :%d\n",(int) radianToDegree(0.7853981634));		
+// 		printf("60 :%d\n",(int) radianToDegree(1.0471975512));		
+// 		printf("90 :%d\n",(int) radianToDegree(1.5707963268));		
+// 		printf("130 :%d\n",(int) radianToDegree(2.2689280276));
+// 		printf("180 :%d\n",(int)radianToDegree(3.1415926536));
+// 		printf("270 :%d\n",(int)radianToDegree(4.7123889804));
+// 		printf("360 :%d\n",(int)radianToDegree(6.2831853072));
+//      printf("0 :%d\n",(int)calculateAzimuthAngle(0,0,0,0));
+// 		printf("0 :%d\n",(int)calculateAzimuthAngle(0,0,0,10));
+// 		printf("180 :%d\n",(int)calculateAzimuthAngle(0,10,0,0));
+// 		printf("90 :%d\n",(int)calculateAzimuthAngle(0,0,10,0));
+// 		printf("270 :%d\n",(int)calculateAzimuthAngle(10,0,0,0));
+// 		printf("38 :%d\n",(int)calculateAzimuthAngle(3521,2563,3543,2591));
+// 		printf("213 :%d\n",(int)calculateAzimuthAngle(600,700,500,550));
+// 		printf("137 :%d\n",(int)calculateAzimuthAngle(600,700,710,580));
+// 		printf("217 :%d\n",(int)calculateAzimuthAngle(725,1625,258,1015));
+// 		printf("315 :%d\n",(int)calculateAzimuthAngle(300,100,100,300));
+//         printf("0 :%d\n",(int)calcluteRotationAngle(0,0,0,0,0,0));
+// 	    printf("0 :%d\n",(int)calcluteRotationAngle(100,0,200,0,300,0));
+//         printf("0 :%d\n",(int)calcluteRotationAngle(0,100,0,200,0,300));
+// 		printf("-90 :%d\n",(int)calcluteRotationAngle(0,0,100,0,100,100));
+// 		printf("90 :%d\n",(int)calcluteRotationAngle(0,0,100,0,100,-100));
+// 	    printf("-61 :%d\n",(int)calcluteRotationAngle(870,560,600,700,300,500));
+// 	    printf("145 :%d\n",(int)calcluteRotationAngle(3800,4000,3870,4150,3920,3860));
 		
-// 		printf("0 %d\n",calculateDistance(0,0,0,0));
-// 		
-// 		printf("212 %d\n",calculateDistance(500,500,620,675));
-// 		
-// 		printf("167 %d\n",calculateDistance(500,500,425,650));
-// 		
-// 		printf("185 %d\n",calculateDistance(500,500,425,330));
-
-// 		printf("0 %d\n",radianToDegree(0));		
-// 		printf("30 %d\n",radianToDegree(0.52359));		
-// 		printf("45 %d\n",radianToDegree(0.785398));		
-// 		printf("60 %d\n",radianToDegree(1.0471));		
-// 		printf("90 %d\n",radianToDegree(1.5707));		
-// 		printf("130 %d\n",radianToDegree(2.26892));
-// 		printf("180 %d\n",radianToDegree(3.14159));
-// 		printf("270 %d\n",radianToDegree(4.71238));
-// 		printf("360 %d\n",radianToDegree(6.265732));
-		
-// 		  rotation(30,100);
-// 		  delay_s(3);
-// 		  rotation(30,100);
-// 		  delay_s(3);
-	//	  rotation(-90);
-		//setPoint = 2*setPoint;
-// 		m_value = (counter_2-counter_1);
-// 		e = (setPoint - m_value);
-// 		s_value = (kp*e);
-// 		pwm_pin_21((speed+s_value));
-// 		pwm_pin_22((speed-s_value));
-// 		if (loop_counter == 100)
-// 		{
-// 			printf("counter1: %d\n",counter_1);
-// 			printf("counter2: %d\n",counter_2);
+ 
+// 		setPoint = 2*setPoint;
+//  		m_value = (counter_2-counter_1);
+//  		e = (setPoint - m_value);
+//  		s_value = (kp*e);
+//  		pwm_pin_21((speed+s_value));
+//  		pwm_pin_22((speed-s_value));
+//  		if (loop_counter == 100)
+//  		{
+//  			printf("counter1: %d\n",counter_1);
+//  			printf("counter2: %d\n",counter_2);
 // 			printf("loop_counter: %d\n",loop_counter);
 // 		}
-		//loop_counter++;
-		//printf("\n e = %d",e);
-		//printf("\n s_value = %d",s_value);
-		//printf("\n m_value = %d",m_value);
-		//delay_us(46200*3);
+// 		loop_counter++;
+// 		printf("\n e = %d",e);
+// 		printf("\n s_value = %d",s_value);
+// 		printf("\n m_value = %d",m_value);
+// 		delay_us(46200*3);
+
+
 		
-	}
+
 	
 }
 	

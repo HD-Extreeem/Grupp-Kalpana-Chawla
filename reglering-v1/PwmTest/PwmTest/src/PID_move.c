@@ -18,25 +18,34 @@ extern uint16_t counter_2;
 
 void moveTo (int distance, int direktion){
     uint16_t totalPulses=distance/1.35;
-	uint16_t speed = 1600;
+	uint16_t speed = 1650;
 	int error=0;
 	int referenceValue=0;
 	int measurementValue;
 	int controlValue;
-	int kp=20;
+	int kp=5;
+	int checkValue=-4;
+	
 	reset_Counter();
 	if ( direktion!=1 || direktion!=-1 )
 	{
 		direktion=1;
 	}
 	while (counter_1 <= totalPulses)
+//while(1)
+
+{
+if (((counter_1+counter_2) - checkValue) >= 4)
 	{
 			measurementValue = (counter_2-counter_1);
 			error = (referenceValue - measurementValue);
 			controlValue = (kp*error);
 			rightWheel((speed+controlValue));
 			leftWheel((speed-controlValue));
-			error=error*-1;
+			referenceValue=(error*-1)/2;
+			//delay_us(46200*3);
+			checkValue=counter_1+counter_2;
+	}
 	}
 }
 
