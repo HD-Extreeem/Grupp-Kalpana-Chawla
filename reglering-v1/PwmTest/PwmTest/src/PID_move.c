@@ -15,9 +15,6 @@ extern bool c1Loop;
 extern bool c2Loop;
 
 
-
-
-<<<<<<< HEAD
 void moveTo (int distance, int direction){
 	float totalPulses = (distance/1.38);
 	uint16_t speed = 1700;
@@ -33,25 +30,13 @@ void moveTo (int distance, int direction){
     int kd=2;
     int ki=2;
 	float totMovement = 0;
-=======
 
-void moveTo (int distance, int direktion){
-    uint16_t totalPulses=distance/1.35;
-	uint16_t speed = 1650;
-	int error=0;
-	int referenceValue=0;
-	int measurementValue;
-	int controlValue;
-	int kp=5;
-	int checkValue=-4;
-	
->>>>>>> master
 	reset_Counter();
 	if ( direction!=1 || direction!=-1 )
 	{
 		direction=1;
 	}
-<<<<<<< HEAD
+
 	
     while (totMovement <= totalPulses) {
 		delay_ms(1);
@@ -83,24 +68,7 @@ void moveTo (int distance, int direktion){
 		delay_us(500);
 		//printf("%d\n",totMovement);
       }
-	  
-=======
-	while (counter_1 <= totalPulses)
-//while(1)
 
-{
-if (((counter_1+counter_2) - checkValue) >= 4)
-	{
-			measurementValue = (counter_2-counter_1);
-			error = (referenceValue - measurementValue);
-			controlValue = (kp*error);
-			rightWheel((speed+controlValue));
-			leftWheel((speed-controlValue));
-			referenceValue=(error*-1)/2;
-			//delay_us(46200*3);
-			checkValue=counter_1+counter_2;
-	}
->>>>>>> master
 	}
 	rightWheel(1500);
 	leftWheel(1500);
