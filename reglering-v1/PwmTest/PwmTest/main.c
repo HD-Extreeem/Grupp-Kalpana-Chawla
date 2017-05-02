@@ -32,36 +32,28 @@ int main(void)
 	PWM_init();
 	printf("Startar");
     delay_s(2);
-	moveTo(100,1);
 //     rightWheel(1500);
 //     leftWheel(1500);
-<<<<<<< HEAD
 
+	rotation(26,150);
+	
 	while (1)
 	{
-		moveTo(500,0);
-		printf("Klar!\n");
-		rightWheel(1500);
-		leftWheel(1500);
-		delay_s(2);
-// 		printf("0 %d\n",calculateDistance(0,0,0,0));
-// 		
-// 		printf("212 %d\n",calculateDistance(500,500,620,675));
-// 		
-// 		printf("167 %d\n",calculateDistance(500,500,425,650));
-// 		
-// 		printf("185 %d\n",calculateDistance(500,500,425,330));
+// 		moveTo(100,0);
+// 		printf("Klar!\n");
+// 		rightWheel(1500);
+// 		leftWheel(1500);
+// 		delay_s(2);
+		printf("Start!");
+		int rot = calcluteRotationAngle(0,0,0,100,100,300);
+		printf("rot=%d\n",rot);
+		rotation(rot,200);
+		int dis = calculateDistance(0,100,100,300);
+		printf("distance=%d\n",dis);
+		moveTo(dis,1);
+		delay_s(3);
+        
 
-// 		printf("0 %d\n",radianToDegree(0));		
-// 		printf("30 %d\n",radianToDegree(0.52359));		
-// 		printf("45 %d\n",radianToDegree(0.785398));		
-// 		printf("60 %d\n",radianToDegree(1.0471));		
-// 		printf("90 %d\n",radianToDegree(1.5707));		
-// 		printf("130 %d\n",radianToDegree(2.26892));
-// 		printf("180 %d\n",radianToDegree(3.14159));
-// 		printf("270 %d\n",radianToDegree(4.71238));
-// 		printf("360 %d\n",radianToDegree(6.265732));
-=======
 // 		printf("0 :%d",(int) calculateDistance(0,0,0,0));
 // 		printf("212 :%d",(int) calculateDistance(500,500,620,675));
 // 		printf("167 :%d",(int) calculateDistance(500,500,425,650));
@@ -92,8 +84,7 @@ int main(void)
 // 		printf("90 :%d\n",(int)calcluteRotationAngle(0,0,100,0,100,-100));
 // 	    printf("-61 :%d\n",(int)calcluteRotationAngle(870,560,600,700,300,500));
 // 	    printf("145 :%d\n",(int)calcluteRotationAngle(3800,4000,3870,4150,3920,3860));
->>>>>>> master
-		
+
  
 // 		setPoint = 2*setPoint;
 //  		m_value = (counter_2-counter_1);
@@ -113,10 +104,7 @@ int main(void)
 // 		printf("\n m_value = %d",m_value);
 // 		delay_us(46200*3);
 
-
-		
-
-	
+	}
 }
 	
 

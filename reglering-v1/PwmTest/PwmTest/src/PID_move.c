@@ -18,20 +18,21 @@ extern bool c2Loop;
 void moveTo (int distance, int direction){
 	float totalPulses = (distance/1.38);
 	uint16_t speed = 1700;
-	int partitialError = 0;
+	int proportionalError = 0;
     int derivativeError=0;
     int integralError=0;
 	int referenceValue = 0;
-	int measurementValue;
-	int controlValue;
+	int measurementValue=0;
+	int controlValue=0;
     int iPart=0;
     int dPart=0;
-	int kp=20;
+	int kp=10;
     int kd=2;
     int ki=2;
 	float totMovement = 0;
-
+	delay_us(300);
 	reset_Counter();
+	delay_us(300);
 	if ( direction!=1 || direction!=-1 )
 	{
 		direction=1;
@@ -47,21 +48,30 @@ void moveTo (int distance, int direction){
 		delay_us(500);
         reset_Counter();
 		delay_us(500);
-        dPart = (kd*(partitialError-derivativeError));
+        dPart = (kd*(proportionalError-derivativeError));
 		delay_us(500);
         iPart = (ki*integralError);
 		delay_us(500);
-		partitialError = (referenceValue - measurementValue);
+		proportionalError = (referenceValue - measurementValue);
 		delay_us(500);
-		controlValue = ((kp*partitialError)+iPart+dPart);
+		controlValue = ((kp*proportionalError)+iPart+dPart);
 		delay_us(500);
+// 		if ((totMovement/totalPulses)>= 0.8)
+// 		{
+// 			speed = 1650;
+// 		}
+// 		else if ((totMovement/totalPulses)>= 0.9)
+// 		{
+// 			speed = 1580;
+// 		}
+		
 		rightWheel((speed+controlValue));
 		leftWheel((speed-controlValue));
 		delay_us(500);
-			  //error=error*-1;
-        derivativeError = partitialError;
+	    //error=error*-1;
+        derivativeError = proportionalError;
 		delay_us(500);
-        integralError = (integralError+partitialError);
+        integralError = (integralError+proportionalError);
 		delay_us(500);
         c1Loop = false;
         c2Loop = false;
