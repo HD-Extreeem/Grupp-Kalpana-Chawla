@@ -37,7 +37,11 @@ int main(void)
 
 	while (1)
 	{
-		
+		moveTo(500,0);
+		printf("Klar!\n");
+		rightWheel(1500);
+		leftWheel(1500);
+		delay_s(2);
 // 		printf("0 %d\n",calculateDistance(0,0,0,0));
 // 		
 // 		printf("212 %d\n",calculateDistance(500,500,620,675));

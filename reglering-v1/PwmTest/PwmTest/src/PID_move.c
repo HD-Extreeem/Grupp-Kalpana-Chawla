@@ -3,7 +3,7 @@
  *
  * Created: 2017-04-26 14:38:37
  *  Author: Yurdaer Dalkic && Hadi Deknache
- */ 
+ */
 #include <asf.h>
 #include "PwmFunctions.h"
 #include "InterruptStepCounter.h"
@@ -11,38 +11,73 @@
 
 extern uint16_t counter_1;
 extern uint16_t counter_2;
+extern bool c1Loop;
+extern bool c2Loop;
 
 
 
 
-
-void moveTo (int distance, int direktion){
-    uint16_t totalPulses=distance/1.35;
-	uint16_t speed = 1600;
-	int error=0;
-	int referenceValue=0;
+void moveTo (int distance, int direction){
+	float totalPulses = (distance/1.38);
+	uint16_t speed = 1700;
+	int partitialError = 0;
+    int derivativeError=0;
+    int integralError=0;
+	int referenceValue = 0;
 	int measurementValue;
 	int controlValue;
+    int iPart=0;
+    int dPart=0;
 	int kp=20;
+    int kd=2;
+    int ki=2;
+	float totMovement = 0;
 	reset_Counter();
-	if ( direktion!=1 || direktion!=-1 )
+	if ( direction!=1 || direction!=-1 )
 	{
-		direktion=1;
+		direction=1;
 	}
-	while (counter_1 <= totalPulses)
-	{
-			measurementValue = (counter_2-counter_1);
-			error = (referenceValue - measurementValue);
-			controlValue = (kp*error);
-			rightWheel((speed+controlValue));
-			leftWheel((speed-controlValue));
-			error=error*-1;
+	
+    while (totMovement <= totalPulses) {
+		delay_ms(1);
+      if (c1Loop == true && c2Loop == true) {
+		totMovement = totMovement + ((counter_1+counter_2)/2);
+		delay_ms(1);
+        measurementValue = (counter_2-counter_1);
+		delay_us(500);
+        reset_Counter();
+		delay_us(500);
+        dPart = (kd*(partitialError-derivativeError));
+		delay_us(500);
+        iPart = (ki*integralError);
+		delay_us(500);
+		partitialError = (referenceValue - measurementValue);
+		delay_us(500);
+		controlValue = ((kp*partitialError)+iPart+dPart);
+		delay_us(500);
+		rightWheel((speed+controlValue));
+		leftWheel((speed-controlValue));
+		delay_us(500);
+			  //error=error*-1;
+        derivativeError = partitialError;
+		delay_us(500);
+        integralError = (integralError+partitialError);
+		delay_us(500);
+        c1Loop = false;
+        c2Loop = false;
+		delay_us(500);
+		//printf("%d\n",totMovement);
+      }
+	  
 	}
+	rightWheel(1500);
+	leftWheel(1500);
+	delay_s(2);
 }
 
 
 
-/* This method rotates the robot around its own axis at the desired degree and speed 
+/* This method rotates the robot around its own axis at the desired degree and speed
    @param degree rotation degree
    @param ratationSpeed rotation speed
 */
@@ -52,11 +87,11 @@ void rotation (int degree, int rotationSpeed){
 	int gain = 5;
 	int checkValue=0;
 	int totalPulses;
-	
-	int course=1;     // rotation course, 1 to right -1 to left  
+
+	int course=1;     // rotation course, 1 to right -1 to left
 	rightWheel(1500);
 	leftWheel(1500);
-	
+
      if (degree<0)
      {
 		 course=-1;
@@ -65,7 +100,7 @@ void rotation (int degree, int rotationSpeed){
 	// total number of pulses required for rotation
     totalPulses=((degree)/2);
 	reset_Counter();
-	while ((counter_1+counter_2) < totalPulses)  
+	while ((counter_1+counter_2) < totalPulses)
 	{
 		if ((counter_1+counter_2) > checkValue)
 		{
@@ -79,7 +114,6 @@ void rotation (int degree, int rotationSpeed){
 	}
 	//  stop wheels
 	rightWheel(1500);
-	leftWheel(1500);	
+	leftWheel(1500);
 	reset_Counter();
 }
-
