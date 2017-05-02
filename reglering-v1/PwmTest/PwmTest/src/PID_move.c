@@ -97,11 +97,9 @@ void rotation (int degree, int rotationSpeed){
 	int gain = 5;
 	int checkValue=0;
 	int totalPulses;
-
 	int course=1;     // rotation course, 1 to right -1 to left
 	rightWheel(1500);
 	leftWheel(1500);
-
      if (degree<0)
      {
 		 course=-1;
@@ -112,7 +110,7 @@ void rotation (int degree, int rotationSpeed){
 	reset_Counter();
 	while ((counter_1+counter_2) < totalPulses)
 	{
-		if ((counter_1+counter_2) > checkValue)
+		if ((counter_1+counter_2) >= checkValue)
 		{
  		measurementValue = (counter_2-counter_1);
  		controlValue = (gain*measurementValue);

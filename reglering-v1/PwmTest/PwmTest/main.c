@@ -35,7 +35,7 @@ int main(void)
 //     rightWheel(1500);
 //     leftWheel(1500);
 
-	rotation(26,150);
+
 	
 	while (1)
 	{
@@ -44,11 +44,13 @@ int main(void)
 // 		rightWheel(1500);
 // 		leftWheel(1500);
 // 		delay_s(2);
+
 		printf("Start!");
-		int rot = calcluteRotationAngle(0,0,0,100,100,300);
+		int rot = calcluteRotationAngle(0,100,0,0,100,600);
 		printf("rot=%d\n",rot);
-		rotation(rot,200);
-		int dis = calculateDistance(0,100,100,300);
+		rotation(rot,130);
+		delay_s(1);
+		int dis = calculateDistance(0,0,100,600);
 		printf("distance=%d\n",dis);
 		moveTo(dis,1);
 		delay_s(3);
