@@ -23,20 +23,29 @@ Method uses a PID controller for smoother movment of the robot
 	@param direction the direction robot need to move forward or backwards
 **/
 void moveTo (int distance, int direction){
-	float totalPulses = (distance/1.38); //Calculate the total pulses needed to move to destination
+float totalPulses = (distance/1.38); //Calculate the total pulses needed to move to destination
 	uint16_t speed = 1700; // Set speed for moving the robot
-	int proportionalError = 0; //P-controller error variable
-  int derivativeError=0; //D-controller error variable
-  int integralError=0; //I-controller error variable
-	int referenceValue = 0; //
-	int measurementValue=0;
-	int controlValue=0; //Variable to store total value for PID-controller
-  int iPart=0; //Variable for the I-controller to keep calculated error*gain
-  int dPart=0; //Variable for the D-controller to keep calculated error*gain
-	int kp=10; //Gain for the P-controller
-  int kd=2; //Gain for the D-controller
-  int ki=2; //Gain for the I-controller
+	double proportionalError = 0; //P-controller error variable
+	double referenceValue = 0;
+	double measurementValue=0;
+	double controlValue=0; //Variable to store total value for PID-controller
+	//double iPart=0; //Variable for the I-controller to keep calculated error*gain
+	//double dPart=0; //Variable for the D-controller to keep calculated error*gain
+	double kp=1.75; //Gain for the P-controller
+	double kd=0; //Gain for the D-controller
+	double ki=0; //Gain for the I-controller
 	float totMovement = 0; //Variable to store totalmovement during the transportation
+	
+	
+	//--------------------------------------Updated Désirée och Ansam 170503
+	double integral=0;
+	double derivate=0; 
+	double prevD=0;
+	double dT=0.5;
+	double Td=0.265;//0.53;
+	double Ti=1.075;//2.15;
+	int32_t sum=0;
+	//--------------------------------------Updated Désirée och Ansam 170503
 	delay_us(300);
 	reset_Counter(); //Reset counter for encoders for wheel to ensure counter reseted for next movement
 	delay_us(300);
@@ -64,40 +73,48 @@ void moveTo (int distance, int direction){
 		delay_us(500);
         reset_Counter();//Reset counter for next regulation later
 		delay_us(500);
-        dPart = (kd*(proportionalError-derivativeError)); //Calculates d-controller gain
+	    proportionalError = (referenceValue - measurementValue); // Calculates p-controller gain
+		
+		//--------------------------------------Updated Désirée och Ansam 170503
+		sum = (sum + prevD);
 		delay_us(500);
-        iPart = (ki*integralError); //Calculates i-controller gain
+		integral= (sum * (dT/Ti));
 		delay_us(500);
-		proportionalError = (referenceValue - measurementValue); // Calculates p-controller gain
-		delay_us(500);
-		controlValue = ((kp*proportionalError)+iPart+dPart); //Total regulation for PID calculate new value for correcting the error
+		derivate = ((Td/dT) * (proportionalError-prevD));
+		delay_us(500);  
+	   controlValue =(kp*(proportionalError+integral+ derivate)); //PID
+	   prevD=proportionalError;
+	   //--------------------------------------Updated Désirée och Ansam 170503
+	   
+	   //iPart = (Ti*integralError); //Calculates i-controller gain
+	   // dPart = //(kd*(proportionalError-derivativeError)); //Calculates d-controller gain
+	   //controlValue = (kp*(proportionalError+iPart+dPart)); //Total regulation for PID calculate new value for correcting the error
 		delay_us(500);
 		 /**
 		 	Check if almost reached the destination to slow down and make a smoother brake
 		 **/
- 		if ((totMovement/totalPulses)>= 0.7)
+ 		/*
+		 
+		 if ((totMovement/totalPulses)>= 0.7)
  		{
- 		//	speed = speed - ((totMovement/totalPulses)*150) ;
-		 speed= 1600;
+ 			speed = speed - ((totMovement/totalPulses)*150) ;
  		}
 		//Else same speed set
-
+ 		else
+ 		{
+ 			speed = speed;
+ 		}
+		 */
 
 		rightWheel((speed+controlValue));//New speed for rightWheel
 		leftWheel((speed-controlValue));//New speed for leftWheel
 		delay_us(500);
-	    //error=error*-1;
-        derivativeError = proportionalError;
-		delay_us(500);
-        integralError = (integralError+proportionalError);
-		delay_us(500);
         c1Loop = false; //Loop finished to prevent from running loop again
         c2Loop = false;//Loop finished to prevent from running loop again
 		delay_us(500);
-		//printf("%d\n",totMovement);
       }
+}
 
-	}
 	rightWheel(1500);//Stop rightWheel
 	leftWheel(1500);//Stop leftWheel
 }
