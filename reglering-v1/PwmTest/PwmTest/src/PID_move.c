@@ -77,13 +77,11 @@ void moveTo (int distance, int direction){
 		 **/
  		if ((totMovement/totalPulses)>= 0.7)
  		{
- 			speed = speed - ((totMovement/totalPulses)*150) ;
+ 		//	speed = speed - ((totMovement/totalPulses)*150) ;
+		 speed= 1600;
  		}
 		//Else same speed set
- 		else
- 		{
- 			speed = speed;
- 		}
+
 
 		rightWheel((speed+controlValue));//New speed for rightWheel
 		leftWheel((speed-controlValue));//New speed for leftWheel
@@ -100,6 +98,8 @@ void moveTo (int distance, int direction){
       }
 
 	}
+	rightWheel(1500);//Stop rightWheel
+	leftWheel(1500);//Stop leftWheel
 }
 
 

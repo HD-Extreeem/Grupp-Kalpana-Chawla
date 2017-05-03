@@ -46,11 +46,11 @@ int main(void)
 // 		delay_s(2);
 
 		printf("Start!");
-		int rot = calcluteRotationAngle(0,100,0,0,100,600);
+		int rot = calcluteRotationAngle(0,100,0,0,100,300);
 		printf("rot=%d\n",rot);
 		rotation(rot,130);
 		delay_s(1);
-		int dis = calculateDistance(0,0,100,600);
+		int dis = calculateDistance(0,0,100,300);
 		printf("distance=%d\n",dis);
 		moveTo(dis,1);
 		delay_s(3);
