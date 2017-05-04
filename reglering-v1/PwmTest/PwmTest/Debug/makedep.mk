@@ -22,6 +22,8 @@ src\ASF\sam\drivers\usart\usart.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
+src\confTimer.c
+
 src\ConsoleFunctions.c
 
 src\InterruptStepCounter.c

@@ -107,6 +107,7 @@ C_SRCS +=  \
 ../src/ASF/sam/drivers/uart/uart.c \
 ../src/ASF/sam/drivers/usart/usart.c \
 ../src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.c \
+../src/confTimer.c \
 ../src/ConsoleFunctions.c \
 ../src/InterruptStepCounter.c \
 ../src/MathFunctions.c \
@@ -144,6 +145,7 @@ src/ASF/sam/drivers/tc/tc.o \
 src/ASF/sam/drivers/uart/uart.o \
 src/ASF/sam/drivers/usart/usart.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
+src/confTimer.o \
 src/ConsoleFunctions.o \
 src/InterruptStepCounter.o \
 src/MathFunctions.o \
@@ -174,6 +176,7 @@ src/ASF/sam/drivers/tc/tc.o \
 src/ASF/sam/drivers/uart/uart.o \
 src/ASF/sam/drivers/usart/usart.o \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.o \
+src/confTimer.o \
 src/ConsoleFunctions.o \
 src/InterruptStepCounter.o \
 src/MathFunctions.o \
@@ -204,6 +207,7 @@ src/ASF/sam/drivers/tc/tc.d \
 src/ASF/sam/drivers/uart/uart.d \
 src/ASF/sam/drivers/usart/usart.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
+src/confTimer.d \
 src/ConsoleFunctions.d \
 src/InterruptStepCounter.d \
 src/MathFunctions.d \
@@ -234,6 +238,7 @@ src/ASF/sam/drivers/tc/tc.d \
 src/ASF/sam/drivers/uart/uart.d \
 src/ASF/sam/drivers/usart/usart.d \
 src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.d \
+src/confTimer.d \
 src/ConsoleFunctions.d \
 src/InterruptStepCounter.d \
 src/MathFunctions.d \
@@ -268,6 +273,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

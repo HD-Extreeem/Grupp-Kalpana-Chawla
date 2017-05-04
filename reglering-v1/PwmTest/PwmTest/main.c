@@ -10,16 +10,7 @@
 #include "consoleFunctions.h"
 #include "PID_move.h"
 #include "MathFunctions.h"
-
-// extern uint16_t counter_1;
-// extern uint16_t counter_2;
-// uint16_t loop_counter;
-// int setPoint=0;
-// int m_value=0;
-// double s_value=0;
-// int e=0;
-// double kp = 2;
-// uint16_t speed = 1700;
+#include "confTimer.h"
 
 int main(void)
 {
@@ -31,29 +22,28 @@ int main(void)
 	configInterrupts();
 	PWM_init();
 	printf("Startar");
+	configureTC();
     delay_s(2);
-//     rightWheel(1500);
-//     leftWheel(1500);
+
 
 
 	
 	while (1)
 	{
-// 		moveTo(100,0);
-// 		printf("Klar!\n");
-// 		rightWheel(1500);
-// 		leftWheel(1500);
-// 		delay_s(2);
 
-		printf("Start!");
-		int rot = calcluteRotationAngle(0,100,0,0,100,300);
-		printf("rot=%d\n",rot);
-		rotation(rot,130);
-		delay_s(1);
-		int dis = calculateDistance(0,0,100,300);
-		printf("distance=%d\n",dis);
-		moveTo(dis,1);
-		delay_s(3);
+        printf("%d\n", tc_read_rc(TC0,0));
+		delay_us(300);
+       
+
+// 		printf("Start!");
+// 		int rot = calcluteRotationAngle(0,100,0,0,100,300);
+// 		printf("rot=%d\n",rot);
+// 		rotation(rot,130);
+// 		delay_s(1);
+// 		int dis = calculateDistance(0,0,100,300);
+// 		printf("distance=%d\n",dis);
+// 		moveTo(dis,1);
+// 		delay_s(3);
         
 
 // 		printf("0 :%d",(int) calculateDistance(0,0,0,0));
@@ -87,24 +77,7 @@ int main(void)
 // 	    printf("-61 :%d\n",(int)calcluteRotationAngle(870,560,600,700,300,500));
 // 	    printf("145 :%d\n",(int)calcluteRotationAngle(3800,4000,3870,4150,3920,3860));
 
- 
-// 		setPoint = 2*setPoint;
-//  		m_value = (counter_2-counter_1);
-//  		e = (setPoint - m_value);
-//  		s_value = (kp*e);
-//  		pwm_pin_21((speed+s_value));
-//  		pwm_pin_22((speed-s_value));
-//  		if (loop_counter == 100)
-//  		{
-//  			printf("counter1: %d\n",counter_1);
-//  			printf("counter2: %d\n",counter_2);
-// 			printf("loop_counter: %d\n",loop_counter);
-// 		}
-// 		loop_counter++;
-// 		printf("\n e = %d",e);
-// 		printf("\n s_value = %d",s_value);
-// 		printf("\n m_value = %d",m_value);
-// 		delay_us(46200*3);
+
 
 	}
 }

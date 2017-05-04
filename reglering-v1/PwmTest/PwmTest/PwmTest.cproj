@@ -510,6 +510,12 @@
     <None Include="src\config\conf_sio2host.h">
       <SubType>compile</SubType>
     </None>
+    <Compile Include="src\confTimer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\confTimer.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\ConsoleFunctions.c">
       <SubType>compile</SubType>
     </Compile>
