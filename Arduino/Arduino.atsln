@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "Arduino", "Arduino.cppproj", "{E6096E89-DB94-4D49-BFF3-0E8BAD75F8BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Release|ARM = Release|ARM
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6096E89-DB94-4D49-BFF3-0E8BAD75F8BF}.Debug|ARM.ActiveCfg = Debug|ARM
+		{E6096E89-DB94-4D49-BFF3-0E8BAD75F8BF}.Debug|ARM.Build.0 = Debug|ARM
+		{E6096E89-DB94-4D49-BFF3-0E8BAD75F8BF}.Release|ARM.ActiveCfg = Release|ARM
+		{E6096E89-DB94-4D49-BFF3-0E8BAD75F8BF}.Release|ARM.Build.0 = Release|ARM
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
