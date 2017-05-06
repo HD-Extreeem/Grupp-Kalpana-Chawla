@@ -1,4 +1,4 @@
-src/PID_move.d src/PID_move.o: ../src/PID_move.c ../src/asf.h \
+src/NaviControl.d src/NaviControl.o: ../src/NaviControl.c ../src/asf.h \
  ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
@@ -128,8 +128,8 @@ src/PID_move.d src/PID_move.o: ../src/PID_move.c ../src/asf.h \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/PwmFunctions.h \
- ../src/ConfigInterupts.h ../src/PID_move.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/NaviControl.h \
+ ../src/MathFunctions.h ../src/uartConfig.h ../src/PID_move.h
 
 ../src/asf.h:
 
@@ -405,8 +405,10 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/PwmFunctions.h:
+../src/NaviControl.h:
 
-../src/ConfigInterupts.h:
+../src/MathFunctions.h:
+
+../src/uartConfig.h:
 
 ../src/PID_move.h:

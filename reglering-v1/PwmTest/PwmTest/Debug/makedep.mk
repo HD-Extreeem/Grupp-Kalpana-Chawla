@@ -4,6 +4,8 @@
 
 main.c
 
+src\uartConfig.c
+
 src\ASF\common\services\serial\usart_serial.c
 
 src\ASF\common\utils\stdio\read.c
@@ -22,13 +24,13 @@ src\ASF\sam\drivers\usart\usart.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c
 
-src\confTimer.c
-
 src\ConsoleFunctions.c
 
-src\InterruptStepCounter.c
+src\ConfigInterupts.c
 
 src\MathFunctions.c
+
+src\NaviControl.c
 
 src\PID_move.c
 

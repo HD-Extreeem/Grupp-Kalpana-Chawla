@@ -39,8 +39,9 @@
           <option id="sam.drivers.pio" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.pmc" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.pwm" value="Add" config="" content-id="Atmel.ASF" />
-          <option id="thirdparty.wireless.addons.sio2host" value="Add" config="uart" content-id="Atmel.ASF" />
           <option id="sam.drivers.tc.appnote" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="thirdparty.wireless.addons.sio2host" value="Add" config="uart" content-id="Atmel.ASF" />
+          <option id="common.services.basic.serial" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.applications.user_application" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.utils.cmsis.sam3x.source.template" value="Add" config="" content-id="Atmel.ASF" />
         </options>
@@ -450,6 +451,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\uartConfig.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\uartConfig.h">
+      <SubType>compile</SubType>
+    </Compile>
     <None Include="src\ASF\common\services\serial\sam_uart\uart_serial.h">
       <SubType>compile</SubType>
     </None>
@@ -510,28 +517,28 @@
     <None Include="src\config\conf_sio2host.h">
       <SubType>compile</SubType>
     </None>
-    <Compile Include="src\confTimer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\confTimer.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\ConsoleFunctions.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\consoleFunctions.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\InterruptStepCounter.c">
+    <Compile Include="src\ConfigInterupts.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\InterruptStepCounter.h">
+    <Compile Include="src\ConfigInterupts.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\MathFunctions.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\MathFunctions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\NaviControl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\NaviControl.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\PID_move.c">

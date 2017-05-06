@@ -1,5 +1,6 @@
-src/confTimer.d src/confTimer.o: ../src/confTimer.c ../src/asf.h \
- ../src/ASF/sam/drivers/adc/adc.h ../src/ASF/sam/utils/compiler.h \
+src/ConfigInterupts.d src/ConfigInterupts.o: ../src/ConfigInterupts.c \
+ ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
+ ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
  ../src/ASF/sam/utils/preprocessor/preprocessor.h \
@@ -128,7 +129,8 @@ src/confTimer.d src/confTimer.o: ../src/confTimer.c ../src/asf.h \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/confTimer.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h ../src/ConfigInterupts.h \
+ ../src/consoleFunctions.h
 
 ../src/asf.h:
 
@@ -404,4 +406,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/confTimer.h:
+../src/ConfigInterupts.h:
+
+../src/consoleFunctions.h:

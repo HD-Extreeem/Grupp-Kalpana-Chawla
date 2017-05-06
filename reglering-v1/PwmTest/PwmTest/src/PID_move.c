@@ -7,7 +7,7 @@
  */
 #include <asf.h>
 #include "PwmFunctions.h"
-#include "InterruptStepCounter.h"
+#include "ConfigInterupts.h"
 #include "PID_move.h"
 
 
@@ -32,8 +32,8 @@ float totalPulses = (distance/1.38); //Calculate the total pulses needed to move
 	//double iPart=0; //Variable for the I-controller to keep calculated error*gain
 	//double dPart=0; //Variable for the D-controller to keep calculated error*gain
 	double kp=1.75; //Gain for the P-controller
-	double kd=0; //Gain for the D-controller
-	double ki=0; //Gain for the I-controller
+	//double kd=0; //Gain for the D-controller
+	//double ki=0; //Gain for the I-controller
 	float totMovement = 0; //Variable to store totalmovement during the transportation
 	
 	

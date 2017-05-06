@@ -11,13 +11,15 @@
 
 
 #include <asf.h>
-#include "InterruptStepCounter.h"
+#include "ConfigInterupts.h"
 #include "consoleFunctions.h"
 
 
 // Counter for Arlo Robot encoders for right and left wheel
  uint16_t counter_1 = 0;
  uint16_t counter_2 = 0;
+ uint8_t c_counter = 0;
+ char rx[16];
  bool c1Loop = true;
  bool c2Loop = true;
 
@@ -44,7 +46,9 @@ void configInterrupts(void){
 	NVIC_EnableIRQ(PIOC_IRQn);
 	//Enable interrupt handling from the PIOB module:
 	NVIC_EnableIRQ(PIOB_IRQn);
-
+	
+	NVIC_EnableIRQ((IRQn_Type) ID_USART1);
+	usart_enable_interrupt(CONF_UART, UART_IER_RXRDY);
 
 }
 
@@ -69,6 +73,15 @@ void pin14_edge_handler(const uint32_t id, const uint32_t index){
 			//printf("\n c2 = %d",counter_2);
 	}
 }
+
+ void USART1_Handler() {
+	 CONF_UART->US_CR |= (1 << US_CR_RSTRX);
+	 rx[c_counter++] = CONF_UART->US_RHR & US_RHR_RXCHR_Msk;
+	 if (c_counter > 15)
+	 {
+		 c_counter = 0;
+	 }
+ }
 
 void reset_Counter(void){
 	counter_1=0;

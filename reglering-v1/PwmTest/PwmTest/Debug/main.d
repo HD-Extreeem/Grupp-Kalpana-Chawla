@@ -129,8 +129,8 @@ main.d main.o: .././main.c ../src/asf.h ../src/ASF/sam/drivers/adc/adc.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/PwmFunctions.h \
- ../src/InterruptStepCounter.h ../src/consoleFunctions.h \
- ../src/PID_move.h ../src/MathFunctions.h ../src/confTimer.h
+ ../src/ConfigInterupts.h ../src/consoleFunctions.h ../src/PID_move.h \
+ ../src/MathFunctions.h ../src/uartConfig.h ../src/NaviControl.h
 
 ../src/asf.h:
 
@@ -408,7 +408,7 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/PwmFunctions.h:
 
-../src/InterruptStepCounter.h:
+../src/ConfigInterupts.h:
 
 ../src/consoleFunctions.h:
 
@@ -416,4 +416,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/MathFunctions.h:
 
-../src/confTimer.h:
+../src/uartConfig.h:
+
+../src/NaviControl.h:

@@ -11,9 +11,9 @@
 #ifndef MATHFUNCTIONS_H_
 #define MATHFUNCTIONS_H_
 
-double radianToDegree (double radian);
-double calculateDistance (double Xa, double Ya, double Xb, double Yb);
-double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb);
-double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double Xc, double Yc);
+int radianToDegree (int radian);
+int calculateDistance (int Xa, int Ya, int Xb, int Yb);
+int calculateAzimuthAngle (int Xa, int Ya, int Xb, int Yb);
+int calcluteRotationAngle (int Xa, int Ya, int Xb, int Yb, int Xc, int Yc);
 
 #endif /* MATHFUNCTIONS_H_ */
