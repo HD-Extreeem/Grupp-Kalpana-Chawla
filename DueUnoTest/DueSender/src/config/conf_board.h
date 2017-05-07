@@ -47,8 +47,6 @@
 #ifndef CONF_BOARD_H
 #define CONF_BOARD_H
 
-#include "conf_twi_master.h"
-
 /** Configure TWI0 pins */
 #define CONF_BOARD_TWI0
 
