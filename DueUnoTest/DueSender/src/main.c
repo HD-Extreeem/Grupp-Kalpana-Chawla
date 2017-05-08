@@ -46,9 +46,12 @@ int main(void)
 	while (!crane_init());
 	indicate();
 	
+<<<<<<< refs/remotes/origin/master
 	send_data(0x10);
 	request_data();
 	
+=======
+>>>>>>> Auto stash before merge of "master" and "origin/master"
 	// request_data();
 	// check_data();
 	

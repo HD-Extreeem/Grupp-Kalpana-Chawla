@@ -23,7 +23,7 @@ Method uses a PID controller for smoother movment of the robot
 	@param direction the direction robot need to move forward or backwards
 **/
 void moveTo (int distance, int direction){
-    int pulse =1.38;
+  int pulse =1.38;
 	if (distance > 200)
 	{
 		pulse =1.36;
@@ -40,17 +40,17 @@ void moveTo (int distance, int direction){
 	//double kd=0; //Gain for the D-controller
 	//double ki=0; //Gain for the I-controller
 	float totMovement = 0; //Variable to store totalmovement during the transportation
-	
-	
-	//--------------------------------------Updated Désirée och Ansam 170503
+
+
+	//--------------------------------------Updated Dï¿½sirï¿½e och Ansam 170503
 	double integral=0;
-	double derivate=0; 
+	double derivate=0;
 	double prevD=0;
 	double dT=0.5;
 	double Td=0.265;//0.53;
 	double Ti=1.075;//2.15;
 	int32_t sum=0;
-	//--------------------------------------Updated Désirée och Ansam 170503
+	//--------------------------------------Updated Dï¿½sirï¿½e och Ansam 170503
 	delay_us(300);
 	reset_Counter(); //Reset counter for encoders for wheel to ensure counter reseted for next movement
 	delay_us(300);
@@ -79,23 +79,23 @@ void moveTo (int distance, int direction){
         reset_Counter();//Reset counter for next regulation later
 		delay_us(500);
 	    proportionalError = (referenceValue - measurementValue); // Calculates p-controller gain
-		
-		//--------------------------------------Updated Désirée och Ansam 170503
+
+		//--------------------------------------Updated Dï¿½sirï¿½e och Ansam 170503
 		sum = (sum + prevD);
 		delay_us(500);
 		integral= (sum * (dT/Ti));
 		delay_us(500);
 		derivate = ((Td/dT) * (proportionalError-prevD));
-		delay_us(500);  
+		delay_us(500);
 	   controlValue =(kp*(proportionalError+integral+ derivate)); //PID
 	   prevD=proportionalError;
-	   //--------------------------------------Updated Désirée och Ansam 170503
-	   
+	   //--------------------------------------Updated Dï¿½sirï¿½e och Ansam 170503
+
 	   //iPart = (Ti*integralError); //Calculates i-controller gain
 	   // dPart = //(kd*(proportionalError-derivativeError)); //Calculates d-controller gain
 	   //controlValue = (kp*(proportionalError+iPart+dPart)); //Total regulation for PID calculate new value for correcting the error
 		delay_us(500);
-		 
+
 		 //	Check if almost reached the destination to slow down and make a smoother brake
 		 if (((totMovement/totalPulses)>= 0.85) || ((totMovement/totalPulses)<= 0.1))
  		{
@@ -107,7 +107,7 @@ void moveTo (int distance, int direction){
  		{
  			speed = 180;
  		}
-		 
+
 
 		rightWheel(1500 + ((speed+controlValue)*direction));//New speed for rightWheel
 		leftWheel( 1500 + ((speed-controlValue)*direction));//New speed for leftWheel
