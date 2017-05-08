@@ -47,7 +47,13 @@
 #ifndef CONF_BOARD_H
 #define CONF_BOARD_H
 
+#define CONF_BOARD_USB_PORT
+
+#define CONF_BOARD_UART_CONSOLE
+
 /** Configure TWI0 pins */
 #define CONF_BOARD_TWI0
+
+
 
 #endif /* CONF_BOARD_H */
