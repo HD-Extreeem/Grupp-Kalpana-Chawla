@@ -31,7 +31,7 @@ void moveTo (int distance, int direction){
 	double controlValue=0; //Variable to store total value for PID-controller
 	//double iPart=0; //Variable for the I-controller to keep calculated error*gain
 	//double dPart=0; //Variable for the D-controller to keep calculated error*gain
-	double kp=6.5; //Gain for the P-controller
+	double kp=2.5; //Gain for the P-controller
 	//double kd=0; //Gain for the D-controller
 	//double ki=0; //Gain for the I-controller
 	float totMovement = 0; //Variable to store totalmovement during the transportation

@@ -30,12 +30,12 @@ int main (void)
 	
 	
 	/* Create the task with the highest priority the task task_StepCounter */
-	if (xTaskCreate(task_StepCounterLeft, (const signed char * const) "StepLeft", TASK_STEPLEFT_STACK_SIZE, NULL, TASK_STEP_STACK_PRIORITY, NULL) != pdPASS) {
-		printf("Failed to test _StepCounter task\r\n");
-	}
-	if (xTaskCreate(task_StepCounterRight, (const signed char * const) "StepRight", TASK_STEPRIGHT_STACK_SIZE, NULL, TASK_STEP_STACK_PRIORITY, NULL) != pdPASS) {
-		printf("Failed to test _StepCounter task\r\n");
-	}
+// 	if (xTaskCreate(task_StepCounterLeft, (const signed char * const) "StepLeft", TASK_STEPLEFT_STACK_SIZE, NULL, TASK_STEP_STACK_PRIORITY, NULL) != pdPASS) {
+// 		printf("Failed to test _StepCounter task\r\n");
+// 	}
+// 	if (xTaskCreate(task_StepCounterRight, (const signed char * const) "StepRight", TASK_STEPRIGHT_STACK_SIZE, NULL, TASK_STEP_STACK_PRIORITY, NULL) != pdPASS) {
+// 		printf("Failed to test _StepCounter task\r\n");
+// 	}
 	
 		
 	/* Create the task with the second priority the task_GetCordinates*/

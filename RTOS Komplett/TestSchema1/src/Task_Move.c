@@ -20,7 +20,7 @@ void task_move(void *pvParameters)
 	
 	
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 500;
+	const portTickType xTimeIncrement = 100;
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 	
 	
@@ -29,16 +29,16 @@ void task_move(void *pvParameters)
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle
 		
 		//delay_s(2);
-		moveTo(100,1);
-		//delay_s(10);
+		moveTo(500,1);
+		delay_s(5);
 		rotation(calcluteRotationAngle(0,-100,0,0,100,100),130);
 		moveTo(calculateDistance(0,0,100,100),1);
 
-		//delay_s(5);
+		delay_s(5);
 		rotation(calcluteRotationAngle(0,0,100,100,-100,300),130);
 		moveTo(calculateDistance(100,100,-100,300),1);
 
-		//delay_s(5);
+		delay_s(5);
 
 		rotation(calcluteRotationAngle(100,100,-100,300,100,600),130);
 		moveTo(calculateDistance(-100,300,100,600),1);
@@ -46,6 +46,6 @@ void task_move(void *pvParameters)
 		lastPosition[0][1]= presentPosition[0][1];
 		presentPosition[0][0] = objects[2][0];
 		presentPosition[0][1] = objects[2][1];
-		//delay_s(5);
+		delay_s(5);
 	}
 }

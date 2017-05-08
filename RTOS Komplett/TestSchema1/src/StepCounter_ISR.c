@@ -20,71 +20,85 @@
  bool c1Loop = true;
  bool c2Loop = true;
 
-xSemaphoreHandle xBinarySemaphoreRight = 0;
-xSemaphoreHandle xBinarySemaphoreLeft = 0;
-
-void task_StepCounterRight(void *pvParameters)
-{
-
-	vSemaphoreCreateBinary(xBinarySemaphoreRight);
-
-	while (1)
-	{
-		xSemaphoreTake(xBinarySemaphoreRight, portMAX_DELAY);
-
-
-		// Checks if pin 51 is high
-		if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
-		//Increase the counter value
-				counter_1++;
-				c1Loop = true;
-				//printf("\n c2 = %d",counter_2);
-		}
-		vTaskDelay((50/portTICK_RATE_MS));
-		xSemaphoreTake(xBinarySemaphoreRight, 0);
-
-	}
-}
-
-void task_StepCounterLeft(void *pvParameters)
-{
-
-	vSemaphoreCreateBinary(xBinarySemaphoreLeft);
-
-	while (1)
-	{
-		xSemaphoreTake(xBinarySemaphoreLeft, portMAX_DELAY);
-
-		// Check if pin 53 is high
-		if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
-			//increase the counter value
-			counter_2++;
-			c2Loop = true;
-			//printf("\n c1= %d",counter_1);
-		}
-
-		vTaskDelay((50/portTICK_RATE_MS));
-		xSemaphoreTake(xBinarySemaphoreLeft, 0);
-
-	}
-}
+// xSemaphoreHandle xBinarySemaphoreRight = 0;
+// xSemaphoreHandle xBinarySemaphoreLeft = 0;
+// 
+// void task_StepCounterRight(void *pvParameters)
+// {
+// 
+// 	vSemaphoreCreateBinary(xBinarySemaphoreRight);
+// 
+// 	while (1)
+// 	{
+// 		xSemaphoreTake(xBinarySemaphoreRight, portMAX_DELAY);
+// 
+// 
+// 		// Checks if pin 51 is high
+// 		if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
+// 		//Increase the counter value
+// 				counter_1++;
+// 				c1Loop = true;
+// 				printf("\n c2 = %d",counter_2);
+// 		}
+// 		vTaskDelay((50/portTICK_RATE_MS));
+// 		xSemaphoreTake(xBinarySemaphoreRight, 0);
+// 
+// 	}
+// }
+// 
+// void task_StepCounterLeft(void *pvParameters)
+// {
+// 
+// 	vSemaphoreCreateBinary(xBinarySemaphoreLeft);
+// 
+// 	while (1)
+// 	{
+// 		xSemaphoreTake(xBinarySemaphoreLeft, portMAX_DELAY);
+// 
+// 		// Check if pin 53 is high
+// 		if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
+// 			//increase the counter value
+// 			counter_2++;
+// 			c2Loop = true;
+// 			printf("\n c1= %d",counter_1);
+// 		}
+// 
+// 		vTaskDelay((50/portTICK_RATE_MS));
+// 		xSemaphoreTake(xBinarySemaphoreLeft, 0);
+// 
+// 	}
+// }
 
 /*
  * Interrupt handler ( Mastering the Freal Time Kernel p. 200)
  */
 void pin12_edge_handler(void)
 {
-	long xHigherPriorityTaskWoken = pdFALSE;
-	xSemaphoreGiveFromISR(xBinarySemaphoreRight, &xHigherPriorityTaskWoken);
-	portYIELD();
+	
+		if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
+			//increase the counter value
+			counter_2++;
+			c2Loop = true;
+			printf("\n c1= %d",counter_1);
+		}
+			// Checks if pin 51 is high
+			if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
+				//Increase the counter value
+				counter_1++;
+				c1Loop = true;
+				printf("\n c2 = %d",counter_2);
+			}
+// 	long xHigherPriorityTaskWoken = pdFALSE;
+// 	xSemaphoreGiveFromISR(xBinarySemaphoreRight, &xHigherPriorityTaskWoken);
+// 	portYIELD();
 }
 
-void pin14_edge_handler(void)
-{
-	long xHigherPriorityTaskWoken = pdFALSE;
-	xSemaphoreGiveFromISR(xBinarySemaphoreLeft, &xHigherPriorityTaskWoken);
-	portYIELD();
-}
+// void pin14_edge_handler(void)
+// {
+// 	long xHigherPriorityTaskWoken = pdFALSE;
+// 	xSemaphoreGiveFromISR(xBinarySemaphoreLeft, &xHigherPriorityTaskWoken);
+// 	portYIELD();
+// }
 
 /*
  * Runs one time when program starts.
@@ -103,7 +117,7 @@ void attach_interupt(void)
 		//Configure the input pin 12 interrupt mode and handler pin51
 		pio_handler_set(PIOC, ID_PIOC, PIO_PC12, PIO_IT_RISE_EDGE, pin12_edge_handler);
 		//Configure the input pin 14 interrupt mode and handler pin53
-		pio_handler_set(PIOB, ID_PIOB, PIO_PB14, PIO_IT_RISE_EDGE, pin14_edge_handler);
+		pio_handler_set(PIOB, ID_PIOB, PIO_PB14, PIO_IT_RISE_EDGE, pin12_edge_handler);
 		//Enable the interrupt for the configured input pin 12
 		pio_enable_interrupt(PIOC,PIO_PC12);
 		//Enable the interrupt for the configured input pin 12

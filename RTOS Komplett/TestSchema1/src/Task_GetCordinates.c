@@ -14,7 +14,7 @@ void task_getCordinates(void *pvParameters)
 {
 	
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 500;
+	const portTickType xTimeIncrement = 200;
 	
 	xLastWakeTime = xTaskGetTickCount();//Initialise the xLastWakeTime variable with the current time.
 	
