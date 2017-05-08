@@ -46,9 +46,9 @@ void moveTo (int distance, int direction){
 	double Ti=1.075;//2.15;
 	int32_t sum=0;
 	//--------------------------------------Updated D�sir�e och Ansam 170503
-	delay_us(300);
+	//delay_us(300);
 	reset_Counter(); //Reset counter for encoders for wheel to ensure counter reseted for next movement
-	delay_us(300);
+	//delay_us(300);
 
 	// Controlls if moving forward or backwards
 	if ( direction!=1 && direction!=-1 )
@@ -68,20 +68,20 @@ void moveTo (int distance, int direction){
 			**/
       if (c1Loop == true && c2Loop == true) {
 		totMovement = totMovement + ((counter_1+counter_2)/2);
-		delay_ms(1);
+		//delay_ms(1);
         measurementValue = (counter_2-counter_1);// Calculates the error diffferce
-		delay_us(500);
+		//delay_us(500);
         reset_Counter();//Reset counter for next regulation later
-		delay_us(500);
+		//delay_us(500);
 	    proportionalError = (referenceValue - measurementValue); // Calculates p-controller gain
 
 		//--------------------------------------Updated D�sir�e och Ansam 170503
 		sum = (sum + prevD);
-		delay_us(500);
+		//delay_us(500);
 		integral= (sum * (dT/Ti));
-		delay_us(500);
+		//delay_us(500);
 		derivate = ((Td/dT) * (proportionalError-prevD));
-		delay_us(500);
+		//delay_us(500);
 	   controlValue =(kp*(proportionalError+integral+ derivate)); //PID
 	   prevD=proportionalError;
 	   //--------------------------------------Updated D�sir�e och Ansam 170503
@@ -89,7 +89,7 @@ void moveTo (int distance, int direction){
 	   //iPart = (Ti*integralError); //Calculates i-controller gain
 	   // dPart = //(kd*(proportionalError-derivativeError)); //Calculates d-controller gain
 	   //controlValue = (kp*(proportionalError+iPart+dPart)); //Total regulation for PID calculate new value for correcting the error
-		delay_us(500);
+		//delay_us(500);
 
 		 //	Check if almost reached the destination to slow down and make a smoother brake
 		 if (((totMovement/totalPulses)>= 0.85) || ((totMovement/totalPulses)<= 0.1))
@@ -106,10 +106,10 @@ void moveTo (int distance, int direction){
 
 		rightWheel(1500 + ((speed+controlValue)*direction));//New speed for rightWheel
 		leftWheel( 1500 + ((speed-controlValue)*direction));//New speed for leftWheel
-		delay_us(500);
+		//delay_us(500);
         c1Loop = false; //Loop finished to prevent from running loop again
         c2Loop = false;//Loop finished to prevent from running loop again
-		delay_us(500);
+		//delay_us(500);
       }
 }
 

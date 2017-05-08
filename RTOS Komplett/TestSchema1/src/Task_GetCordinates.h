@@ -2,8 +2,8 @@
  * Task_GetCordinates.h
  *
  * Created: 2017-04-20 14:12:19
- *  Author: Désirée Jönsson och Jonas Eiselt
- */ 
+ *  Author: Dï¿½sirï¿½e Jï¿½nsson och Jonas Eiselt
+ */
 
 
 #ifndef TASK_GETCORDINATES_H_

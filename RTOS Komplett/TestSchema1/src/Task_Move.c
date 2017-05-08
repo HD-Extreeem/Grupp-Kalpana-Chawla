@@ -2,7 +2,7 @@
  * Task_Move.c
  *
  * Created: 2017-04-20 14:11:27
- *  Author: Désirée Jönsson och Jonas Eiselt
+ *  Author: Dï¿½sirï¿½e Jï¿½nsson och Jonas Eiselt
  */
 
 #include <asf.h>
@@ -17,28 +17,28 @@ presentPosition [1][1]={0,0};
 
 void task_move(void *pvParameters)
 {
-	
-	
+
+
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 100;
+	const portTickType xTimeIncrement = 800;
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
-	
-	
+
+
 	while (1)
 	{
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle
-		
+
 		//delay_s(2);
 		moveTo(500,1);
-		delay_s(5);
+		//delay_s(5);
 		rotation(calcluteRotationAngle(0,-100,0,0,100,100),130);
 		moveTo(calculateDistance(0,0,100,100),1);
 
-		delay_s(5);
+		//delay_s(5);
 		rotation(calcluteRotationAngle(0,0,100,100,-100,300),130);
 		moveTo(calculateDistance(100,100,-100,300),1);
 
-		delay_s(5);
+		//delay_s(5);
 
 		rotation(calcluteRotationAngle(100,100,-100,300,100,600),130);
 		moveTo(calculateDistance(-100,300,100,600),1);
@@ -46,6 +46,6 @@ void task_move(void *pvParameters)
 		lastPosition[0][1]= presentPosition[0][1];
 		presentPosition[0][0] = objects[2][0];
 		presentPosition[0][1] = objects[2][1];
-		delay_s(5);
+		//delay_s(5);
 	}
 }

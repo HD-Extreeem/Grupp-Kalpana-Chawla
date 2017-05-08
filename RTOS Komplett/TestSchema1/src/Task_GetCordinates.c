@@ -2,8 +2,8 @@
  * Task_GetCordinates.c
  *
  * Created: 2017-04-20 14:12:03
- *  Author: Désirée Jönsson och Jonas Eiselt 2017-04-20
- */ 
+ *  Author: Dï¿½sirï¿½e Jï¿½nsson och Jonas Eiselt 2017-04-20
+ */
 
 #include <asf.h>
 #include <FreeRTOS.h>
@@ -12,16 +12,16 @@
 
 void task_getCordinates(void *pvParameters)
 {
-	
+
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 200;
-	
+	const portTickType xTimeIncrement = 10;
+
 	xLastWakeTime = xTaskGetTickCount();//Initialise the xLastWakeTime variable with the current time.
-	
-	
+
+
 	while (1) {
-		
-		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
+
+		//vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
 
 	}
 }

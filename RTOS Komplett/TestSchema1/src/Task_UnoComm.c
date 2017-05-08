@@ -1,6 +1,6 @@
 /**
  * Task_UnoComm.c
- * 
+ *
  * Created: 2017-04-20 16:25:09
  *  Author: Desiree
  */
@@ -13,13 +13,13 @@ void task_unoComm(void *pvParameters)
 {
 
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 500;
-	
+	const portTickType xTimeIncrement = 5;
+
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
-	
+
 	while (1)
 	{
-		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle.	
-		
+		//vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle.
+
 	}
 }

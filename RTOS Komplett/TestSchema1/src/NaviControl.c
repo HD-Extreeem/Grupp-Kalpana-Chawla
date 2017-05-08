@@ -3,7 +3,7 @@
  *
  * Created: 2017-05-05 08:55:48
  *  Author: Yurdaer Dalkic
- */ 
+ */
 #include <asf.h>
 #include "NaviControl.h"
 #include "MathFunctions.h"
@@ -24,7 +24,7 @@ int presentPosition [1][1];
 		rotationAngle = calcluteRotationAngle(lastPosition [0][0],lastPosition [0][1],presentPosition [0][0],presentPosition [0][1], X, Y);
 		rotation(rotationAngle,130);
 		moveTo(distance,1);
-		delay_ms(1000);
+		//delay_ms(1000);
 // 		lastPosition[0][0] = presentPosition[0][0];
 // 		lastPosition[0][1] = presentPosition[0][1];
 // 		presentPosition [0][0]= getX();
