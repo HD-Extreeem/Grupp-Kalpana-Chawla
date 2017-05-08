@@ -7,18 +7,13 @@
  */
 #include <asf.h>
 #include "PwmFunctions.h"
-#include "ConfigInterupts.h"
+#include "StepCounter_ISR.h"
 #include "PID_move.h"
 
 
-extern uint16_t counter_1; //Encoder counter for rightWheel
-extern uint16_t counter_2; //Encoder counter for leftWheel
-extern bool c1Loop; //Boolean for checking if encoder counter 1 triggered interrupt
-extern bool c2Loop; //Boolean for checking if encoder counter 2 triggered interrupt
-
 /**
 This method moveTo handle position moving for a certain distance and direction
-Method uses a PID controller for smoother movment of the robot
+Method uses a PID controller for smoother movement of the robot
 	@param distance the distance which the robot need to move in centimeters
 	@param direction the direction robot need to move forward or backwards
 **/
