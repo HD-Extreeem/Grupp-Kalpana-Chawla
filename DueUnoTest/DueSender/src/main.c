@@ -41,20 +41,17 @@ int main(void)
 
 	configure_twi();
 	// indicate();
-	
+
 	/* Crane init */
 	while (!crane_init());
 	indicate();
-	
-<<<<<<< refs/remotes/origin/master
+
 	send_data(0x10);
 	request_data();
-	
-=======
->>>>>>> Auto stash before merge of "master" and "origin/master"
+
 	// request_data();
 	// check_data();
-	
+
 	while(1);
 }
 
@@ -66,7 +63,7 @@ void configure_twi()
 
 	/* Initializes the TWI master driver */
 	twi_master_setup(TWI0, &opt);
-	
+
 	/* Configures packet to be transmitted */
 	tx_packet.addr[0] = 0;							// TWI slave memory address data MSB
 	tx_packet.addr[1] = 0;							// TWI slave memory address data LSB
@@ -90,11 +87,11 @@ Bool crane_init()
 	request_data();
 
 	// indicate();
-	
+
 	/* Check received data */
 	check_data();
 	request_data();
-	
+
 	return true;
 }
 
@@ -113,7 +110,7 @@ void indicate()
 void send_data(uint8_t request_byte)
 {
 	tx_buffer[0] = request_byte;
-	
+
 	// Performs a multi-byte write access then check the result.
 	while (twi_master_write(TWI0, &tx_packet) != TWI_SUCCESS);
 	// indicate();
