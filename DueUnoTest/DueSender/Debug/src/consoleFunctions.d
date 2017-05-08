@@ -136,7 +136,7 @@ src/consoleFunctions.d src/consoleFunctions.o: ../src/consoleFunctions.c \
  ../src/ASF/common/services/twi/twi_slave.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/config/conf_board.h \
- ../src/config/conf_twi_master.h ../src/consoleFunctions.h
+ ../src/consoleFunctions.h
 
 ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h:
 
@@ -423,7 +423,5 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
 ../src/config/conf_board.h:
-
-../src/config/conf_twi_master.h:
 
 ../src/consoleFunctions.h:

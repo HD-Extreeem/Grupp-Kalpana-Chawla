@@ -110,8 +110,7 @@ src/ASF/sam/boards/arduino_due_x/init.d \
  ../src/ASF/common/boards/board.h \
  ../src/ASF/sam/boards/arduino_due_x/arduino_due_x.h \
  ../src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.h \
- ../src/config/conf_board.h ../src/config/conf_twi_master.h \
- ../src/ASF/common/services/gpio/gpio.h \
+ ../src/config/conf_board.h ../src/ASF/common/services/gpio/gpio.h \
  ../src/ASF/common/services/gpio/sam_gpio/sam_gpio.h \
  ../src/ASF/sam/drivers/pio/pio.h \
  ../src/ASF/common/services/ioport/ioport.h \
@@ -342,8 +341,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.h:
 
 ../src/config/conf_board.h:
-
-../src/config/conf_twi_master.h:
 
 ../src/ASF/common/services/gpio/gpio.h:
 

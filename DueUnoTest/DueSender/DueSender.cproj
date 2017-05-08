@@ -735,9 +735,6 @@
     <None Include="src\config\conf_board.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="src\config\conf_twi_master.h">
-      <SubType>compile</SubType>
-    </None>
     <None Include="src\ASF\sam\utils\cmsis\sam3x\include\pio\pio_sam3a8c.h">
       <SubType>compile</SubType>
     </None>
