@@ -60,7 +60,7 @@
 /** USART Interface */
 #define CONF_UART              USART1
 /** Baudrate setting */
-#define CONF_UART_BAUDRATE     9600
+#define CONF_UART_BAUDRATE     115200
 /** Character length setting */
 #define CONF_UART_CHAR_LENGTH  US_MR_CHRL_8_BIT
 /** Parity setting */

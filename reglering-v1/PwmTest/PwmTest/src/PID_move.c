@@ -23,15 +23,20 @@ Method uses a PID controller for smoother movment of the robot
 	@param direction the direction robot need to move forward or backwards
 **/
 void moveTo (int distance, int direction){
-float totalPulses = (distance/1.38); //Calculate the total pulses needed to move to destination
-	uint16_t speed = 1700; // Set speed for moving the robot
+    uint8_t pulse =1.38;
+// 	if (distance > 200)
+// 	{
+// 		pulse =1.36;
+// 	}
+	float totalPulses = (distance/1.38); //Calculate the total pulses needed to move to destination
+	uint16_t speed = 200; // Set speed for moving the robot
 	double proportionalError = 0; //P-controller error variable
 	double referenceValue = 0;
 	double measurementValue=0;
 	double controlValue=0; //Variable to store total value for PID-controller
 	//double iPart=0; //Variable for the I-controller to keep calculated error*gain
 	//double dPart=0; //Variable for the D-controller to keep calculated error*gain
-	double kp=1.75; //Gain for the P-controller
+	double kp=6.5; //Gain for the P-controller
 	//double kd=0; //Gain for the D-controller
 	//double ki=0; //Gain for the I-controller
 	float totMovement = 0; //Variable to store totalmovement during the transportation
@@ -51,7 +56,7 @@ float totalPulses = (distance/1.38); //Calculate the total pulses needed to move
 	delay_us(300);
 
 	// Controlls if moving forward or backwards
-	if ( direction!=1 || direction!=-1 )
+	if ( direction!=1 && direction!=-1 )
 	{
 		direction=1;
 	}
@@ -90,24 +95,22 @@ float totalPulses = (distance/1.38); //Calculate the total pulses needed to move
 	   // dPart = //(kd*(proportionalError-derivativeError)); //Calculates d-controller gain
 	   //controlValue = (kp*(proportionalError+iPart+dPart)); //Total regulation for PID calculate new value for correcting the error
 		delay_us(500);
-		 /**
-		 	Check if almost reached the destination to slow down and make a smoother brake
-		 **/
- 		/*
 		 
-		 if ((totMovement/totalPulses)>= 0.7)
+		 //	Check if almost reached the destination to slow down and make a smoother brake
+		 if (((totMovement/totalPulses)>= 0.85) || ((totMovement/totalPulses)<= 0.1))
  		{
- 			speed = speed - ((totMovement/totalPulses)*150) ;
+ 			//speed = speed - ((totMovement/totalPulses)*150) ;
+			 speed = 110;
  		}
 		//Else same speed set
  		else
  		{
- 			speed = speed;
+ 			speed = 180;
  		}
-		 */
+		 
 
-		rightWheel((speed+controlValue));//New speed for rightWheel
-		leftWheel((speed-controlValue));//New speed for leftWheel
+		rightWheel(1500 + ((speed+controlValue)*direction));//New speed for rightWheel
+		leftWheel( 1500 + ((speed-controlValue)*direction));//New speed for leftWheel
 		delay_us(500);
         c1Loop = false; //Loop finished to prevent from running loop again
         c2Loop = false;//Loop finished to prevent from running loop again

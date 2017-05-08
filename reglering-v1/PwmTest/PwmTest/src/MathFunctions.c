@@ -16,9 +16,9 @@
    @param radian the angle value in radian
    return degree the angle value in degree
 **/
-int radianToDegree (int radian){
-	int degree;
-	degree = (int) radian*(180/M_PI);
+double radianToDegree (double radian){
+	double degree;
+	degree =  radian*(180/M_PI);
 	return degree;
 }
 
@@ -29,11 +29,11 @@ int radianToDegree (int radian){
    @param Yb the y coordinate for B
    return distance the distance between A and B
 **/
-int calculateDistance (int Xa, int Ya, int Xb, int Yb){
-	int distance;
-	int deltaX = Xb - Xa;
-	int deltaY = Yb - Ya;
-	distance =(int) sqrt((deltaX*deltaX) + (deltaY*deltaY));
+double calculateDistance (double Xa, double Ya, double Xb, double Yb){
+	double distance;
+	double deltaX = Xb - Xa;
+	double deltaY = Yb - Ya;
+	distance = sqrt((deltaX*deltaX) + (deltaY*deltaY));
 	return distance;
 }
 
@@ -44,10 +44,10 @@ int calculateDistance (int Xa, int Ya, int Xb, int Yb){
    @param Yb the y coordinate for B
    return azimutAngle the azimuth angle from A to B
 **/
-int calculateAzimuthAngle (int Xa, int Ya, int Xb, int Yb){
-	int azimutAngle = 0;
-	int deltaX = Xb-Xa;
-	int deltaY = Yb-Ya;
+double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
+	double azimutAngle = 0;
+	double deltaX = Xb-Xa;
+	double deltaY = Yb-Ya;
 	
 	// if A and B has same coordinates
 	if ( (deltaX == 0) && (deltaY == 0) )
@@ -89,17 +89,17 @@ int calculateAzimuthAngle (int Xa, int Ya, int Xb, int Yb){
 		// the angle is between 90 to 180 degree
 		else if ( (deltaX > 0) && (deltaY < 0 ) )
 		{
-			azimutAngle = (radianToDegree ((int)atan (deltaX/deltaY))  + 180);
+			azimutAngle = (radianToDegree (atan (deltaX/deltaY))  + 180);
 		}
 		// the angle is between 180 to 270 degree
 		else if ( (deltaX < 0) && (deltaY < 0 ) )
 		{
-			azimutAngle = (radianToDegree ((int)atan (deltaX/deltaY) ) + 180);
+			azimutAngle = (radianToDegree (atan (deltaX/deltaY) ) + 180);
 		}
 		// the angle is between 270 to 360 degree
 		else if ( (deltaX < 0) && (deltaY > 0 ) )
 		{
-			azimutAngle = (radianToDegree ((int)atan (deltaX/deltaY) ) + 360);
+			azimutAngle = (radianToDegree (atan (deltaX/deltaY) ) + 360);
 		}
 	}
 	
@@ -116,11 +116,11 @@ int calculateAzimuthAngle (int Xa, int Ya, int Xb, int Yb){
    @param Yc the y coordinate for C
    return rotationAngle the rotation angle from A to target C
    **/
-int calcluteRotationAngle (int Xa, int Ya, int Xb, int Yb, int Xc, int Yc){
+double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double Xc, double Yc){
 	
-	int AoB = calculateAzimuthAngle(Xa, Ya, Xb, Yb);
-	int BoC = calculateAzimuthAngle(Xb, Yb, Xc, Yc);
-	int rotationAngle = BoC-AoB;
+	double AoB = calculateAzimuthAngle(Xa, Ya, Xb, Yb);
+	double BoC = calculateAzimuthAngle(Xb, Yb, Xc, Yc);
+	double rotationAngle = BoC-AoB;
 	if (rotationAngle > 180)
 	{
 		rotationAngle =  rotationAngle - 360;

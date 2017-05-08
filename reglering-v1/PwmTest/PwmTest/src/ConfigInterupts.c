@@ -47,8 +47,8 @@ void configInterrupts(void){
 	//Enable interrupt handling from the PIOB module:
 	NVIC_EnableIRQ(PIOB_IRQn);
 	
-	NVIC_EnableIRQ((IRQn_Type) ID_USART1);
-	usart_enable_interrupt(CONF_UART, UART_IER_RXRDY);
+// 	NVIC_EnableIRQ((IRQn_Type) ID_USART1);
+// 	usart_enable_interrupt(CONF_UART, UART_IER_RXRDY);
 
 }
 
