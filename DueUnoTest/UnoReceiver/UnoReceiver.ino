@@ -14,10 +14,12 @@
 #define RX_DATA_LENGTH 1
 #define TX_DATA_LENGTH 3
 
+/* Crane-id */
 #define CRANE 0x33
 
 boolean received = false;
 
+/* Buffers for receiving and transmitting bytes */
 uint8_t rx_buf[RX_DATA_LENGTH];
 uint8_t tx_buf[TX_DATA_LENGTH];
 
@@ -32,29 +34,7 @@ void setup()
 
 void loop()
 {
-  /*tx_buf[DATA_LENGTH];
-    if (received)
-    {
-    for (int i = 0; i < DATA_LENGTH; i++)
-    {
-      tx_buf[i] = rx_buf[i];
-    }
-
-    Serial.print("Rx: ");
-    for (int i = 0; i < DATA_LENGTH; i++)
-    {
-      Serial.print(rx_buf[i], HEX);
-      Serial.print(' ');
-    }
-    Serial.println();*/
-
-  /* Doesn't make any difference with beginTransmission */
-  /*Wire.beginTransmission(DEVICE_ADDRESS);
-    Wire.write(tx_buf, sizeof(tx_buf));
-    Wire.endTransmission();*/
-
-  // received = false;
-  // }
+  delay(100);
 }
 
 void receiveEvent(int howMany)
@@ -82,13 +62,13 @@ void requestEvent()
   switch (rx_buf[0])
   {
     case 0x20:
-      // Identification
+      /* Identification */
       tx_buf[0] = 0x10;
       tx_buf[1] = 0x10;
       tx_buf[2] = 0x10;
       break;
     case 0x21:
-      // Lift cube
+      /* Lift cube */
       if (!liftCube())
       {
         // Failed to lift cube
@@ -102,7 +82,7 @@ void requestEvent()
       tx_buf[2] = 0x10;
       break;
     case 0x22:
-      // Lift glass
+      /* Lift glass */
       if (!liftGlass())
       {
         tx_buf[0] = 0x15;
@@ -115,7 +95,7 @@ void requestEvent()
       tx_buf[2] = 0x10;
       break;
     case 0x23:
-      // Lift sock
+      /* Lift sock */
       if (!liftSock())
       {
         tx_buf[0] = 0x15;
@@ -128,11 +108,11 @@ void requestEvent()
       tx_buf[2] = 0x10;
       break;
     case 0x24:
-      // Cancel lift
+      /* Cancel lift */
       cancelLift();
       break;
     case 0x25:
-      // Return object
+      /* Return object */
       if (!returnObject())
       {
         // Failed to return object

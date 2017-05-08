@@ -2632,8 +2632,8 @@ static inline uint32_t twi_master_setup(twi_master_t p_twi,
    80b5c:	20070a0c 	.word	0x20070a0c
 
 00080b60 <indicate>:
+	return true;
 }
-
 
 /* Signals the user via the on-board LED (marked L) */
 void indicate()
@@ -2665,7 +2665,7 @@ void indicate()
 		delay_ms(100);
    80b78:	4630      	mov	r0, r6
    80b7a:	47a8      	blx	r5
-
+}
 
 /* Signals the user via the on-board LED (marked L) */
 void indicate()
@@ -2752,6 +2752,7 @@ void check_data()
    80bf4:	2925      	.short	0x2925
 	{
 		case 0x10:
+		/* Identification */
 		send_data(0x21);
    80bf6:	2021      	movs	r0, #33	; 0x21
    80bf8:	4b14      	ldr	r3, [pc, #80]	; (80c4c <check_data+0x70>)
@@ -2759,6 +2760,7 @@ void check_data()
 		break;
    80bfc:	bd08      	pop	{r3, pc}
 		case 0x11:
+		/* Postion relative to object */
 		send_data(0x11);
    80bfe:	2011      	movs	r0, #17
    80c00:	4b12      	ldr	r3, [pc, #72]	; (80c4c <check_data+0x70>)
@@ -2766,6 +2768,7 @@ void check_data()
 		break;
    80c04:	bd08      	pop	{r3, pc}
 		case 0x12:
+		/* Position relative to box-edge */
 		send_data(0x12);
    80c06:	2012      	movs	r0, #18
    80c08:	4b10      	ldr	r3, [pc, #64]	; (80c4c <check_data+0x70>)
@@ -2773,6 +2776,7 @@ void check_data()
 		break;
    80c0c:	bd08      	pop	{r3, pc}
 		case 0x13:
+		/* Max velocity (mm/s) */
 		send_data(0x13);
    80c0e:	2013      	movs	r0, #19
    80c10:	4b0e      	ldr	r3, [pc, #56]	; (80c4c <check_data+0x70>)
@@ -2780,6 +2784,7 @@ void check_data()
 		break;
    80c14:	bd08      	pop	{r3, pc}
 		case 0x14:
+		/* Lift success */
 		send_data(0x14);
    80c16:	2014      	movs	r0, #20
    80c18:	4b0c      	ldr	r3, [pc, #48]	; (80c4c <check_data+0x70>)
@@ -2787,6 +2792,7 @@ void check_data()
 		break;
    80c1c:	bd08      	pop	{r3, pc}
 		case 0x15:
+		/* Lift failed */
 		send_data(0x15);
    80c1e:	2015      	movs	r0, #21
    80c20:	4b0a      	ldr	r3, [pc, #40]	; (80c4c <check_data+0x70>)
@@ -2794,6 +2800,7 @@ void check_data()
 		break;
    80c24:	bd08      	pop	{r3, pc}
 		case 0x16:
+		/* Return success */
 		send_data(0x16);
    80c26:	2016      	movs	r0, #22
    80c28:	4b08      	ldr	r3, [pc, #32]	; (80c4c <check_data+0x70>)
@@ -2801,6 +2808,7 @@ void check_data()
 		break;
    80c2c:	bd08      	pop	{r3, pc}
 		case 0x17:
+		/* Return failed */
 		send_data(0x17);
    80c2e:	2017      	movs	r0, #23
    80c30:	4b06      	ldr	r3, [pc, #24]	; (80c4c <check_data+0x70>)
@@ -2808,6 +2816,7 @@ void check_data()
 		break;
    80c34:	bd08      	pop	{r3, pc}
 		case 0x18:
+		/* Adjust position */
 		send_data(0x18);
    80c36:	2018      	movs	r0, #24
    80c38:	4b04      	ldr	r3, [pc, #16]	; (80c4c <check_data+0x70>)
@@ -2815,6 +2824,7 @@ void check_data()
 		break;
    80c3c:	bd08      	pop	{r3, pc}
 		case 0x19:
+		/* Cancel adjustment */
 		send_data(0x19);
    80c3e:	2019      	movs	r0, #25
    80c40:	4b02      	ldr	r3, [pc, #8]	; (80c4c <check_data+0x70>)

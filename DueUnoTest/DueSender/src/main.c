@@ -125,33 +125,43 @@ void check_data()
 	switch (rx_buffer[0])
 	{
 		case 0x10:
+		/* Identification */
 		send_data(0x21);
 		break;
 		case 0x11:
+		/* Postion relative to object */
 		send_data(0x11);
 		break;
 		case 0x12:
+		/* Position relative to box-edge */
 		send_data(0x12);
 		break;
 		case 0x13:
+		/* Max velocity (mm/s) */
 		send_data(0x13);
 		break;
 		case 0x14:
+		/* Lift success */
 		send_data(0x14);
 		break;
 		case 0x15:
+		/* Lift failed */
 		send_data(0x15);
 		break;
 		case 0x16:
+		/* Return success */
 		send_data(0x16);
 		break;
 		case 0x17:
+		/* Return failed */
 		send_data(0x17);
 		break;
 		case 0x18:
+		/* Adjust position */
 		send_data(0x18);
 		break;
 		case 0x19:
+		/* Cancel adjustment */
 		send_data(0x19);
 		break;
 		default:
