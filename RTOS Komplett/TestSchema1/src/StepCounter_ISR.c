@@ -13,12 +13,9 @@
 
 
 // Counter for Arlo Robot encoders for right and left wheel
- uint16_t counter_1 = 0;
- uint16_t counter_2 = 0;
  uint8_t c_counter = 0;
  char rx[16];
- bool c1Loop = true;
- bool c2Loop = true;
+
 
 // xSemaphoreHandle xBinarySemaphoreRight = 0;
 // xSemaphoreHandle xBinarySemaphoreLeft = 0;
@@ -78,14 +75,14 @@ void pin12_edge_handler(void)
 		if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
 			//increase the counter value
 			counter_2++;
-			c2Loop = true;
+		
 			printf("\n c1= %d",counter_1);
 		}
 			// Checks if pin 51 is high
 		if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
 			//Increase the counter value
 			counter_1++;
-    	c1Loop = true;
+    	
 			printf("\n c2 = %d",counter_2);
 		}
 // 	long xHigherPriorityTaskWoken = pdFALSE;

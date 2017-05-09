@@ -1,4 +1,4 @@
-src/NaviControl.d src/NaviControl.o: ../src/NaviControl.c ../src/asf.h \
+src/Task_Navi.d src/Task_Navi.o: ../src/Task_Navi.c ../src/asf.h \
  ../src/ASF/sam/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\lib\gcc\arm-none-eabi\4.8.4\include\stddef.h \
  ../src/ASF/common/utils/parts.h \
@@ -148,8 +148,9 @@ src/NaviControl.d src/NaviControl.o: ../src/NaviControl.c ../src/asf.h \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
- ../src/ASF/sam/drivers/pio/pio_handler.h ../src/NaviControl.h \
- ../src/MathFunctions.h ../src/StepCounter_ISR.h ../src/Task_Navi.h
+ ../src/ASF/sam/drivers/pio/pio_handler.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ ../src/Task_Navi.h ../src/NaviControl.h
 
 ../src/asf.h:
 
@@ -463,10 +464,8 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
-../src/NaviControl.h:
-
-../src/MathFunctions.h:
-
-../src/StepCounter_ISR.h:
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
 
 ../src/Task_Navi.h:
+
+../src/NaviControl.h:

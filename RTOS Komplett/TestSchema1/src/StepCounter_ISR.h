@@ -15,6 +15,8 @@
 
 // void task_StepCounterRight(void *pvParameters);
 // void task_StepCounterLeft(void *pvParameters);
+ uint16_t counter_1 ;
+ uint16_t counter_2 ;
 void attach_interupt(void);
 void pin12_edge_handler(void);
 /*void pin14_edge_handler(void);*/

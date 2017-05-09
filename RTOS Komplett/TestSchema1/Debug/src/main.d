@@ -150,7 +150,8 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Task_Move.h \
  ../src/Task_GetCordinates.h ../src/Task_UnoComm.h \
- ../src/consoleFunctions.h ../src/StepCounter_ISR.h ../src/PwmFunctions.h
+ ../src/consoleFunctions.h ../src/Task_Navi.h ../src/StepCounter_ISR.h \
+ ../src/PwmFunctions.h
 
 ../src/asf.h:
 
@@ -471,6 +472,8 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/Task_UnoComm.h:
 
 ../src/consoleFunctions.h:
+
+../src/Task_Navi.h:
 
 ../src/StepCounter_ISR.h:
 

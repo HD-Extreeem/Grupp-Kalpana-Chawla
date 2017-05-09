@@ -579,6 +579,12 @@
     <Compile Include="src\StepCounter_ISR.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\Task_Navi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Task_Navi.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\Task_UnoComm.c">
       <SubType>compile</SubType>
     </Compile>

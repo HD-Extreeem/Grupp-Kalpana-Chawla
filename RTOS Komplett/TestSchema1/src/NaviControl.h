@@ -9,7 +9,7 @@
 #ifndef NAVICONTROL_H_
 #define NAVICONTROL_H_
 
- void driveTo(int X, int Y);
- void getDirection(void);
-
+ int updateDistance(int X, int Y);
+ int updateAngle(int X, int Y);
+void updatePosition(void);
 #endif /* NAVICONTROL_H_ */

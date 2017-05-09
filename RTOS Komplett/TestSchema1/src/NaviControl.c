@@ -8,36 +8,26 @@
 #include "NaviControl.h"
 #include "MathFunctions.h"
 #include "StepCounter_ISR.h"
-#include "PID_move.h"
+#include "Task_Navi.h"
 
-int objects[3][2] = {{100,100},{-100,200},{100,400}};
-int lastPosition [1][1];
-int presentPosition [1][1];
+extern int lastPosition [1][1];
+extern int presentPosition [1][1];
+int distance;
+int angle;
 
 
+ int updateDistance(int X, int Y){
+	distance = calculateDistance(presentPosition[0][0],presentPosition[0][1], X, Y);
+    return distance;
+ }
 
- void driveTo(int X, int Y){
-	double distance = calculateDistance(presentPosition[0][0],presentPosition[0][1], X, Y);
-	double rotationAngle ;
-//	while (distance >= 10)
-//	{
-		rotationAngle = calcluteRotationAngle(lastPosition [0][0],lastPosition [0][1],presentPosition [0][0],presentPosition [0][1], X, Y);
-		rotation(rotationAngle,130);
-		moveTo(distance,1);
-		//delay_ms(1000);
-// 		lastPosition[0][0] = presentPosition[0][0];
-// 		lastPosition[0][1] = presentPosition[0][1];
-// 		presentPosition [0][0]= getX();
-// 		presentPosition [0][1]= getY();
-// 		distance = calculateDistance(presentPosition[0][0],presentPosition[0][1], X, Y);
-//	}
+ int updateAngle(int X, int Y){
+	 angle = calcluteRotationAngle(lastPosition[0][0], lastPosition[0][1], presentPosition[0][0],presentPosition[0][1], X, Y);
+	 return angle;
+ }
+void updatePosition (void){
+	lastPosition[0][0]=presentPosition[0][0];
+	lastPosition[0][1]=presentPosition[0][1];
+// 	presentPosition[0][0]=getX;
+// 	presentPosition[0][1]=getY;
 }
-
-//  void getDirection(void){
-// 	lastPosition [0][0]= getX();
-// 	lastPosition [0][1]= getY();
-//     moveTo(50,1);
-// 	delay_s(1);
-// 	presentPosition [0][0]= getX();
-// 	presentPosition [0][1]= getY();
-// }

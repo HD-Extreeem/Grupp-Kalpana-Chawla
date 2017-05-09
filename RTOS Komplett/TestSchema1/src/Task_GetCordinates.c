@@ -9,7 +9,7 @@
 #include <FreeRTOS.h>
 #include <inttypes.h>
 #include "Task_GetCordinates.h"
-
+objects[3][2] = {{100,100},{-100,200},{100,400}};
 void task_getCordinates(void *pvParameters)
 {
 

@@ -109,6 +109,7 @@ C_SRCS +=  \
 ../src/PID_move.c \
 ../src/PwmFunctions.c \
 ../src/StepCounter_ISR.c \
+../src/Task_Navi.c \
 ../src/Task_UnoComm.c \
 ../src/ASF/sam/drivers/usart/usart.c \
 ../src/ASF/common/utils/stdio/write.c \
@@ -154,6 +155,7 @@ src/NaviControl.o \
 src/PID_move.o \
 src/PwmFunctions.o \
 src/StepCounter_ISR.o \
+src/Task_Navi.o \
 src/Task_UnoComm.o \
 src/ASF/sam/drivers/usart/usart.o \
 src/ASF/common/utils/stdio/write.o \
@@ -192,6 +194,7 @@ src/NaviControl.o \
 src/PID_move.o \
 src/PwmFunctions.o \
 src/StepCounter_ISR.o \
+src/Task_Navi.o \
 src/Task_UnoComm.o \
 src/ASF/sam/drivers/usart/usart.o \
 src/ASF/common/utils/stdio/write.o \
@@ -230,6 +233,7 @@ src/NaviControl.d \
 src/PID_move.d \
 src/PwmFunctions.d \
 src/StepCounter_ISR.d \
+src/Task_Navi.d \
 src/Task_UnoComm.d \
 src/ASF/sam/drivers/usart/usart.d \
 src/ASF/common/utils/stdio/write.d \
@@ -268,6 +272,7 @@ src/NaviControl.d \
 src/PID_move.d \
 src/PwmFunctions.d \
 src/StepCounter_ISR.d \
+src/Task_Navi.d \
 src/Task_UnoComm.d \
 src/ASF/sam/drivers/usart/usart.d \
 src/ASF/common/utils/stdio/write.d \
@@ -311,6 +316,8 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

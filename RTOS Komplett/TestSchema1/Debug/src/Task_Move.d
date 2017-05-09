@@ -150,8 +150,8 @@ src/Task_Move.d src/Task_Move.o: ../src/Task_Move.c ../src/asf.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
- ../src/Task_Move.h ../src/PID_move.h ../src/MathFunctions.h \
- ../src/NaviControl.h
+ ../src/Task_Move.h ../src/MathFunctions.h ../src/PwmFunctions.h \
+ ../src/StepCounter_ISR.h
 
 ../src/asf.h:
 
@@ -469,8 +469,8 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/Task_Move.h:
 
-../src/PID_move.h:
-
 ../src/MathFunctions.h:
 
-../src/NaviControl.h:
+../src/PwmFunctions.h:
+
+../src/StepCounter_ISR.h:

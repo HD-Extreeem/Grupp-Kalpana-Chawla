@@ -12,6 +12,7 @@
 #include "Task_GetCordinates.h"
 #include "Task_UnoComm.h"
 #include "consoleFunctions.h"
+#include "Task_Navi.h"
 #include "StepCounter_ISR.h"
 #include "PwmFunctions.h"
 
@@ -37,6 +38,9 @@ int main (void)
 // 		printf("Failed to test _StepCounter task\r\n");
 // 	}
 	
+	if (xTaskCreate(Task_Navi, (const signed char * const) "Navi", TASK_Navi_STACK_SIZE, NULL, TASK_Navi_STACK_PRIORITY, NULL) != pdPASS){
+		printf("Failed to test Navi task\r\n");
+	}
 		
 	/* Create the task with the second priority the task_GetCordinates*/
 	if (xTaskCreate(task_getCordinates, (const signed char * const) "¨Get", TASK_GET_STACK_SIZE, NULL, TASK_GET_STACK_PRIORITY, NULL) != pdPASS) {
