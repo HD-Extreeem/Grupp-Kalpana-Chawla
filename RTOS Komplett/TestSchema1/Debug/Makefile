@@ -106,7 +106,6 @@ C_SRCS +=  \
 ../src/ConsoleFunctions.c \
 ../src/MathFunctions.c \
 ../src/NaviControl.c \
-../src/PID_move.c \
 ../src/PwmFunctions.c \
 ../src/StepCounter_ISR.c \
 ../src/Task_Navi.c \
@@ -152,7 +151,6 @@ src/ASF/sam/drivers/tc/tc.o \
 src/ConsoleFunctions.o \
 src/MathFunctions.o \
 src/NaviControl.o \
-src/PID_move.o \
 src/PwmFunctions.o \
 src/StepCounter_ISR.o \
 src/Task_Navi.o \
@@ -191,7 +189,6 @@ src/ASF/sam/drivers/tc/tc.o \
 src/ConsoleFunctions.o \
 src/MathFunctions.o \
 src/NaviControl.o \
-src/PID_move.o \
 src/PwmFunctions.o \
 src/StepCounter_ISR.o \
 src/Task_Navi.o \
@@ -230,7 +227,6 @@ src/ASF/sam/drivers/tc/tc.d \
 src/ConsoleFunctions.d \
 src/MathFunctions.d \
 src/NaviControl.d \
-src/PID_move.d \
 src/PwmFunctions.d \
 src/StepCounter_ISR.d \
 src/Task_Navi.d \
@@ -269,7 +265,6 @@ src/ASF/sam/drivers/tc/tc.d \
 src/ConsoleFunctions.d \
 src/MathFunctions.d \
 src/NaviControl.d \
-src/PID_move.d \
 src/PwmFunctions.d \
 src/StepCounter_ISR.d \
 src/Task_Navi.d \
@@ -316,8 +311,6 @@ LINKER_SCRIPT_DEP+=  \
 
 
 # AVR32/GNU C Compiler
-
-
 
 
 

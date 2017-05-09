@@ -13,7 +13,7 @@ void task_unoComm(void *pvParameters)
 {
 
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 5000;
+	const portTickType xTimeIncrement = 50;
 
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 

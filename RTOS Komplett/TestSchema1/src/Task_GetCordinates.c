@@ -9,12 +9,11 @@
 #include <FreeRTOS.h>
 #include <inttypes.h>
 #include "Task_GetCordinates.h"
-objects[3][2] = {{100,100},{-100,200},{100,400}};
 void task_getCordinates(void *pvParameters)
 {
 
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 1000;
+	const portTickType xTimeIncrement = 50;
 
 	xLastWakeTime = xTaskGetTickCount();//Initialise the xLastWakeTime variable with the current time.
 

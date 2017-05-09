@@ -14,8 +14,6 @@ src\MathFunctions.c
 
 src\NaviControl.c
 
-src\PID_move.c
-
 src\PwmFunctions.c
 
 src\StepCounter_ISR.c

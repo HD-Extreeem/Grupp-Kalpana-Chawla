@@ -12,34 +12,45 @@
 #include "consoleFunctions.h"
 
 
+
 // Counter for Arlo Robot encoders for right and left wheel
  uint8_t c_counter = 0;
  char rx[16];
+ extern Bool c1_bool=true;
+ extern Bool c2_bool=true;
 
-
-// xSemaphoreHandle xBinarySemaphoreRight = 0;
+// xSemaphoreHandle xBinarySemaphore = 0;
 // xSemaphoreHandle xBinarySemaphoreLeft = 0;
 //
-// void task_StepCounterRight(void *pvParameters)
+// void task_StepCounter(void *pvParameters)
 // {
-//
-// 	vSemaphoreCreateBinary(xBinarySemaphoreRight);
-//
+// 
+// 	vSemaphoreCreateBinary(xBinarySemaphore);
+// 
 // 	while (1)
 // 	{
-// 		xSemaphoreTake(xBinarySemaphoreRight, portMAX_DELAY);
-//
-//
+// 		xSemaphoreTake(xBinarySemaphore, portMAX_DELAY);
+// 
+// 		if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
+// 			//increase the counter value
+// 			counter_2++;
+// 			c1_bool = true;
+// 			
+// 			printf("\n c1= %d",counter_1);
+// 		}
 // 		// Checks if pin 51 is high
 // 		if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
-// 		//Increase the counter value
-// 				counter_1++;
-// 				c1Loop = true;
-// 				printf("\n c2 = %d",counter_2);
+// 			//Increase the counter value
+// 			
+// 			counter_1++;
+// 			c2_bool=true;
+// 			
+// 			printf("\n c2 = %d",counter_2);
 // 		}
-// 		vTaskDelay((50/portTICK_RATE_MS));
-// 		xSemaphoreTake(xBinarySemaphoreRight, 0);
-//
+// 		
+// 		vTaskDelay((200/portTICK_RATE_MS));
+// 		xSemaphoreTake(xBinarySemaphore, 0);
+// 
 // 	}
 // }
 //
@@ -72,30 +83,35 @@
 void pin12_edge_handler(void)
 {
 
-		if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
-			//increase the counter value
-			counter_2++;
 		
-			printf("\n c1= %d",counter_1);
-		}
-			// Checks if pin 51 is high
-		if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
-			//Increase the counter value
-			counter_1++;
-    	
-			printf("\n c2 = %d",counter_2);
-		}
 // 	long xHigherPriorityTaskWoken = pdFALSE;
 // 	xSemaphoreGiveFromISR(xBinarySemaphoreRight, &xHigherPriorityTaskWoken);
 // 	portYIELD();
   }
 
-// void pin14_edge_handler(void)
-// {
+void pin14_edge_handler(void)
+{
 // 	long xHigherPriorityTaskWoken = pdFALSE;
-// 	xSemaphoreGiveFromISR(xBinarySemaphoreLeft, &xHigherPriorityTaskWoken);
+// 	xSemaphoreGiveFromISR(xBinarySemaphore, &xHigherPriorityTaskWoken);
 // 	portYIELD();
-// }
+if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
+	//increase the counter value
+	counter_2++;
+	c1_bool = true;
+	
+	printf("\n c1= %d",counter_1);
+}
+// Checks if pin 51 is high
+if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
+	//Increase the counter value
+	
+	counter_1++;
+	c2_bool=true;
+	
+	printf("\n c2 = %d",counter_2);
+}
+
+}
 
 /*
  * Runs one time when program starts.
@@ -112,9 +128,9 @@ void attach_interupt(void)
 		//Set pin 14 direction on PIOB as input, with pullup
 		pio_set_input(PIOB,PIO_PB14,PIO_PULLUP);
 		//Configure the input pin 12 interrupt mode and handler pin51
-		pio_handler_set(PIOC, ID_PIOC, PIO_PC12, PIO_IT_RISE_EDGE, pin12_edge_handler);
+		pio_handler_set(PIOC, ID_PIOC, PIO_PC12, PIO_IT_EDGE, pin14_edge_handler);
 		//Configure the input pin 14 interrupt mode and handler pin53
-		pio_handler_set(PIOB, ID_PIOB, PIO_PB14, PIO_IT_RISE_EDGE, pin12_edge_handler);
+		pio_handler_set(PIOB, ID_PIOB, PIO_PB14, PIO_IT_EDGE, pin14_edge_handler);
 		//Enable the interrupt for the configured input pin 12
 		pio_enable_interrupt(PIOC,PIO_PC12);
 		//Enable the interrupt for the configured input pin 12
@@ -123,7 +139,8 @@ void attach_interupt(void)
 		NVIC_EnableIRQ(PIOC_IRQn);
 		//Enable interrupt handling from the PIOB module:
 		NVIC_EnableIRQ(PIOB_IRQn);
-
+		//NVIC_SetPriority(PIOB_IRQn,1);
+		//NVIC_SetPriority(PIOC_IRQn,1);
 	// 	NVIC_EnableIRQ((IRQn_Type) ID_USART1);
 	// 	usart_enable_interrupt(CONF_UART, UART_IER_RXRDY);
 

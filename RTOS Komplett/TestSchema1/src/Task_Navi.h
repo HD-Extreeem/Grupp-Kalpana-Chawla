@@ -10,8 +10,9 @@
 #define TASK_NAVI_H_
 
 #define TASK_Navi_STACK_SIZE     (1024/sizeof(portSTACK_TYPE))
-#define TASK_Navi_STACK_PRIORITY     (3)//tskIDLE_PRIORITY
+#define TASK_Navi_STACK_PRIORITY     (5)//tskIDLE_PRIORITY
 void Task_Navi(void *pvParameters);
+void rotation (int degree, int rotationSpeed);
 int objects[3][2];
 int lastPosition [1][1];
 int presentPosition [1][1];
