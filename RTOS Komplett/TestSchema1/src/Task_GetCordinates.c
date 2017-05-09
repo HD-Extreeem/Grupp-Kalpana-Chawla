@@ -14,14 +14,14 @@ void task_getCordinates(void *pvParameters)
 {
 
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 10;
+	const portTickType xTimeIncrement = 1000;
 
 	xLastWakeTime = xTaskGetTickCount();//Initialise the xLastWakeTime variable with the current time.
 
 
 	while (1) {
 
-		//vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
+		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
 
 	}
 }

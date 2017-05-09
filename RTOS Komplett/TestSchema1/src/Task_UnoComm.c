@@ -13,13 +13,13 @@ void task_unoComm(void *pvParameters)
 {
 
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 5;
+	const portTickType xTimeIncrement = 5000;
 
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 
 	while (1)
 	{
-		//vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle.
-
+		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle.
+		
 	}
 }

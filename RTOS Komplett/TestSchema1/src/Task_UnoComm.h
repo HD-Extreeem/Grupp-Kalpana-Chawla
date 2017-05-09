@@ -10,7 +10,7 @@
 #define TASK_UNOCOMM_H_
 
 #define TASK_UNO_STACK_SIZE     (1024/sizeof(portSTACK_TYPE))
-#define TASK_UNO_STACK_PRIORITY     (3)//tskIDLE_PRIORITY
+#define TASK_UNO_STACK_PRIORITY     (1)//tskIDLE_PRIORITY
 
 void task_unoComm( void *pvParameters);
 

@@ -11,7 +11,7 @@
 
 
 #define TASK_MOVE_STACK_SIZE     (1024/sizeof(portSTACK_TYPE))
-#define TASK_MOVE_STACK_PRIORITY     (1)//tskIDLE_PRIORITY
+#define TASK_MOVE_STACK_PRIORITY     (3)//tskIDLE_PRIORITY
 int objects[3][2];
 int lastPosition [1][1];
 int presentPosition [1][1];

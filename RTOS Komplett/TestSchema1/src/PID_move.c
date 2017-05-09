@@ -18,6 +18,7 @@ Method uses a PID controller for smoother movement of the robot
 	@param direction the direction robot need to move forward or backwards
 **/
 void moveTo (int distance, int direction){
+	//printf("Run now!");
   int pulse =1.38;
 	if (distance > 200)
 	{
@@ -46,9 +47,9 @@ void moveTo (int distance, int direction){
 	double Ti=1.075;//2.15;
 	int32_t sum=0;
 	//--------------------------------------Updated D�sir�e och Ansam 170503
-	//delay_us(300);
+	//delay_us(500);
 	reset_Counter(); //Reset counter for encoders for wheel to ensure counter reseted for next movement
-	//delay_us(300);
+	//delay_us(500);
 
 	// Controlls if moving forward or backwards
 	if ( direction!=1 && direction!=-1 )
@@ -60,15 +61,16 @@ void moveTo (int distance, int direction){
 		This while loop runs until robot reaches its destination
 		checks if totalmovemnt pulses is the same or more than the total pulses needed
 		**/
+		delay_us(1);
     while (totMovement <= totalPulses) {
-		delay_ms(1);
+		delay_us(1);
 			/**
 			Checks if both encoder have counted up since last time
 			if counted, then regulates the need values from encoder
 			**/
       if (c1Loop == true && c2Loop == true) {
 		totMovement = totMovement + ((counter_1+counter_2)/2);
-		//delay_ms(1);
+		//delay_us(200);
         measurementValue = (counter_2-counter_1);// Calculates the error diffferce
 		//delay_us(500);
         reset_Counter();//Reset counter for next regulation later
@@ -97,6 +99,7 @@ void moveTo (int distance, int direction){
  			//speed = speed - ((totMovement/totalPulses)*150) ;
 			 speed = 110;
  		}
+		
 		//Else same speed set
  		else
  		{
@@ -106,10 +109,10 @@ void moveTo (int distance, int direction){
 
 		rightWheel(1500 + ((speed+controlValue)*direction));//New speed for rightWheel
 		leftWheel( 1500 + ((speed-controlValue)*direction));//New speed for leftWheel
-		//delay_us(500);
+		//delay_us(5);
         c1Loop = false; //Loop finished to prevent from running loop again
         c2Loop = false;//Loop finished to prevent from running loop again
-		//delay_us(500);
+		//delay_us(5);
       }
 }
 

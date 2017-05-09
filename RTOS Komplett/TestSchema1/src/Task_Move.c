@@ -28,8 +28,8 @@ void task_move(void *pvParameters)
 	{
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle
 
-		//delay_s(2);
-		moveTo(500,1);
+		//delay_us(5);
+		moveTo(100,1);
 		//delay_s(5);
 		rotation(calcluteRotationAngle(0,-100,0,0,100,100),130);
 		moveTo(calculateDistance(0,0,100,100),1);
