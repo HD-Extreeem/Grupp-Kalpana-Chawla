@@ -2,9 +2,17 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\ASF\common\services\freertos\sam\freertos_peripheral_control.c
+
+src\ASF\common\services\freertos\sam\freertos_twi_master.c
+
 src\ASF\common\utils\stdio\read.c
 
+src\ASF\sam\drivers\pdc\pdc.c
+
 src\ASF\sam\drivers\tc\tc.c
+
+src\ASF\sam\drivers\twi\twi.c
 
 src\ConsoleFunctions.c
 
