@@ -13,5 +13,10 @@
 #define TASK_UNO_STACK_PRIORITY     (1)//tskIDLE_PRIORITY
 
 void task_unoComm( void *pvParameters);
+Bool cran_init(void);
+void send_data(uint8_t request_byte);
+void request_data(void);
+void check_data(void);
+void configure_twi(void);
 
 #endif /* TASK_UNOCOMM_H_ */

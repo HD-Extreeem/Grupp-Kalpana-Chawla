@@ -13,7 +13,7 @@
 #include "Task_UnoComm.h"
 #include "consoleFunctions.h"
 #include "StepCounter_ISR.h"
-
+#include "twi.h"
 
 int main (void)
 {
@@ -21,6 +21,7 @@ int main (void)
 	board_init();
 	configureConsole();
 	attach_interupt();
+	configure_twi();
 		
 	/* Print info in terminal Window*/
 	printf("-- %s\n\r", BOARD_NAME);
