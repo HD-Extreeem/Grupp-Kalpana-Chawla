@@ -32,6 +32,7 @@
     <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.services.basic.clock" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.services.delay" value="Add" config="" content-id="Atmel.ASF" />
+    <option id="common.services.layer.freertos.twi" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.services.basic.gpio" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
@@ -39,8 +40,6 @@
     <option id="sam.drivers.tc.appnote" value="Add" config="" content-id="Atmel.ASF" />
     <option id="sam.drivers.uart" value="Add" config="" content-id="Atmel.ASF" />
     <option id="thirdparty.os.freertos.version" value="Add" config="7.3.0" content-id="Atmel.ASF" />
-    <option id="common.services.basic.twi" value="Add" config="" content-id="Atmel.ASF" />
-    <option id="common.services.layer.freertos.twi" value="Add" config="" content-id="Atmel.ASF" />
     <option id="common.applications.user_application" value="Add" config="" content-id="Atmel.ASF" />
     <option id="sam.utils.cmsis.sam3x.source.template" value="Add" config="" content-id="Atmel.ASF" />
   </options>
@@ -229,6 +228,12 @@
     <file path="src/ASF/sam/drivers/tc/tc.c" framework="" version="3.21.0" source="sam\drivers\tc\tc.c" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/sam/drivers/tc/tc.h" framework="" version="3.21.0" source="sam\drivers\tc\tc.h" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/sam/drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h" framework="" version="3.21.0" source="sam\drivers\tc\tc_capture_waveform_example\tc_capture_waveform_example.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/twi/twi_slave.h" framework="" version="3.21.0" source="common\services\twi\twi_slave.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/twi/sam_twi/twi_master.h" framework="" version="3.21.0" source="common\services\twi\sam_twi\twi_master.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/twi/twi_master.h" framework="" version="3.21.0" source="common\services\twi\twi_master.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/common/services/twi/sam_twi/twi_slave.h" framework="" version="3.21.0" source="common\services\twi\sam_twi\twi_slave.h" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/twi/twi.c" framework="" version="3.21.0" source="sam\drivers\twi\twi.c" changed="False" content-id="Atmel.ASF" />
+    <file path="src/ASF/sam/drivers/twi/twi.h" framework="" version="3.21.0" source="sam\drivers\twi\twi.h" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/sam/drivers/pdc/pdc.c" framework="" version="3.21.0" source="sam\drivers\pdc\pdc.c" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/sam/drivers/pdc/pdc.h" framework="" version="3.21.0" source="sam\drivers\pdc\pdc.h" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/sam/drivers/pdc/pdc_uart_example/pdc_uart_example.h" framework="" version="3.21.0" source="sam\drivers\pdc\pdc_uart_example\pdc_uart_example.h" changed="False" content-id="Atmel.ASF" />
@@ -237,12 +242,6 @@
     <file path="src/ASF/common/services/freertos/sam/freertos_peripheral_control.h" framework="" version="3.21.0" source="common\services\freertos\sam\freertos_peripheral_control.h" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/common/services/freertos/sam/freertos_twi_master.c" framework="" version="3.21.0" source="common\services\freertos\sam\freertos_twi_master.c" changed="False" content-id="Atmel.ASF" />
     <file path="src/ASF/common/services/freertos/sam/freertos_twi_master.h" framework="" version="3.21.0" source="common\services\freertos\sam\freertos_twi_master.h" changed="False" content-id="Atmel.ASF" />
-    <file path="src/ASF/common/services/twi/twi_slave.h" framework="" version="3.21.0" source="common\services\twi\twi_slave.h" changed="False" content-id="Atmel.ASF" />
-    <file path="src/ASF/common/services/twi/sam_twi/twi_master.h" framework="" version="3.21.0" source="common\services\twi\sam_twi\twi_master.h" changed="False" content-id="Atmel.ASF" />
-    <file path="src/ASF/common/services/twi/twi_master.h" framework="" version="3.21.0" source="common\services\twi\twi_master.h" changed="False" content-id="Atmel.ASF" />
-    <file path="src/ASF/common/services/twi/sam_twi/twi_slave.h" framework="" version="3.21.0" source="common\services\twi\sam_twi\twi_slave.h" changed="False" content-id="Atmel.ASF" />
-    <file path="src/ASF/sam/drivers/twi/twi.c" framework="" version="3.21.0" source="sam\drivers\twi\twi.c" changed="False" content-id="Atmel.ASF" />
-    <file path="src/ASF/sam/drivers/twi/twi.h" framework="" version="3.21.0" source="sam\drivers\twi\twi.h" changed="False" content-id="Atmel.ASF" />
   </files>
   <documentation help="http://asf.atmel.com/docs/3.21.0/common.applications.user_application.arduino_due_x/html/index.html" />
   <offline-documentation help="" />
@@ -332,7 +331,7 @@
   <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x8/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
-      <Value>../src/ASF/sam/drivers/twi</Value>
+      <Value>../src/ASF/common/services/freertos/sam</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.AssemblerFlags>-DARM_MATH_CM3=true -DBOARD=ARDUINO_DUE_X -D__SAM3X8E__ -Dprintf=iprintf -Dscanf=iscanf -D__FREERTOS__</armgcc.preprocessingassembler.general.AssemblerFlags>
@@ -456,7 +455,7 @@
   <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam/utils/linker_scripts/sam3x/sam3x8/gcc/flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
-      <Value>../src/ASF/sam/drivers/twi</Value>
+      <Value>../src/ASF/common/services/freertos/sam</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
@@ -575,6 +574,18 @@
     <Folder Include="src\config\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\ASF\common\services\twi\twi_slave.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\twi\sam_twi\twi_master.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\twi\twi_master.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\twi\sam_twi\twi_slave.h">
+      <SubType>compile</SubType>
+    </None>
     <Compile Include="src\ASF\common\services\freertos\sam\freertos_peripheral_control.c">
       <SubType>compile</SubType>
     </Compile>
@@ -588,18 +599,6 @@
       <SubType>compile</SubType>
     </Compile>
     <None Include="src\ASF\common\services\freertos\sam\freertos_twi_master.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="src\ASF\common\services\twi\twi_slave.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="src\ASF\common\services\twi\sam_twi\twi_master.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="src\ASF\common\services\twi\twi_master.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="src\ASF\common\services\twi\sam_twi\twi_slave.h">
       <SubType>compile</SubType>
     </None>
     <Compile Include="src\ASF\common\utils\stdio\read.c">
