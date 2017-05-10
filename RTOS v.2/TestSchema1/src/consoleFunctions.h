@@ -1,13 +1,13 @@
 /*
  * consoleFunctions.h
  *
- * Created: 2015-06-12 16:47:11
- * Author: Uek
+ * Created: 2017-04
+ * Author: Kalapan
  */ 
 
 #ifndef CONSOLEFUNCTIONS_H_
 #define CONSOLEFUNCTIONS_H_
 
-int configureConsole(void);
+void configureConsole(void);
 
 #endif /* CONSOLEFUNCTIONS_H_ */

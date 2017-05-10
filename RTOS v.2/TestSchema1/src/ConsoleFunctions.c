@@ -3,7 +3,7 @@
  *
  * @brief Code to be used if there is a need to print on the terminal window
  *
- * @author Uek
+ * @author Kalpana
  *
  * @date 2015-12-17
  */
@@ -13,7 +13,7 @@
 #include "conf_board.h"
 #include "consoleFunctions.h"
 
-int configureConsole(void)
+void configureConsole(void)
 /* Enables feedback through the USB-cable back to terminal within Atmel Studio */
 {
 	const usart_serial_options_t uart_serial_options = {
@@ -25,6 +25,4 @@ int configureConsole(void)
 	sysclk_enable_peripheral_clock(CONSOLE_UART_ID);
 	stdio_serial_init(CONF_UART, &uart_serial_options);
 	
-	/* printf("Console ready\n"); */
-	return 0;
 }
