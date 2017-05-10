@@ -125,5 +125,9 @@ double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double
 	{
 		rotationAngle =  rotationAngle - 360;
 	}
+	if (rotationAngle < -180)
+	{
+		rotationAngle =  rotationAngle + 360;
+	}
 	return rotationAngle;
 }

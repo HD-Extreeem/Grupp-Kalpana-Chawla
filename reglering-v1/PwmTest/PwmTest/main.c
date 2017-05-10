@@ -29,7 +29,7 @@ int main()
 	PWM_init();
     delay_s(2);
 moveTo(100,1);
-delay_s(10);
+delay_s(3);
 rotation(calcluteRotationAngle(0,-100,0,0,100,100),130);
 moveTo(calculateDistance(0,0,100,100),1);
 

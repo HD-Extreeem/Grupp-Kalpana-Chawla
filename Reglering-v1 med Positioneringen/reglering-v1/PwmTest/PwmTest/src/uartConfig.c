@@ -19,33 +19,12 @@ int x4 = 0; //irrelevant
 char rx[16];
 	
 	void stringToInt(int *p_variable, char *p_string) {
-		int multiplier = 1;
-		if(*p_string == '-') {
-			multiplier = -1;
-			*p_string++;
-		}else {
 			*p_variable = (*p_string++ - '0') * 1000;
+			*p_variable += (*p_string++ - '0') * 100;
+			*p_variable += (*p_string++ - '0') * 10;
+			*p_variable += (*p_string++ - '0');
 		}
-		if(*p_string == '-') {
-			multiplier = -1;
-			*p_string++;
-			}else {
-			*p_variable = (*p_string++ - '0') * 100;
-		}
-		if(*p_string == '-') {
-			multiplier = -1;
-			*p_string++;
-			}else {
-			*p_variable = (*p_string++ - '0') * 10;
-		}
-		if(*p_string == '-') {
-			multiplier = -1;
-			*p_string++;
-			}else {
-			*p_variable = (*p_string++ - '0');
-		}
-		*p_variable = *p_variable * multiplier;
-	}
+
 	
 	
 	double getX(void){

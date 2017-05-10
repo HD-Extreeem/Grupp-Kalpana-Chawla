@@ -23,12 +23,8 @@ Method uses a PID controller for smoother movment of the robot
 	@param direction the direction robot need to move forward or backwards
 **/
 void moveTo (int distance, int direction){
-  int pulse =1.38;
-	if (distance > 200)
-	{
-		pulse =1.36;
-	}
-	float totalPulses = (distance/pulse); //Calculate the total pulses needed to move to destination
+
+	float totalPulses = (distance/1.38); //Calculate the total pulses needed to move to destination
 	uint16_t speed = 200; // Set speed for moving the robot
 	double proportionalError = 0; //P-controller error variable
 	double referenceValue = 0;
