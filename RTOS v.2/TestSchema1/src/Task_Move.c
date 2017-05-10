@@ -14,7 +14,6 @@ Desiree J�nsson och Jonas Eiselt
 #include "PwmFunctions.h"
 #include "StepCounter_ISR.h"
 
-
 void task_move(void *pvParameters)
 {
 	portTickType xLastWakeTime;

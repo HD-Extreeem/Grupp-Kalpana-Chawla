@@ -17,23 +17,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   6 .comment      0000005b  00000000  00000000  000109cd  2**0
                   CONTENTS, READONLY
-  7 .debug_info   000117a0  00000000  00000000  00010a28  2**0
+  7 .debug_info   00011872  00000000  00000000  00010a28  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 000030d0  00000000  00000000  000221c8  2**0
+  8 .debug_abbrev 000030d0  00000000  00000000  0002229a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_loc    00007d1d  00000000  00000000  00025298  2**0
+  9 .debug_loc    00007d1d  00000000  00000000  0002536a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_aranges 00000e38  00000000  00000000  0002cfb5  2**0
+ 10 .debug_aranges 00000e38  00000000  00000000  0002d087  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000d48  00000000  00000000  0002dded  2**0
+ 11 .debug_ranges 00000d48  00000000  00000000  0002debf  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_macro  0001a25c  00000000  00000000  0002eb35  2**0
+ 12 .debug_macro  0001a25c  00000000  00000000  0002ec07  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   00012a82  00000000  00000000  00048d91  2**0
+ 13 .debug_line   00012a84  00000000  00000000  00048e63  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    00068a0b  00000000  00000000  0005b813  2**0
+ 14 .debug_str    00068a5b  00000000  00000000  0005b8e7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00002a74  00000000  00000000  000c4220  2**2
+ 15 .debug_frame  00002a74  00000000  00000000  000c4344  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1584,9 +1584,9 @@ uint32_t uart_read(Uart *p_uart, uint8_t *puc_data)
    807ba:	bf00      	nop
 
 000807bc <task_move>:
+#include "MathFunctions.h"
 #include "PwmFunctions.h"
 #include "StepCounter_ISR.h"
-
 
 void task_move(void *pvParameters)
 {
@@ -8264,6 +8264,9 @@ int main (void)
 	PWM_init();
    82574:	4b13      	ldr	r3, [pc, #76]	; (825c4 <main+0x64>)
    82576:	4798      	blx	r3
+
+	coord.objectD[0] = 434;
+	coord.objectD[1] = 36;
 	
 	/* Print info in terminal Window*/
 	printf("-- %s\n\r", BOARD_NAME);
@@ -13171,8 +13174,8 @@ int main (void)
    85670:	2079614d 	.word	0x2079614d
    85674:	32203031 	.word	0x32203031
    85678:	00373130 	.word	0x00373130
-   8567c:	323a3731 	.word	0x323a3731
-   85680:	38303a37 	.word	0x38303a37
+   8567c:	343a3731 	.word	0x343a3731
+   85680:	38323a34 	.word	0x38323a34
    85684:	00000000 	.word	0x00000000
    85688:	65766f4d 	.word	0x65766f4d
    8568c:	00000000 	.word	0x00000000

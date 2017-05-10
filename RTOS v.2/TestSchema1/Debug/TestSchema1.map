@@ -8773,7 +8773,7 @@ OUTPUT(TestSchema1.elf elf32-littlearm)
  .comment       0x00000000       0x5c src/ASF/sam/utils/syscalls/gcc/syscalls.o
  .comment       0x00000000       0x5c src/main.o
 
-.debug_info     0x00000000    0x117a0
+.debug_info     0x00000000    0x11872
  .debug_info    0x00000000      0x1bb src/ASF/common/utils/stdio/read.o
  .debug_info    0x000001bb     0x1574 src/ASF/sam/drivers/pwm/pwm.o
  .debug_info    0x0000172f     0x129a src/ConsoleFunctions.o
@@ -8798,7 +8798,7 @@ OUTPUT(TestSchema1.elf elf32-littlearm)
  .debug_info    0x0000ff8f      0x3bd src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
  .debug_info    0x0001034c      0x4c6 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
  .debug_info    0x00010812      0x43f src/ASF/sam/utils/syscalls/gcc/syscalls.o
- .debug_info    0x00010c51      0xb4f src/main.o
+ .debug_info    0x00010c51      0xc21 src/main.o
 
 .debug_abbrev   0x00000000     0x30d0
  .debug_abbrev  0x00000000      0x101 src/ASF/common/utils/stdio/read.o
@@ -9116,7 +9116,7 @@ OUTPUT(TestSchema1.elf elf32-littlearm)
  .debug_macro   0x00019a42      0x120 src/ASF/sam/utils/syscalls/gcc/syscalls.o
  .debug_macro   0x00019b62      0x6fa src/main.o
 
-.debug_line     0x00000000    0x12a82
+.debug_line     0x00000000    0x12a84
  .debug_line    0x00000000      0xad9 src/ASF/common/utils/stdio/read.o
  .debug_line    0x00000ad9      0xe5d src/ASF/sam/drivers/pwm/pwm.o
  .debug_line    0x00001936     0x10ed src/ConsoleFunctions.o
@@ -9141,9 +9141,9 @@ OUTPUT(TestSchema1.elf elf32-littlearm)
  .debug_line    0x00010048      0xb05 src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
  .debug_line    0x00010b4d      0xb22 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
  .debug_line    0x0001166f      0x39b src/ASF/sam/utils/syscalls/gcc/syscalls.o
- .debug_line    0x00011a0a     0x1078 src/main.o
+ .debug_line    0x00011a0a     0x107a src/main.o
 
-.debug_str      0x00000000    0x68a0b
+.debug_str      0x00000000    0x68a5b
  .debug_str     0x00000000    0x58875 src/ASF/common/utils/stdio/read.o
                               0x58b7f (size before relaxing)
  .debug_str     0x00058875      0xccc src/ASF/sam/drivers/pwm/pwm.o
@@ -9192,8 +9192,8 @@ OUTPUT(TestSchema1.elf elf32-littlearm)
                               0x58e81 (size before relaxing)
  .debug_str     0x00068202      0x732 src/ASF/sam/utils/syscalls/gcc/syscalls.o
                                0x4f13 (size before relaxing)
- .debug_str     0x00068934       0xd7 src/main.o
-                              0x611ad (size before relaxing)
+ .debug_str     0x00068934      0x127 src/main.o
+                              0x611fd (size before relaxing)
 
 .debug_frame    0x00000000     0x2a74
  .debug_frame   0x00000000       0x30 src/ASF/common/utils/stdio/read.o
