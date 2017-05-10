@@ -11,8 +11,8 @@
 #include "PID_move.h"
 
 int objects[3][2] = {{100,100},{-100,200},{100,400}};
-int lastPosition [1][1];
-int presentPosition [1][1];
+int lastPosition [0][0];
+int presentPosition [0][0];
 
 
 

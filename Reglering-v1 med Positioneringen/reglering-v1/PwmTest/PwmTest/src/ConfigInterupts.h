@@ -13,7 +13,7 @@
 void configInterrupts (void);
 void pin12_edge_handler(const uint32_t id, const uint32_t index);
 void pin14_edge_handler(const uint32_t id, const uint32_t index);
-void USART1_Handler(void);
+//void USART1_Handler(void);
 void reset_Counter(void);
 
 #endif /* INTERRUPTCOUNTER_H_ */
