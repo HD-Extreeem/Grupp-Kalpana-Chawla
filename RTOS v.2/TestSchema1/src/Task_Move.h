@@ -13,6 +13,14 @@
 #define TASK_MOVE_STACK_SIZE     (1024/sizeof(portSTACK_TYPE))
 #define TASK_MOVE_STACK_PRIORITY     (6)//tskIDLE_PRIORITY
 void task_move(void *pvParameters);
+void move(void);
+typedef struct{
+	double presentX,presentY,lastX,lastY,targetX,targetY;
+	double objectA[2],objectB[2],objectC[2],objectD[2];
+}coordinates;
+
+coordinates coord;
+coordinates coordinatesInit (void);
 
 
 #endif /* TASK_MOVE_H_ */

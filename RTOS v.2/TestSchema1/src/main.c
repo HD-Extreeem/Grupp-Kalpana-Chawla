@@ -23,31 +23,6 @@ int main (void)
 	configureConsole();
 	attach_interupt();
 	PWM_init();
-	
-	typedef struct{
-		double presentX,presentY,lastX,lastY;
-		double objectA[2],objectB[2],objectC[2],objectD[2];
-	}coordinates;
-	
-	coordinates coord;
-	
-	coord.presentX = 0;
-	coord.presentY = 0;
-	coord.lastX = 0;
-	coord.lastY = 0;
-	
-	coord.objectA[0] = 137;
-	coord.objectA[1] = 200;
-
-	coord.objectB[0] = 56;
-	coord.objectB[1] = 363;
-
-	coord.objectC[0] = 452;
-	coord.objectC[1] = 350;
-
-	coord.objectD[0] = 434;
-	coord.objectD[1] = 36;
-	
 	/* Print info in terminal Window*/
 	printf("-- %s\n\r", BOARD_NAME);
 	printf("-- Compiled: %s %s --\n\r", __DATE__, __TIME__);
