@@ -1,7 +1,7 @@
 
 /*
 
-  Désirée Jönsson och Namra Gill 170512
+  Désirée Jönsson 170512
 
   StateMachine for controlling lifting process and
   for communication between Ardunio Uno "Påbyggnadsanläggning" and Ardunio Due "Plattform"
@@ -18,7 +18,6 @@
 enum States {Start, GrabObject, LiftUp, ReleaseObject, LiftDown};
 
 Servo servoArm;  // create servo object to control a servo
-Servo servoBottom;
 
 char state = 'readCommand';
 
@@ -32,9 +31,12 @@ Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
 int value = 1;
 int pos = 0;
 int i = 0;
-const int buttonPin = 7;     // the number of the pushbutton pin
-int buttonState = LOW;         // variable for reading the pushbutton status
 
+//int buttonState = LOW;         // variable for reading the pushbutton status
+
+
+const int buttonPin = 7;     // the number of the pushbutton pin
+int buttonState = 0;         // variable for reading the pushbutton status
 
 uint8_t success;
 uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };//Buffer to store the returned UID
@@ -69,7 +71,7 @@ void setup() {
   servoArm.attach(5);
 
   //For Dc-Motor--------------------------------------
-  const int buttonPin = 7;
+
   pinMode(buttonPin, INPUT);
   pinMode(12, OUTPUT); //Initiates Motor Channel A pin
   pinMode(9, OUTPUT); //Initiates Brake Channel A pin
@@ -87,18 +89,23 @@ void setup() {
 
 void loop() {
 
-  success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
+
   buttonState = digitalRead(buttonPin);
 
   States current_state = Start;
   States next_state;
 
+
   while (1) {
+    buttonState = digitalRead(buttonPin);
     switch (current_state) {
       case Start:
 
-        if (success)
-        {
+        success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uidLength);
+        /*
+
+          if (success)
+          {
           // Display some basic information about the card
           Serial.println("Found an ISO14443A card");
           Serial.print("  UID Length: ");
@@ -107,13 +114,14 @@ void loop() {
           Serial.print("  UID Value: ");
           nfc.PrintHex(uid, uidLength);
           Serial.println("");
-
-
-          Serial.print("Case Start\n");
-          next_state = GrabObject;
-        }
+        */
+        Serial.print("Case Start\n");
+        next_state = GrabObject;
         break;
 
+      // }
+
+      //Enter this case when the object is detected through NFC-tag. In this case the claw grabs the objects.
       case GrabObject:
 
         Serial.print("Case GrabObject\n");
@@ -121,45 +129,95 @@ void loop() {
           // in steps of 1 degree
           servoArm.write(pos);                    // tell servo to go to position in variable 'pos'
           delay(50);
-          next_state = LiftUp;
-          break;
+        }
 
-        case LiftUp:
+        next_state = LiftUp;
+        break;
 
+       //Enter this case when the object is grabbed. In this case the lift lifts up the object untill button is pressed.
+      case LiftUp:
+        Serial.print("Case Lift Up\n");
+        digitalWrite(9, LOW);
+
+        while (1) {
           // read the state of the pushbutton value:
           buttonState = digitalRead(buttonPin);
 
-          // if button is pressed, the buttonState is HIGH:
-          while (buttonState == HIGH) {
+          // check if the pushbutton is pressed.
+          // if it is, the buttonState is HIGH:
+          if (buttonState == HIGH) {
+            // turn LED on:
             digitalWrite(12, HIGH); //snurrar uppåt
+            Serial.print("Button är HIGH,dvs INTE nedtryckt");
+            delay(15);
             analogWrite(3, 100);
-            delay(5000);
+
             Serial.println("Button is off");
 
-          }
-
-          if (buttonState != HIGH) {
-            Serial.println("Button is on");
+          } else {
+            // turn LED off:
+            Serial.println("Button is on BUTTON är NEDTRYCKT ");
             digitalWrite(9, HIGH); //stanna
-            Serial.print("Case LiftUp\n");
             next_state = ReleaseObject;
+            break;
           }
-
-          break;
-
-        case ReleaseObject:
-          Serial.print("Case ReleaseObject\n");
-          next_state = LiftDown;
-          break;
-
-        case LiftDown:
-          Serial.print("Case LiftDown\n");
-          next_state = GrabObject;
-          break;
         }
 
-        current_state = next_state; //Change case
+        
+       //Enter this case when the lifting process is done. In this case the Claw releases the object.
+      case ReleaseObject:
+        Serial.print("Case ReleaseObject\n");
+        delay(5000);
+        //  ServoMotor 0-100 grader
+        for (pos = 0; pos <= 100; pos += 1) { // goes from 0 degrees to 180 degrees
+          // in steps of 1 degree
+          servoArm.write(pos);              // tell servo to go to position in variable 'pos'
+          delay(15);                       // waits 15ms for the servo to reach the position
+          digitalWrite(9, HIGH); //stanna
+
+        }
+
+        next_state = LiftDown;
+        break;
+
+       //Enter this case when the release is done. The lift goes down.
+      case LiftDown:
+        Serial.print("Case LiftDown\n");
+
+
+        digitalWrite(9, LOW);
+
+        while (1) {
+          // read the state of the pushbutton value:
+          buttonState = digitalRead(buttonPin);
+
+          // check if the pushbutton is pressed.
+          // if it is, the buttonState is HIGH:
+          if (buttonState == HIGH) {
+            // turn LED on:
+            digitalWrite(12, LOW); //snurrar uppåt
+            Serial.print("Button är HIGH,dvs INTE nedtryckt");
+            delay(15);
+            analogWrite(3, 100);
+
+            Serial.println("Button is off");
+
+          } else {
+            // turn LED off:
+            Serial.println("Button is on BUTTON är NEDTRYCKT ");
+            digitalWrite(9, HIGH); //stanna
+            next_state = ReleaseObject;
+            break;
+          }
+        }
+
+
+        //  next_state = GrabObject;
+        break;
     }
+
+    current_state = next_state; //Change case
   }
 }
+
 
