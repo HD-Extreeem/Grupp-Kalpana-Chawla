@@ -4,8 +4,6 @@
 *
 * Author: Jonas Eiselt
 * Created 2017-05-05
-*
-* Note: modified ASF-example
 */
 
 #include <asf.h>
@@ -14,11 +12,13 @@
 #include "conf_board.h"
 #include "twi.h"
 #include "comm/TWIComm.h"
+#include "comm/TWICommHandler.h"
 
 #define STACK_SIZE (1024/sizeof(portSTACK_TYPE))
 
 void vLEDTask(void *pvParameters);
-void vCommTask(void *pvParameters);
+void vUnoCommTask(void *pvParameters);
+void vDueCommTask(void *pvParameters);
 
 static void configure_console(void);
 
@@ -30,19 +30,26 @@ int main(void)
 	configure_console();
 	
 	ioport_init();
+	twi_init();
+	
+	/* Creates task which communicates with Due */
+	if (xTaskCreate(vDueCommTask, (const signed char * const) "Due Comm task", STACK_SIZE, NULL, 1, NULL) != pdPASS)
+	{
+		printf("Failed to create Due Comm task\r\n");
+	}
+	
+	/* Creates task which communicates with Uno */
+	if (xTaskCreate(vUnoCommTask, (const signed char * const) "Uno Comm task", STACK_SIZE, NULL, 2, NULL) != pdPASS)
+	{
+		printf("Failed to create Uno Comm task\r\n");
+	}
 	
 	/* Creates task with blinking LED */
-	if (xTaskCreate(vLEDTask, (const signed char * const) "Blink task", STACK_SIZE, NULL, 2, NULL) != pdPASS)
+	if (xTaskCreate(vLEDTask, (const signed char * const) "Blink task", STACK_SIZE, NULL, 3, NULL) != pdPASS)
 	{
 		printf("Failed to create LED task\r\n");
 	}
 	
-	/* Creates task which communicates with Uno */
-	if (xTaskCreate(vCommTask, (const signed char * const) "Comm task", STACK_SIZE, NULL, 1, NULL) != pdPASS)
-	{
-		printf("Failed to create Comm task\r\n");
-	}
-
 	/* Start the FreeRTOS scheduler running all tasks indefinitely */
 	vTaskStartScheduler();
 	
@@ -82,26 +89,47 @@ void vLEDTask(void *pvParameters)
 	vTaskDelete(NULL);
 }
 
-void vCommTask(void *pvParameters)
+void vUnoCommTask(void *pvParameters)
 {
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 100;
+	const portTickType xTimeIncrement = 1000;
+	
+	xLastWakeTime = xTaskGetTickCount(); /* Initialize the xLastWakeTime variable with the current time. */
+	
+	while (1)
+	{
+		printf("Entering UnoComm task\r\n");
+		
+		twi_send_packet(0x20, SLAVE_ADDR_ARM);
+		twi_request_packet(SLAVE_ADDR_ARM);
+		
+		twi_check_data(SLAVE_ADDR_ARM);
+		twi_request_packet(SLAVE_ADDR_ARM);
+		
+		printf("End of UnoComm task\r\n");
+		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); /* Wait for the next cycle. */
+	}
+	vTaskDelete(NULL);
+}
+
+void vDueCommTask(void *pvParameters)
+{
+	portTickType xLastWakeTime;
+	const portTickType xTimeIncrement = 1000;
 	
 	xLastWakeTime = xTaskGetTickCount(); /* Initialize the xLastWakeTime variable with the current time. */
 
-	twi_init();
-		
 	while (1)
 	{
-		printf("Entering Comm task\r\n");
+		printf("Entering DueComm task\r\n");
 		
-		twi_send_packet(0x20);
-		twi_request_packet();
+		twi_send_packet(0x21, SLAVE_ADDR_NAV);
+		twi_request_packet(SLAVE_ADDR_NAV);
 		
-		check_data();
-		twi_request_packet();
-	
-		printf("End of Comm task\r\n");
+		twi_check_data(SLAVE_ADDR_NAV);
+		twi_request_packet(SLAVE_ADDR_NAV);
+		
+		printf("End of DueComm task\r\n");
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); /* Wait for the next cycle. */
 	}
 	vTaskDelete(NULL);

@@ -1,35 +1,25 @@
-/*
- * TWIComm.c
- *
- * Created: 2017-05-11 09:59:55
- *  Author: Jonas Eiselt
- */ 
+/**
+* TWIComm.c
+*
+* Created: 2017-05-11 09:59:55
+* Author: Jonas Eiselt
+*/
 
 #include <asf.h>
 #include "comm/TWIComm.h"
+#include "comm/TWICommHandler.h"
 
 static uint8_t tx_buffer[TX_DATA_LENGTH] = {};
 static uint8_t rx_buffer[RX_DATA_LENGTH] = {};
 
-twi_package_t tx_packet = 
-{
-	.addr[0] = 0,							// TWI slave memory address data MSB
-	.addr[1] = 0,							// TWI slave memory address data LSB
-	.addr_length = 0,						// TWI slave memory address data size
-	.chip = UNO_BUS_ADDR,					// TWI slave bus address
-	.buffer = (void*) tx_buffer,			// transfer data source buffer
-	.length = TX_DATA_LENGTH				// transfer data size (bytes)
-};
+twi_package_t tx_packet;
+twi_package_t rx_packet;
 
-twi_package_t rx_packet = 
-{
-	.addr[0] = 0,							// TWI slave memory address data MSB
-	.addr[1] = 0,							// TWI slave memory address data LSB
-	.addr_length = 0,						// TWI slave memory address data size
-	.chip = UNO_BUS_ADDR,					// TWI slave bus address
-	.buffer = (void*) rx_buffer,			// transfer data source buffer
-	.length = RX_DATA_LENGTH				// transfer data size (bytes)
-};
+Arm_Info arm_info_t;
+TWI_CMD twi_cmd_t = TWI_CMD_ARM_INIT;
+TWI_CMD_Init_Req twi_cmd_init_req_t = TWI_CMD_ARM_REQ_BOX_INFO;
+Pick_Up_Status pick_up_status_t = PICK_UP_IDLE;
+Drop_Off_Status drop_off_status_t;
 
 void twi_init()
 {
@@ -44,88 +34,157 @@ void twi_init()
 	}
 }
 
-void twi_send_packet(uint8_t request_byte)
+void twi_send_packet(uint8_t request_byte, uint8_t recipient_addr)
 {
 	printf("Sending: %d\r\n", request_byte);
 	tx_buffer[0] = request_byte;
 	
-	printf("Send packet?\r\n");
-	// Performs a multi-byte write access then check the result.
-	// while(twi_master_write(TWI_PORT, &tx_packet) != TWI_SUCCESS);
+	tx_packet.addr[0] = 0;							// TWI slave memory address data MSB
+	tx_packet.addr[1] = 0;							// TWI slave memory address data LSB
+	tx_packet.addr_length = 0;						// TWI slave memory address data size
+	tx_packet.chip = recipient_addr;				// TWI slave bus address
+	tx_packet.buffer = (void*) tx_buffer;			// transfer data source buffer
+	tx_packet.length = TX_DATA_LENGTH;				// transfer data size (bytes)
+
+	/* Performs a multi-byte write access then checks the result */
 	uint32_t status = twi_master_write(TWI_PORT, &tx_packet);
-	printf("Status: %d\r\n", status);
+	printf("Status: %d\r\n", (int) status);
 }
 
-void twi_request_packet()
+void twi_request_packet(uint8_t recipient_addr)
 {
-	// Performs a multi-byte read access then check the result.
+	rx_packet.addr[0] = 0;							// TWI slave memory address data MSB
+	rx_packet.addr[1] = 0;							// TWI slave memory address data LSB
+	rx_packet.addr_length = 0;						// TWI slave memory address data size
+	rx_packet.chip = recipient_addr;				// TWI slave bus address
+	rx_packet.buffer = (void*) rx_buffer;			// transfer data source buffer
+	rx_packet.length = RX_DATA_LENGTH;				// transfer data size (bytes)
+	
+	/* Performs a multi-byte read access then checks the result */
 	while (twi_master_read(TWI_PORT, &rx_packet) != TWI_SUCCESS);
 	// indicate();
+	
+	for (int i = 0; i < RX_DATA_LENGTH; i++)
+	{
+		if (recipient_addr == SLAVE_ADDR_ARM)
+		{
+			printf("Got from Uno: %d\r\n", rx_buffer[i]);
+		}
+		else
+		{
+			printf("Got from Due: %d\r\n", rx_buffer[i]);
+		}
+	}
 }
 
-Bool crane_init()
+Bool twi_crane_init()
 {
-	twi_send_packet(0x20);
-	twi_request_packet();
+	twi_send_packet(0x20, SLAVE_ADDR_ARM);
+	twi_request_packet(SLAVE_ADDR_ARM);
 
-	/* Check received data */
-	check_data();
-	twi_request_packet();
+	/* Checks received data */
+	twi_check_data(SLAVE_ADDR_ARM);
+	twi_request_packet(SLAVE_ADDR_ARM);
 
 	return true;
 }
 
-void check_data()
+void twi_check_data(uint8_t recipient_addr)
 {
-	switch (rx_buffer[0])
+	uint8_t objects_left = 2; /* Don't forget to declare as global! */
+	
+	if (recipient_addr == SLAVE_ADDR_ARM)
 	{
-		case 0x10:
-		/* Identification */
-		twi_send_packet(0x21);
-		break;
-		case 0x11:
-		/* Postion relative to object */
-		twi_send_packet(0x11);
-		break;
-		case 0x12:
-		/* Position relative to box-edge */
-		twi_send_packet(0x12);
-		break;
-		case 0x13:
-		/* Max velocity (mm/s) */
-		twi_send_packet(0x13);
-		break;
-		case 0x14:
-		/* Lift success */
-		twi_send_packet(0x14);
-		break;
-		case 0x15:
-		/* Lift failed */
-		twi_send_packet(0x15);
-		break;
-		case 0x16:
-		/* Return success */
-		twi_send_packet(0x16);
-		break;
-		case 0x17:
-		/* Return failed */
-		twi_send_packet(0x17);
-		break;
-		case 0x18:
-		/* Adjust position */
-		twi_send_packet(0x18);
-		break;
-		case 0x19:
-		/* Cancel adjustment */
-		twi_send_packet(0x19);
-		break;
-		default:
-		// Do nothing...
-		break;
+		switch (twi_cmd_t)
+		{
+			case TWI_CMD_ARM_INIT:
+			twi_cmd_init_req_t = rx_buffer[0];
+			if (twi_cmd_init_req_t == TWI_CMD_ARM_REQ_COLLECT_INFO)
+			{
+				twi_cmd_t = TWI_CMD_PICK_UP_START;
+				twi_send_packet(TWI_CMD_PICK_UP_START, SLAVE_ADDR_ARM);
+			}
+			else
+			{
+				twi_send_packet(TWI_CMD_ARM_INIT, SLAVE_ADDR_ARM);
+			}
+			break;
+			case TWI_CMD_PICK_UP_START:
+			pick_up_status_t = rx_buffer[0];
+			switch (pick_up_status_t)
+			{
+				case PICK_UP_DONE:
+				if (arm_info_t.collect_all && objects_left > 0)
+				{
+					twi_cmd_t = TWI_CMD_PICK_UP_START;
+				}
+				else
+				{
+					twi_cmd_t = TWI_CMD_DROP_OFF_START;
+				}
+				twi_send_packet(twi_cmd_t, SLAVE_ADDR_ARM);
+				break;
+				case PICK_UP_FORWARD:
+				/* ... */
+				break;
+				case PICK_UP_BACKWARD:
+				/* ... */
+				break;
+				case PICK_UP_RUNNING:
+				/* ... */
+				break;
+				case PICK_UP_FAILED:
+				/* ... */
+				break;
+				case PICK_UP_DONE_DRIVE:
+				/* ... */
+				break;
+				case PICK_UP_IDLE:
+				/* ... */
+				break;
+				default:
+				break;
+			}
+			break;
+			case TWI_CMD_DROP_OFF_START:
+			drop_off_status_t = rx_buffer[0];
+			switch (drop_off_status_t)
+			{
+				case DROP_OFF_DONE:
+				objects_left = objects_left - 1;
+				if (objects_left > 0)
+				{
+					twi_cmd_t = TWI_CMD_PICK_UP_START;
+				}
+				else
+				{
+					/* No more objects to pick up */
+					while (1);
+				}
+				break;
+				default:
+				break;
+			}
+			break;
+			case TWI_CMD_ERROR:
+			twi_cmd_t = TWI_CMD_ARM_INIT;
+			twi_send_packet(twi_cmd_t, SLAVE_ADDR_ARM);
+			break;
+			default:
+			break;
+		}
+	}
+	else if (recipient_addr == SLAVE_ADDR_NAV)
+	{
+		/* Get coordinate data */
+	}
+	else
+	{
+		// Something went wrong...
 	}
 }
 
-void indicate()
+void twi_indicate()
 {
 	for (int i = 0; i < 10; i++)
 	{
