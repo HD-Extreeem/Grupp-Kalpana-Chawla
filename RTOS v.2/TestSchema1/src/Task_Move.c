@@ -23,20 +23,21 @@ double proportionalError = 0; //P-controller error variable
 double referenceValue = 0;
 double measurementValue=0;
 double controlValue=0; //Variable to store total value for PID-controller
-double K=1; //Gain for the PID-controller
+double K=2.5; //Gain for the PID-controller
 double totMovement = 0; //Variable to store totalmovement during the transportation
 double integral=0;
 double derivate=0;
 double prevD=0;
 double dT=0.1;
-double Td=0.265;//0.53;
-double Ti=1.075;//2.15;
+double Td=0.053;//0.53;
+double Ti=0.215;//2.15;
 int32_t sum=0;
 int course;
 int rotationGain=5;
 int rotationSpeed=90;
 int wait =0;
 int step =0;
+int check =0;
 typedef enum {START, BEFORE_ROTATE,ROTATE,MOVE,CLOSE,NAVI} states;
 states currentState = START;
 states nextState ;
@@ -55,13 +56,15 @@ void task_move(void *pvParameters)
 			/*                                                                      */
 			/************************************************************************/
 			case START:
+			printf("START");
 			step++;
-			if (step==1)
+			if (step==10)
 			{
 				coord.targetX=coord.objectA[0];
 				coord.targetY=coord.objectA[1];
+				nextState=NAVI;
 			}
-			else if (step==2)
+			else if (step==20)
 			{
 				coord.lastX=coord.presentX;
 				coord.lastY=coord.presentY;
@@ -69,8 +72,9 @@ void task_move(void *pvParameters)
 				coord.presentY=coord.objectA[1];
 				coord.targetX=coord.objectB[0];
 				coord.targetY=coord.objectB[1];
+				nextState=NAVI;
 			}
-			else if (step==3)
+			else if (step==30)
 			{
 				coord.lastX=coord.presentX;
 				coord.lastY=coord.presentY;
@@ -78,8 +82,9 @@ void task_move(void *pvParameters)
 				coord.presentY=coord.objectB[1];
 				coord.targetX=coord.objectC[0];
 				coord.targetY=coord.objectC[1];
+				nextState=NAVI;
 			}
-			else if (step==4)
+			else if (step==40)
 			{
 				coord.lastX=coord.presentX;
 				coord.lastY=coord.presentY;
@@ -87,12 +92,13 @@ void task_move(void *pvParameters)
 				coord.presentY=coord.objectC[1];
 				coord.targetX=coord.objectD[0];
 				coord.targetY=coord.objectD[1];
+				nextState=NAVI;
 			}
-			nextState=NAVI;
 			
-			if(step>4)
+			
+			if(step>40)
 			{
-				nextState = CLOSE;
+				//	nextState = CLOSE;
 			}
 
 			break;
@@ -100,8 +106,11 @@ void task_move(void *pvParameters)
 			/*                                                                      */
 			/************************************************************************/
 			case NAVI:
+			printf("NAVI");
 			angle = calcluteRotationAngle(coord.lastX,coord.lastY,coord.presentX,coord.presentY,coord.targetX,coord.targetY);
+			printf("%d",angle);
 			distance = calculateDistance(coord.presentX,coord.presentY,coord.targetX,coord.targetY);
+			printf("%d",distance);
 			nextState = BEFORE_ROTATE;
 			break;
 
@@ -109,7 +118,21 @@ void task_move(void *pvParameters)
 			/*                                                                      */
 			/************************************************************************/
 			case MOVE:
-			if (totMovement>=totalPulses)
+			printf("MOVE");
+// 			check++;
+// 			if (check==40)
+// 			{
+// 				angle =90;
+// 				referenceValue = referenceValue - angle/2;
+// 			}
+// 			
+// 			if (check==90)
+// 			{
+// 				angle =-90;
+// 				referenceValue = referenceValue - angle/2;
+// 			}
+			totalPulses = (distance*direction/1.45);
+			if (totMovement+2>=totalPulses)
 			{
 				rightWheel(1500);//Stop rightWheel
 				leftWheel(1500);//Stop leftWheel
@@ -137,8 +160,7 @@ void task_move(void *pvParameters)
 			/*                                                                      */
 			/************************************************************************/
 			case BEFORE_ROTATE:
-			controlValue=0;
-			measurementValue=0;
+			printf("BEFORE ROTATE");
 			course=1;     // rotation course, 1 to right -1 to left
 			if (angle<0)
 			{
@@ -157,25 +179,30 @@ void task_move(void *pvParameters)
 			/*                                                                      */
 			/************************************************************************/
 			case ROTATE:
-			
+			printf("ROTATE");
 			if ((counter_1+counter_2+1) >= totalPulses)
 			{
 				//  stop wheels
 				rightWheel(1500);
 				leftWheel(1500);
-				controlValue=0;
-				measurementValue=0;
-				angle=0;
 				reset_Counter();
+				angle=0;
+				totalPulses=0;
+				totMovement=0;
 				nextState = MOVE;
+				
 			}
 			else
 			{
 				leftWheel(1500 + ( rotationSpeed*course) );
 				rightWheel(1500 - ( rotationSpeed*course) );
+				nextState = ROTATE;
 			}
 			
+			
+			break;
 			case CLOSE:
+			printf("CLOSE");
 			
 			break;
 			
@@ -196,19 +223,35 @@ void move (void){
 	{
 		direction =1;
 	}
-	totalPulses = (distance*direction/1.35)-totMovement;
-	referenceValue = referenceValue + angle;
-	totMovement = totMovement + ((counter_1+counter_2)/2);
+
+	totMovement = ((counter_1+counter_2)/2);
 	measurementValue = (counter_2-counter_1);// Calculates the error differences
-	reset_Counter();
 	proportionalError = (referenceValue - measurementValue); // Calculates p-controller gain
+	if ((referenceValue > 0) && (proportionalError < 0))
+	{
+		referenceValue = 0;
+		proportionalError=0;
+		sum=0;
+		prevD=0;
+		counter_1 = (counter_1+counter_2)/2;
+		counter_2=counter_1;
+	}
+	if ((referenceValue < 0) && (proportionalError > 0))
+	{
+		referenceValue = 0;
+		proportionalError=0;
+		sum=0;
+		prevD=0;
+		counter_1 = (counter_1+counter_2)/2;
+		counter_2=counter_1;
+	}
 	sum = (sum + prevD);
 	integral= (sum * (dT/Ti));
 	derivate = ((Td/dT) * (proportionalError-prevD));
 	controlValue =(K*(proportionalError+integral+ derivate)); //PID
 	prevD=proportionalError;
 	//	Check if almost reached the destination to slow down and make a smoother brake
-	if (((totMovement/totalPulses)>= 0.95) || ((totMovement/totalPulses)<= 0.05))
+	if (((totMovement/totalPulses)>= 0.90) || ((totMovement/totalPulses)<= 0.05))
 	{
 		speed = 130;
 	}
@@ -216,6 +259,17 @@ void move (void){
 	else
 	{
 		speed = 200;
+	}
+	if (controlValue>70)
+	{
+		controlValue=70;
+	}
+	else if (controlValue<-70)
+	{
+		controlValue=-70;
+	}
+	if (controlValue)
+	{
 	}
 	rightWheel(1500 + ((speed+controlValue)*direction));//New speed for rightWheel
 	leftWheel( 1500 + ((speed-controlValue)*direction));//New speed for leftWheel
@@ -233,10 +287,10 @@ coordinates coordinatesInit (void){
 	coord.objectA[1] = 100;
 
 	coord.objectB[0] = 100;
-	coord.objectB[1] = 100;
+	coord.objectB[1] = 200;
 
-	coord.objectC[0] = 100;
-	coord.objectC[1] = 0;
+	coord.objectC[0] = 0;
+	coord.objectC[1] = 300;
 
 	coord.objectD[0] = 0;
 	coord.objectD[1] = 0;

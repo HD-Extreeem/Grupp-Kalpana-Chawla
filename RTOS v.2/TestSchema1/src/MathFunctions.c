@@ -1,20 +1,20 @@
 /*
- * MathFunctions.c
- *
- * Created: 2017-04-29 20:30:18
- *  Author: Yurdaer Dalkic
- * 
- * This source file contains mathematical functions that can be used for navigation. 
- * Angle unit is degree and distance unit is cm.
- */ 
+* MathFunctions.c
+*
+* Created: 2017-04-29 20:30:18
+*  Author: Yurdaer Dalkic
+*
+* This source file contains mathematical functions that can be used for navigation.
+* Angle unit is degree and distance unit is cm.
+*/
 
 
 #include <math.h>
 #include "MathFunctions.h"
 
-/** Converts radian x in degree 
-   @param radian the angle value in radian
-   return degree the angle value in degree
+/** Converts radian x in degree
+@param radian the angle value in radian
+return degree the angle value in degree
 **/
 double radianToDegree (double radian){
 	double degree;
@@ -23,11 +23,11 @@ double radianToDegree (double radian){
 }
 
 /** Calculates the shortest distance between two coordinates A and B
-   @param Xa the x coordinate for A
-   @param Xb the x coordinate for B
-   @param Ya the y coordinate for A
-   @param Yb the y coordinate for B
-   return distance the distance between A and B
+@param Xa the x coordinate for A
+@param Xb the x coordinate for B
+@param Ya the y coordinate for A
+@param Yb the y coordinate for B
+return distance the distance between A and B
 **/
 double calculateDistance (double Xa, double Ya, double Xb, double Yb){
 	double distance;
@@ -38,11 +38,11 @@ double calculateDistance (double Xa, double Ya, double Xb, double Yb){
 }
 
 /** Calculates the azimuth angle from position A to position B
-   @param Xa the x coordinate for A
-   @param Xb the x coordinate for B
-   @param Ya the y coordinate for A
-   @param Yb the y coordinate for B
-   return azimutAngle the azimuth angle from A to B
+@param Xa the x coordinate for A
+@param Xb the x coordinate for B
+@param Ya the y coordinate for A
+@param Yb the y coordinate for B
+return azimutAngle the azimuth angle from A to B
 **/
 double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
 	double azimutAngle = 0;
@@ -53,14 +53,14 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
 	if ( (deltaX == 0) && (deltaY == 0) )
 	{
 		azimutAngle = 0;
-	} 
+	}
 	// if A and B has same x coordinate
 	else if (deltaX == 0)
 	{
 		if (deltaY>0)
 		{
 			azimutAngle = 0;
-		} 
+		}
 		else
 		{
 			azimutAngle = 180;
@@ -73,7 +73,7 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
 		if (deltaX>0)
 		{
 			azimutAngle = 90;
-		} 
+		}
 		else
 		{
 			azimutAngle = 270;
@@ -85,7 +85,7 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
 		if ( (deltaX > 0) && (deltaY > 0 ) )
 		{
 			azimutAngle =  radianToDegree (atan (deltaX/deltaY));
-		} 
+		}
 		// the angle is between 90 to 180 degree
 		else if ( (deltaX > 0) && (deltaY < 0 ) )
 		{
@@ -107,15 +107,15 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
 }
 
 /** Calculates the rotation angle. The direction is from A to B and the target position is C.
-    A is start position, B is present position and C is target position.
-   @param Xa the x coordinate for A
-   @param Xb the x coordinate for B
-   @param Xc the x coordinate for C
-   @param Ya the y coordinate for A
-   @param Yb the x coordinate for B
-   @param Yc the y coordinate for C
-   return rotationAngle the rotation angle from A to target C
-   **/
+A is start position, B is present position and C is target position.
+@param Xa the x coordinate for A
+@param Xb the x coordinate for B
+@param Xc the x coordinate for C
+@param Ya the y coordinate for A
+@param Yb the x coordinate for B
+@param Yc the y coordinate for C
+return rotationAngle the rotation angle from A to target C
+**/
 double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double Xc, double Yc){
 	
 	double AoB = calculateAzimuthAngle(Xa, Ya, Xb, Yb);
@@ -124,6 +124,10 @@ double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double
 	if (rotationAngle > 180)
 	{
 		rotationAngle =  rotationAngle - 360;
+	}
+	if (rotationAngle < -180)
+	{
+		rotationAngle =  rotationAngle + 360;
 	}
 	return rotationAngle;
 }
