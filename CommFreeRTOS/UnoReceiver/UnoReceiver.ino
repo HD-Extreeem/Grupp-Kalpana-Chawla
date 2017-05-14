@@ -17,7 +17,60 @@
 /* Crane-id */
 #define CRANE 0x33
 
-boolean received = false;
+typedef struct 
+{
+  /* Distances are in cm and angles are in degrees */
+  uint8_t box_distance;
+  uint8_t box_angle;
+  uint8_t object_distance;
+  uint8_t object_angle;
+  uint8_t collect_all;            // False if robot can only carry one object at a time
+  uint8_t has_data;             // Just to check if the struct is set
+} Arm_Info;
+
+/* TWI states */
+typedef enum  
+{
+  TWI_CMD_ARM_INIT    = 0x20,
+  TWI_CMD_DROP_OFF_START  = 0x21,
+  TWI_CMD_PICK_UP_START = 0x22,
+  TWI_CMD_DROP_OFF_STATUS = 0x23,
+  TWI_CMD_PICK_UP_STATUS  = 0x24,
+  TWI_CMD_ERROR     = 0x25
+} TWI_CMD;
+
+typedef enum  
+{
+  TWI_CMD_ARM_REQ_BOX_INFO    = 2,
+  TWI_CMD_ARM_REQ_OBJ_INFO    = 3,
+  TWI_CMD_ARM_REQ_COLLECT_INFO  = 4
+} TWI_CMD_Init_Req;
+
+typedef enum 
+{
+  PICK_UP_DONE    = 2,
+  PICK_UP_FORWARD   = 3,
+  PICK_UP_BACKWARD  = 4,
+  PICK_UP_RUNNING   = 5,
+  PICK_UP_FAILED    = 6,
+  PICK_UP_DONE_DRIVE  = 7,
+  PICK_UP_IDLE    = 8
+} Pick_Up_Status;
+
+typedef enum 
+{
+  DROP_OFF_DONE   = 2,
+  DROP_OFF_RUNNING  = 3,
+  DROP_OFF_FAILED   = 4,
+  DROP_OFF_IDLE   = 5
+} Drop_Off_Status;
+
+typedef enum 
+{
+  SOCK  = 2,
+  SQUARE  = 3,
+  GLASS = 4
+} Object;
 
 /* Buffers for receiving and transmitting bytes */
 uint8_t rx_buf[RX_DATA_LENGTH];
@@ -39,20 +92,21 @@ void loop()
 
 void receiveEvent(int howMany)
 {
-  Serial.println("Hello?");
   int i = 0;
   while (Wire.available())
   {
     rx_buf[i] = Wire.read();
     i++;
-    // Serial.print(rx_buf[i], HEX);
-    // Serial.println();
+
+    Serial.print("Got: ");
+    Serial.print(rx_buf[i], HEX);
+    Serial.println();
   }
-  received = true;
+  Serial.println();
 }
 
 /*
-   Use requestEvent to send.. sending from loop doesn't seem to work..
+   Use requestEvent to send. Sending from loop doesn't work.
 */
 void requestEvent()
 {
@@ -132,6 +186,7 @@ void requestEvent()
       // Do nothing...
       break;
   }
+  
   Wire.write(tx_buf, sizeof(tx_buf));
   Serial.print("Sent ");
   for (int i = 0; i < sizeof(tx_buf); i++)
