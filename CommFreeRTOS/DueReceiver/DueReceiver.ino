@@ -61,11 +61,11 @@ void requestEvent()
   uint16_t x_coord = 355;
   uint16_t y_coord = 500;
 
-  uint8_t msb_x = (uint8_t) ((x_coord & 0xFF00) >> 8);
-  uint8_t lsb_x = (uint8_t) (x_coord & 0x00FF);
+  uint8_t msb_x = (uint8_t) (x_coord >> 8);
+  uint8_t lsb_x = (uint8_t) (x_coord);
 
-  uint8_t msb_y = (uint8_t) ((y_coord & 0xFF00) >> 8);
-  uint8_t lsb_y = (uint8_t) (y_coord & 0x00FF);
+  uint8_t msb_y = (uint8_t) (y_coord >> 8);
+  uint8_t lsb_y = (uint8_t) (y_coord);
   
   tx_buf[0] = 0x50;
   tx_buf[1] = msb_x;
