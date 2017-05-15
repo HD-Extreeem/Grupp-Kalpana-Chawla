@@ -33,7 +33,11 @@ int main(void)
 	/* Arlo robot initialization */
 	arlo_init();
 	
+	/* Lifts object */
+	arlo_lift_object(CUBE);
 	
+	/* Drops object */
+	arlo_drop_object(CUBE);
 	
 	/*twi_send_packet(tx_arm_buffer, SLAVE_ADDR_ARM);*/
 

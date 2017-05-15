@@ -114,9 +114,6 @@ void receiveEvent(int howMany)
   {
     case TWI_CMD_PICK_UP_START:
       /* Pick up object */
-      break;
-    case TWI_CMD_DROP_OFF_START:
-      /* Drop off object */
       object_t = rx_buf[1];
       switch (object_t)
       {
@@ -135,6 +132,10 @@ void receiveEvent(int howMany)
         default:
           break;
       }
+      break;
+    case TWI_CMD_DROP_OFF_START:
+      /* Drop off object */
+      returnObject();
       break;
     default:
       break;

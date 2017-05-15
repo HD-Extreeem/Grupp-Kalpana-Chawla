@@ -73,7 +73,7 @@ typedef enum
 typedef enum 
 {
 	SOCK	= 2,
-	SQUARE	= 3,
+	CUBE	= 3,
 	GLASS	= 4
 } Object;
 
