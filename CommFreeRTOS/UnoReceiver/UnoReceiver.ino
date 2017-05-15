@@ -17,7 +17,7 @@
 /* Crane-id */
 #define CRANE 0x33
 
-typedef struct 
+typedef struct
 {
   /* Distances are in cm and angles are in degrees */
   uint8_t box_distance;
@@ -29,7 +29,7 @@ typedef struct
 } Arm_Info;
 
 /* TWI states */
-typedef enum  
+typedef enum
 {
   TWI_CMD_ARM_INIT    = 0x20,
   TWI_CMD_DROP_OFF_START  = 0x21,
@@ -39,14 +39,14 @@ typedef enum
   TWI_CMD_ERROR     = 0x25
 } TWI_CMD;
 
-typedef enum  
+typedef enum
 {
   TWI_CMD_ARM_REQ_BOX_INFO    = 2,
   TWI_CMD_ARM_REQ_OBJ_INFO    = 3,
   TWI_CMD_ARM_REQ_COLLECT_INFO  = 4
 } TWI_CMD_Init_Req;
 
-typedef enum 
+typedef enum
 {
   PICK_UP_DONE    = 2,
   PICK_UP_FORWARD   = 3,
@@ -57,7 +57,7 @@ typedef enum
   PICK_UP_IDLE    = 8
 } Pick_Up_Status;
 
-typedef enum 
+typedef enum
 {
   DROP_OFF_DONE   = 2,
   DROP_OFF_RUNNING  = 3,
@@ -65,12 +65,17 @@ typedef enum
   DROP_OFF_IDLE   = 5
 } Drop_Off_Status;
 
-typedef enum 
+typedef enum
 {
   SOCK  = 2,
-  SQUARE  = 3,
+  CUBE  = 3,
   GLASS = 4
 } Object;
+
+Object object_t;
+TWI_CMD_Init_Req twi_cmd_init_req_t;
+Drop_Off_Status drop_off_status_t;
+Pick_Up_Status pick_up_status_t;
 
 /* Buffers for receiving and transmitting bytes */
 uint8_t rx_buf[RX_DATA_LENGTH];
@@ -79,7 +84,7 @@ uint8_t tx_buf[TX_DATA_LENGTH];
 void setup()
 {
   Serial.begin(BAUD_RATE);
-  
+
   Wire.begin(DEVICE_ADDRESS);
   Wire.onReceive(receiveEvent);
   Wire.onRequest(requestEvent);
@@ -93,16 +98,47 @@ void loop()
 void receiveEvent(int howMany)
 {
   int i = 0;
+  Serial.print("Got: ");
   while (Wire.available())
   {
     rx_buf[i] = Wire.read();
     i++;
 
-    Serial.print("Got: ");
     Serial.print(rx_buf[i], HEX);
-    Serial.println();
+    Serial.print(' ');
   }
   Serial.println();
+
+  TWI_CMD twi_cmd_t = rx_buf[0];
+  switch (twi_cmd_t)
+  {
+    case TWI_CMD_PICK_UP_START:
+      /* Pick up object */
+      break;
+    case TWI_CMD_DROP_OFF_START:
+      /* Drop off object */
+      object_t = rx_buf[1];
+      switch (object_t)
+      {
+        case SOCK:
+          /* Lift sock */
+          liftSock();
+          break;
+        case CUBE:
+          /* Lift cube */
+          liftCube();
+          break;
+        case GLASS:
+          /* Lift glass */
+          liftGlass();
+          break;
+        default:
+          break;
+      }
+      break;
+    default:
+      break;
+  }
 }
 
 /*
@@ -111,82 +147,48 @@ void receiveEvent(int howMany)
 void requestEvent()
 {
   tx_buf[TX_DATA_LENGTH] = {0};
-  
-  Serial.print("Got 0x");
-  Serial.print(rx_buf[0], HEX);
-  Serial.println();
-
-  switch (rx_buf[0])
+  TWI_CMD twi_cmd_t = rx_buf[0];
+  switch (twi_cmd_t)
   {
-    case 0x20:
-      /* Identification */
-      tx_buf[0] = 0x10;
-      tx_buf[1] = 0x10;
-      tx_buf[2] = 0x10;
+    case TWI_CMD_ARM_INIT:
+      twi_cmd_init_req_t = rx_buf[1];
+      switch (twi_cmd_init_req_t)
+      {
+        case TWI_CMD_ARM_REQ_BOX_INFO:
+          tx_buf[0] = TWI_CMD_ARM_INIT;
+          tx_buf[1] = TWI_CMD_ARM_REQ_BOX_INFO;
+          tx_buf[2] = 0x50; // Box info
+          break;
+        case TWI_CMD_ARM_REQ_OBJ_INFO:
+          tx_buf[0] = TWI_CMD_ARM_INIT;
+          tx_buf[1] = TWI_CMD_ARM_REQ_BOX_INFO;
+          tx_buf[2] = 0x50; // Object info
+          break;
+        case TWI_CMD_ARM_REQ_COLLECT_INFO:
+          tx_buf[0] = TWI_CMD_ARM_INIT;
+          tx_buf[1] = TWI_CMD_ARM_REQ_COLLECT_INFO;
+          tx_buf[2] = 0x50; // Collect all info
+          break;
+        default:
+          // Do nothing
+          break;
+      }
       break;
-    case 0x21:
-      /* Lift cube */
-      if (!liftCube())
-      {
-        // Failed to lift cube
-        tx_buf[0] = 0x15;
-      }
-      else
-      {
-        tx_buf[0] = 0x14;
-      }
-      tx_buf[1] = 0x10;
-      tx_buf[2] = 0x10;
+    case TWI_CMD_DROP_OFF_STATUS:
+      drop_off_status_t = getDropOffStatus();
+      tx_buf[0] = TWI_CMD_DROP_OFF_STATUS;
+      tx_buf[1] = drop_off_status_t;  // Fill index with current drop off status
       break;
-    case 0x22:
-      /* Lift glass */
-      if (!liftGlass())
-      {
-        tx_buf[0] = 0x15;
-      }
-      else
-      {
-        tx_buf[0] = 0x14;
-      }
-      tx_buf[1] = 0x10;
-      tx_buf[2] = 0x10;
-      break;
-    case 0x23:
-      /* Lift sock */
-      if (!liftSock())
-      {
-        tx_buf[0] = 0x15;
-      }
-      else
-      {
-        tx_buf[0] = 0x14;
-      }
-      tx_buf[1] = 0x10;
-      tx_buf[2] = 0x10;
-      break;
-    case 0x24:
-      /* Cancel lift */
-      cancelLift();
-      break;
-    case 0x25:
-      /* Return object */
-      if (!returnObject())
-      {
-        // Failed to return object
-        tx_buf[0] = 0x17;
-      }
-      else
-      {
-        tx_buf[0] = 0x16;
-      }
-      tx_buf[1] = 0x10;
-      tx_buf[2] = 0x10;
+    case TWI_CMD_PICK_UP_STATUS:
+      pick_up_status_t = getPickUpStatus();
+      tx_buf[0] = TWI_CMD_PICK_UP_STATUS;
+      tx_buf[1] = pick_up_status_t;  // Fill index with current drop off status
       break;
     default:
-      // Do nothing...
+      // Do nothing
       break;
   }
-  
+
   Wire.write(tx_buf, sizeof(tx_buf));
   Serial.print("Sent ");
   for (int i = 0; i < sizeof(tx_buf); i++)
@@ -229,4 +231,14 @@ boolean returnObject()
   /* Program code goes here... */
   Serial.println("Returning object...");
   return true;
+}
+
+int getDropOffStatus()
+{
+  return 0;
+}
+
+int getPickUpStatus()
+{
+  return 0;
 }
