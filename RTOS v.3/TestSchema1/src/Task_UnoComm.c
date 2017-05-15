@@ -9,19 +9,23 @@
 #include "Task_UnoComm.h"
 #include <FreeRTOS.h>
 #include "task.h"
+#include "arlo/Arlo.h"
 Bool liftProcessFinished;
 
 void task_unoComm(void *pvParameters)
 {
 	
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 50;
+	const portTickType xTimeIncrement = 1000;
 
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 
 	while (1)
 	{
-		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle after have finished everything
 		liftProcessFinished = true;
+		/* Lifts object */
+		arlo_lift_object(CUBE);
+		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle after have finished everything
+		
 	}
 }

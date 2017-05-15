@@ -2,11 +2,17 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\arlo\Arlo.c
+
 src\ASF\common\utils\stdio\read.c
 
 src\ASF\sam\drivers\pwm\pwm.c
 
 src\ASF\sam\drivers\tc\tc.c
+
+src\ASF\sam\drivers\twi\twi.c
+
+src\comm\TWIComm.c
 
 src\ConsoleFunctions.c
 

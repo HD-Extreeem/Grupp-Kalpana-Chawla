@@ -97,7 +97,6 @@ void task_move(void *pvParameters)
 			{
 				vTaskResume(xTaskCom);
 				liftStart=false;
-				
 				nextState = LIFT; //Får ändra senare för att möjligöra rörelse under körning
 			}
 			
@@ -138,7 +137,7 @@ void task_move(void *pvParameters)
 				speed = 200;
 				distance=0;
 				reset_Counter();
-				//liftStart=true;
+				liftStart=true;
 				nextState = NAVI;
 				//wait=0;
 			}
@@ -208,7 +207,7 @@ void task_move(void *pvParameters)
 				nextState = STARTGL;
 			}
 			else{
-				nextState = NAVI;
+				nextState = LIFT;
 			}
 			
 			break;
