@@ -8,12 +8,15 @@
 */
 
 #include <asf.h>
+#include <inttypes.h>
 #include "Task_Move.h"
 #include "Task_GetCordinates.h"
 #include "Task_UnoComm.h"
 #include "consoleFunctions.h"
 #include "StepCounter_ISR.h"
 #include "PwmFunctions.h"
+#include "conf_board.h"
+#include "comm/TWIComm.h"
 #include "arlo/Arlo.h"
 
 extern xTaskHandle xTaskMove=NULL;

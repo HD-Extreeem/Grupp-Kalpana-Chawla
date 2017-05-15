@@ -78,4 +78,12 @@
 #define TC_IRQn     TC2_IRQn
 //! [tc_define_irq_handler]
 
+#define CONF_BOARD_USB_PORT
+
+#define CONF_BOARD_UART_CONSOLE
+
+/** Configure TWI0 pins */
+#define CONF_BOARD_TWI0
+
+
 #endif /* CONF_BOARD_H_INCLUDED */

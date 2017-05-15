@@ -18,7 +18,7 @@ uint8_t rx_nav_buffer[RX_NAV_LENGTH] = {0};
 
 void arlo_init()
 {
-	ioport_init();
+	// ioport_init();
 	twi_init();
 	
 	/* Initializes arm */
@@ -30,6 +30,8 @@ void arlo_init()
 
 void arlo_arm_init()
 {
+	printf("Arm initialized?\r\n");
+	
 	tx_arm_buffer[0] = TWI_CMD_ARM_INIT;
 	tx_arm_buffer[1] = TWI_NO_DATA;
 	tx_arm_buffer[2] = TWI_NO_DATA;

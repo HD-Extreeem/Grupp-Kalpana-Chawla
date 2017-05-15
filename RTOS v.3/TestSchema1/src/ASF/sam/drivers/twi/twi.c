@@ -327,7 +327,7 @@ uint32_t twi_master_read(Twi *p_twi, twi_packet_t *p_packet)
  * \return TWI_SUCCESS if all bytes were written, error code otherwise.
  */
 uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
-{
+{	
 	uint32_t status;
 	uint32_t cnt = p_packet->length;
 	uint8_t *buffer = p_packet->buffer;
@@ -336,7 +336,7 @@ uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
 	if (cnt == 0) {
 		return TWI_INVALID_ARGUMENT;
 	}
-
+	
 	/* Set write mode, slave address and 3 internal address byte lengths */
 	p_twi->TWI_MMR = 0;
 	p_twi->TWI_MMR = TWI_MMR_DADR(p_packet->chip) |
@@ -346,7 +346,7 @@ uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
 	/* Set internal address for remote chip */
 	p_twi->TWI_IADR = 0;
 	p_twi->TWI_IADR = twi_mk_addr(p_packet->addr, p_packet->addr_length);
-
+		
 	/* Send all bytes */
 	while (cnt > 0) {
 		status = p_twi->TWI_SR;
@@ -371,6 +371,7 @@ uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
 		if (status & TWI_SR_TXRDY) {
 			break;
 		}
+		printf("2\r\n");
 	}
 
 	p_twi->TWI_CR = TWI_CR_STOP;
