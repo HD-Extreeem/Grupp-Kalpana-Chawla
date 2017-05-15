@@ -25,6 +25,7 @@ void arlo_init()
 	arlo_arm_init();
 	
 	/* Initializes nav-system */
+	arlo_nav_init();
 }
 
 void arlo_arm_init()
@@ -41,6 +42,39 @@ void arlo_arm_init()
 	
 	twi_arm_init(TWI_CMD_ARM_REQ_COLLECT_INFO, tx_arm_buffer, rx_arm_buffer);
 	// Do something with rx_arm_buffer
+}
+
+void arlo_nav_init()
+{
+	/* Get coordinate for sock */
+	twi_nav_init(0x52, tx_nav_buffer, rx_nav_buffer);
+	
+	/* Get coordinate for cube */
+	twi_nav_init(0x53, tx_nav_buffer, rx_nav_buffer);
+	
+	/* Get coordinate for glass */
+	twi_nav_init(0x54, tx_nav_buffer, rx_nav_buffer);
+}
+
+void arlo_get_position(uint16_t *position_buffer)
+{
+	/* Get first coordinate (x-coordinate) */
+	tx_nav_buffer[0] = 0x50;
+	
+	twi_send_packet(tx_nav_buffer, SLAVE_ADDR_NAV);
+	twi_request_packet(rx_nav_buffer, SLAVE_ADDR_NAV);
+	
+	/* Convert uint8_t to uint16_t */
+	position_buffer[0] = (uint16_t) ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	
+	/* Get second coordinate (y-coordinate) */
+	tx_nav_buffer[0] = 0x51;
+	
+	twi_send_packet(tx_nav_buffer, SLAVE_ADDR_NAV);
+	twi_request_packet(rx_nav_buffer, SLAVE_ADDR_NAV);
+	
+	/* Convert uint8_t to uint16_t */
+	position_buffer[1] = (uint16_t) ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 }
 
 void arlo_lift_object(Object object_t)

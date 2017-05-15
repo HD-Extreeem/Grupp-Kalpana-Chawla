@@ -32,11 +32,11 @@ void twi_send_packet(uint8_t *tx_buffer, uint8_t recipient_addr)
 	uint8_t data_length = 0;
 	if (recipient_addr == SLAVE_ADDR_ARM)
 	{
-		data_length = RX_ARM_LENGTH;
+		data_length = TX_ARM_LENGTH;
 	}
 	else
 	{
-		data_length = RX_NAV_LENGTH;
+		data_length = TX_NAV_LENGTH;
 	}
 	
 	tx_packet.addr[0] = 0;							// TWI slave memory address data MSB
@@ -101,6 +101,14 @@ void twi_arm_init(TWI_CMD_Init_Req twi_cmd_init_req_t, uint8_t *tx_buffer, uint8
 	}
 	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
 	twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);
+}
+
+void twi_nav_init(uint8_t object_id, uint8_t *tx_nav_buffer, uint8_t *rx_nav_buffer)
+{
+	tx_nav_buffer[0] = object_id;
+
+	twi_send_packet(tx_nav_buffer, SLAVE_ADDR_NAV);
+	twi_request_packet(rx_nav_buffer, SLAVE_ADDR_NAV);
 }
 
 void twi_control_arm(uint8_t *tx_buffer, uint8_t *rx_buffer)

@@ -39,6 +39,10 @@ int main(void)
 	/* Drops object */
 	arlo_drop_object(CUBE);
 	
+	uint16_t position_buffer[2] = {0};
+	arlo_get_position(position_buffer);
+	printf("(x,y) = (%d,%d)", position_buffer[0], position_buffer[1]);
+	
 	/*twi_send_packet(tx_arm_buffer, SLAVE_ADDR_ARM);*/
 
 	/*tx_nav_buffer[0] = 0x20;
