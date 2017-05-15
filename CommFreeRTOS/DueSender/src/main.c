@@ -12,9 +12,11 @@
 #include "conf_board.h"
 #include "twi.h"
 #include "comm/TWIComm.h"
-#include "comm/TWICommHandler.h"
 
 #define STACK_SIZE (1024/sizeof(portSTACK_TYPE))
+
+static uint8_t tx_buffer[TX_DATA_LENGTH];
+static uint8_t rx_buffer[RX_DATA_LENGTH];
 
 void vLEDTask(void *pvParameters);
 void vUnoCommTask(void *pvParameters);
@@ -100,11 +102,11 @@ void vUnoCommTask(void *pvParameters)
 	{
 		printf("Entering UnoComm task\r\n");
 		
-		twi_send_packet(0x20, SLAVE_ADDR_ARM);
+		/*twi_send_packet(0x20, SLAVE_ADDR_ARM);
 		twi_request_packet(SLAVE_ADDR_ARM);
 		
 		twi_check_data(SLAVE_ADDR_ARM);
-		twi_request_packet(SLAVE_ADDR_ARM);
+		twi_request_packet(SLAVE_ADDR_ARM);*/
 		
 		printf("End of UnoComm task\r\n");
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); /* Wait for the next cycle. */
@@ -123,11 +125,11 @@ void vDueCommTask(void *pvParameters)
 	{
 		printf("Entering DueComm task\r\n");
 		
-		twi_send_packet(0x21, SLAVE_ADDR_NAV);
+		/*twi_send_packet(0x21, SLAVE_ADDR_NAV);
 		twi_request_packet(SLAVE_ADDR_NAV);
 		
 		twi_check_data(SLAVE_ADDR_NAV);
-		twi_request_packet(SLAVE_ADDR_NAV);
+		twi_request_packet(SLAVE_ADDR_NAV);*/
 		
 		printf("End of DueComm task\r\n");
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); /* Wait for the next cycle. */
