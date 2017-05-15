@@ -18,7 +18,9 @@
 #define SLAVE_ADDR_ARM	0x02					// TWI slave address for navigation
 
 #define TWI_SPEED	TWI_STANDARD_MODE_SPEED
-#define TWI_PORT	TWI1						// Set the TWI port to be used
+#define TWI_PORT	TWI0						// Set the TWI port to be used
+
+#define TWI_NO_DATA 0x78
 
 typedef struct 
 {

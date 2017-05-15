@@ -3,9 +3,8 @@
 
    Author: Jonas Eiselt
    Created: 2015-05-05
-
-   Note: Modified Arduino-example
 */
+
 #include <Wire.h>
 
 #define DEVICE_ADDRESS 2
@@ -78,7 +77,7 @@ Drop_Off_Status drop_off_status_t;
 Pick_Up_Status pick_up_status_t;
 
 /* Buffers for receiving and transmitting bytes */
-uint8_t rx_buf[RX_DATA_LENGTH];
+uint16_t rx_buf[RX_DATA_LENGTH];
 uint8_t tx_buf[TX_DATA_LENGTH];
 
 void setup()
@@ -102,10 +101,11 @@ void receiveEvent(int howMany)
   while (Wire.available())
   {
     rx_buf[i] = Wire.read();
-    i++;
-
+    
     Serial.print(rx_buf[i], HEX);
     Serial.print(' ');
+
+    i++;
   }
   Serial.println();
 
