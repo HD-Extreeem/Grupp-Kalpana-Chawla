@@ -20,4 +20,6 @@ void arlo_drop_object(Object object_t);
 
 void arlo_get_position(uint16_t *position_buffer);
 
+Pick_Up_Status arlo_get_pick_up_status(void);
+
 #endif /* ARLO_H_ */

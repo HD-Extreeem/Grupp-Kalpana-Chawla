@@ -19,9 +19,9 @@
 #include "comm/TWIComm.h"
 #include "arlo/Arlo.h"
 
-extern xTaskHandle xTaskMove=NULL;
-extern xTaskHandle xTaskCom = NULL;
-extern xTaskHandle xTaskCoordinate=NULL;
+ xTaskHandle xTaskMove=NULL;
+ xTaskHandle xTaskCom = NULL;
+ xTaskHandle xTaskCoordinate=NULL;
 
 int main (void)
 {

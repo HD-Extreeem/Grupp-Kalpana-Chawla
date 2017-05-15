@@ -46,6 +46,23 @@ void arlo_arm_init()
 	// Do something with rx_arm_buffer
 }
 
+Pick_Up_Status arlo_get_pick_up_status()
+{
+	uint8_t tx_buffer[TX_ARM_LENGTH] = {0};
+	tx_buffer[0] = TWI_CMD_PICK_UP_STATUS;
+	tx_buffer[1] = TWI_NO_DATA;
+	tx_buffer[2] = TWI_NO_DATA;
+	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
+	
+	uint8_t rx_buffer[RX_ARM_LENGTH] = {0};
+	twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);
+	
+	Pick_Up_Status pick_up_status_t = rx_buffer[1];
+	printf("Pick up status: %d\r\n", pick_up_status_t);
+	
+	return pick_up_status_t;
+}
+
 void arlo_nav_init()
 {
 	/* Get coordinate for sock */

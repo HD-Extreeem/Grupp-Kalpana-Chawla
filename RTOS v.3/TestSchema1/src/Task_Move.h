@@ -20,7 +20,7 @@ typedef struct{
 }coordinates;
 
 coordinates coord;
-coordinates coordinatesInit (void);
+void coordinatesInit (void);
 void calculateAngleDistance(void);
 void updateLastPresent(void);
 void updateNextPosLasse(void);

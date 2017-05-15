@@ -74,7 +74,7 @@ typedef enum
 Object object_t;
 TWI_CMD_Init_Req twi_cmd_init_req_t;
 Drop_Off_Status drop_off_status_t;
-Pick_Up_Status pick_up_status_t;
+Pick_Up_Status pick_up_status_t = PICK_UP_IDLE;
 
 /* Buffers for receiving and transmitting bytes */
 uint16_t rx_buf[RX_DATA_LENGTH];
@@ -101,7 +101,7 @@ void receiveEvent(int howMany)
   while (Wire.available())
   {
     rx_buf[i] = Wire.read();
-    
+
     Serial.print(rx_buf[i], HEX);
     Serial.print(' ');
 
@@ -204,6 +204,10 @@ boolean liftCube()
 {
   /* Program code goes here... */
   Serial.println("Lifting cube...");
+  pick_up_status_t = PICK_UP_RUNNING;
+  delay(500);
+  pick_up_status_t = PICK_UP_DONE;
+  Serial.println("Cube was lifted...");
   return true;
 }
 
@@ -239,7 +243,7 @@ int getDropOffStatus()
   return 0;
 }
 
-int getPickUpStatus()
+Pick_Up_Status getPickUpStatus()
 {
-  return 0;
+  return pick_up_status_t;
 }

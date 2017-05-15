@@ -48,7 +48,7 @@ void twi_send_packet(uint8_t *tx_buffer, uint8_t recipient_addr)
 
 	/* Performs a multi-byte write access then checks the result */
 	uint32_t status = twi_master_write(TWI_PORT, &tx_packet);
-	printf("Status: %d\r\n", (int) status);
+	// printf("Status: %d\r\n", (int) status);
 }
 
 void twi_request_packet(uint8_t *rx_buffer, uint8_t recipient_addr)

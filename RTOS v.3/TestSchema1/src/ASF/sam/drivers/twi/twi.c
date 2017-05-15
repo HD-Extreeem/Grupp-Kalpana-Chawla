@@ -371,7 +371,6 @@ uint32_t twi_master_write(Twi *p_twi, twi_packet_t *p_packet)
 		if (status & TWI_SR_TXRDY) {
 			break;
 		}
-		printf("2\r\n");
 	}
 
 	p_twi->TWI_CR = TWI_CR_STOP;
