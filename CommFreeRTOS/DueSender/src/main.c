@@ -10,13 +10,10 @@
 #include <stdio_serial.h>
 #include <inttypes.h>
 #include "conf_board.h"
-#include "twi.h"
 #include "comm/TWIComm.h"
+#include "arlo/Arlo.h"
 
 #define STACK_SIZE (1024/sizeof(portSTACK_TYPE))
-
-static uint8_t tx_buffer[TX_DATA_LENGTH];
-static uint8_t rx_buffer[RX_DATA_LENGTH];
 
 void vLEDTask(void *pvParameters);
 void vUnoCommTask(void *pvParameters);
@@ -26,36 +23,60 @@ static void configure_console(void);
 
 int main(void)
 {
+	/* System clock and board initialization */
 	sysclk_init();
 	board_init();
 
+	/* For debugging purposes only */
 	configure_console();
+
+	/* Arlo robot initialization */
+	arlo_init();
 	
-	ioport_init();
-	twi_init();
+	/* Lifts object */
+	arlo_lift_object(CUBE);
 	
-	/* Creates task which communicates with Due */
-	if (xTaskCreate(vDueCommTask, (const signed char * const) "Due Comm task", STACK_SIZE, NULL, 1, NULL) != pdPASS)
-	{
-		printf("Failed to create Due Comm task\r\n");
-	}
+	/* Drops object */
+	arlo_drop_object(CUBE);
 	
-	/* Creates task which communicates with Uno */
-	if (xTaskCreate(vUnoCommTask, (const signed char * const) "Uno Comm task", STACK_SIZE, NULL, 2, NULL) != pdPASS)
-	{
-		printf("Failed to create Uno Comm task\r\n");
-	}
+	uint16_t position_buffer[2] = {0};
+	arlo_get_position(position_buffer);
+	printf("(x,y) = (%d,%d)", position_buffer[0], position_buffer[1]);
 	
-	/* Creates task with blinking LED */
-	if (xTaskCreate(vLEDTask, (const signed char * const) "Blink task", STACK_SIZE, NULL, 3, NULL) != pdPASS)
-	{
-		printf("Failed to create LED task\r\n");
-	}
+	/*twi_send_packet(tx_arm_buffer, SLAVE_ADDR_ARM);*/
+
+	/*tx_nav_buffer[0] = 0x20;
+	tx_nav_buffer[1] = 0x21;
+	tx_nav_buffer[2] = 0x22;
+	twi_send_packet(tx_nav_buffer, SLAVE_ADDR_NAV);
 	
-	/* Start the FreeRTOS scheduler running all tasks indefinitely */
-	vTaskStartScheduler();
+	tx_nav_buffer[0] = 0x22;
+	tx_nav_buffer[1] = 0x21;
+	tx_nav_buffer[2] = 0x22;
+	twi_send_packet(tx_nav_buffer, SLAVE_ADDR_NAV);*/
 	
-	/* The program should only end up here if there isn't enough memory to create the idle task */
+// 	/* Creates task which communicates with Due */
+// 	if (xTaskCreate(vDueCommTask, (const signed char * const) "Due Comm task", STACK_SIZE, NULL, 1, NULL) != pdPASS)
+// 	{
+// 		printf("Failed to create Due Comm task\r\n");
+// 	}
+// 	
+// 	/* Creates task which communicates with Uno */
+// 	if (xTaskCreate(vUnoCommTask, (const signed char * const) "Uno Comm task", STACK_SIZE, NULL, 2, NULL) != pdPASS)
+// 	{
+// 		printf("Failed to create Uno Comm task\r\n");
+// 	}
+// 	
+// 	/* Creates task with blinking LED */
+// 	if (xTaskCreate(vLEDTask, (const signed char * const) "Blink task", STACK_SIZE, NULL, 3, NULL) != pdPASS)
+// 	{
+// 		printf("Failed to create LED task\r\n");
+// 	}
+// 	
+// 	/* Start the FreeRTOS scheduler running all tasks indefinitely */
+// 	vTaskStartScheduler();
+// 	
+// 	/* The program should only end up here if there isn't enough memory to create the idle task */
 	while (1);
 }
 

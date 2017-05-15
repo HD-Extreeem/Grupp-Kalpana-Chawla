@@ -157,7 +157,7 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
  ../src/config/conf_board.h ../src/comm/TWIComm.h \
- ../src/comm/TWICommHandler.h
+ ../src/comm/TWICommHandler.h ../src/arlo/Arlo.h ../src/comm/TWIComm.h
 
 ../src/asf.h:
 
@@ -490,3 +490,7 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/comm/TWIComm.h:
 
 ../src/comm/TWICommHandler.h:
+
+../src/arlo/Arlo.h:
+
+../src/comm/TWIComm.h:

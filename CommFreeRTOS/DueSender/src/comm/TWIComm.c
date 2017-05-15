@@ -7,6 +7,7 @@
 
 #include <asf.h>
 #include "comm/TWIComm.h"
+#include "arlo/Arlo.h"
 
 twi_package_t tx_packet;
 twi_package_t rx_packet;
@@ -26,14 +27,24 @@ void twi_init()
 
 void twi_send_packet(uint8_t *tx_buffer, uint8_t recipient_addr)
 {
-	printf("Sending: %d\r\n", tx_buffer[0]);
+	printf("Sending: %d, %d, %d\r\n", tx_buffer[0], tx_buffer[1], tx_buffer[2]);
+	
+	uint8_t data_length = 0;
+	if (recipient_addr == SLAVE_ADDR_ARM)
+	{
+		data_length = TX_ARM_LENGTH;
+	}
+	else
+	{
+		data_length = TX_NAV_LENGTH;
+	}
 	
 	tx_packet.addr[0] = 0;							// TWI slave memory address data MSB
 	tx_packet.addr[1] = 0;							// TWI slave memory address data LSB
 	tx_packet.addr_length = 0;						// TWI slave memory address data size
 	tx_packet.chip = recipient_addr;				// TWI slave bus address
 	tx_packet.buffer = (void*) tx_buffer;			// transfer data source buffer
-	tx_packet.length = TX_DATA_LENGTH;				// transfer data size (bytes)
+	tx_packet.length = data_length;					// transfer data size (bytes)
 
 	/* Performs a multi-byte write access then checks the result */
 	uint32_t status = twi_master_write(TWI_PORT, &tx_packet);
@@ -42,54 +53,69 @@ void twi_send_packet(uint8_t *tx_buffer, uint8_t recipient_addr)
 
 void twi_request_packet(uint8_t *rx_buffer, uint8_t recipient_addr)
 {
+	uint8_t data_length = 0;
+	if (recipient_addr == SLAVE_ADDR_ARM)
+	{
+		data_length = RX_ARM_LENGTH;
+	}
+	else 
+	{
+		data_length = RX_NAV_LENGTH;
+	}
+	
 	rx_packet.addr[0] = 0;							// TWI slave memory address data MSB
 	rx_packet.addr[1] = 0;							// TWI slave memory address data LSB
 	rx_packet.addr_length = 0;						// TWI slave memory address data size
 	rx_packet.chip = recipient_addr;				// TWI slave bus address
 	rx_packet.buffer = (void*) rx_buffer;			// transfer data source buffer
-	rx_packet.length = RX_DATA_LENGTH;				// transfer data size (bytes)
+	rx_packet.length = data_length;					// transfer data size (bytes)
 	
 	/* Performs a multi-byte read access then checks the result */
 	while (twi_master_read(TWI_PORT, &rx_packet) != TWI_SUCCESS);
 	// indicate();
+}
+
+void twi_arm_init(TWI_CMD_Init_Req twi_cmd_init_req_t, uint8_t *tx_buffer, uint8_t *rx_buffer)
+{
+	tx_buffer[0] = TWI_CMD_ARM_INIT;
+	tx_buffer[1] = twi_cmd_init_req_t;
 	
-	for (int i = 0; i < RX_DATA_LENGTH; i++)
+	if (twi_cmd_init_req_t == TWI_CMD_ARM_REQ_BOX_INFO)
 	{
-		if (recipient_addr == SLAVE_ADDR_ARM)
-		{
-			printf("Got from Uno: %d\r\n", rx_buffer[i]);
-		}
-		else
-		{
-			printf("Got from Due: %d\r\n", rx_buffer[i]);
-		}
+		/* 0x50 = random value */
+		tx_buffer[2] = 0x50;
 	}
+	else if (twi_cmd_init_req_t == TWI_CMD_ARM_REQ_OBJ_INFO)
+	{
+		/* 0x50 = random value */
+		tx_buffer[2] = 0x50;
+	}
+	else if (twi_cmd_init_req_t == TWI_CMD_ARM_REQ_COLLECT_INFO)
+	{
+		/* 1 = arlo can obtain objects without going to box for drop off*/
+		tx_buffer[2] = 1;
+	}
+	else
+	{
+		// Something went wrong..
+	}
+	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
+	twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);
 }
 
-void twi_arm_init(uint8_t *tx_buffer, uint8_t *rx_buffer)
+void twi_nav_init(uint8_t object_id, uint8_t *tx_nav_buffer, uint8_t *rx_nav_buffer)
 {
-	TWI_CMD_Init_Req twi_cmd_init_req_t = TWI_CMD_ARM_REQ_BOX_INFO;
-	while (twi_cmd_init_req_t != TWI_CMD_ARM_REQ_COLLECT_INFO) 
-	{
-		tx_buffer[0] = TWI_CMD_ARM_INIT;
-		tx_buffer[1] = twi_cmd_init_req_t;
-		
-		twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
-		twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);
-		
-		/* Do something with the received data */
-		
-		twi_cmd_init_req_t++;
-	}
+	tx_nav_buffer[0] = object_id;
+
+	twi_send_packet(tx_nav_buffer, SLAVE_ADDR_NAV);
+	twi_request_packet(rx_nav_buffer, SLAVE_ADDR_NAV);
 }
 
-void twi_control_arm(TWI_CMD twi_cmd_t, uint8_t *tx_buffer, uint8_t *rx_buffer)
+void twi_control_arm(uint8_t *tx_buffer, uint8_t *rx_buffer)
 {
+	TWI_CMD twi_cmd_t = tx_buffer[0]; 
 	switch (twi_cmd_t)
 	{
-		case TWI_CMD_ARM_INIT:
-		twi_arm_init(tx_buffer, rx_buffer);
-		break;
 		case TWI_CMD_DROP_OFF_START:
 		twi_start_drop_off(tx_buffer, rx_buffer);
 		break;
@@ -138,7 +164,7 @@ void twi_start_drop_off(uint8_t *tx_buffer, uint8_t *rx_buffer)
 void twi_reset_arm(uint8_t *tx_buffer, uint8_t *rx_buffer)
 {
 	/* Re-initialize arm */
-	twi_arm_init(tx_buffer, rx_buffer);
+	arlo_arm_init();
 }
 
 void twi_check_pick_up_status(uint8_t *tx_buffer, uint8_t *rx_buffer)
