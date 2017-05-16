@@ -10,7 +10,9 @@
 #include <FreeRTOS.h>
 #include "task.h"
 #include "arlo/Arlo.h"
+
 extern Bool liftProcessFinished;
+Pick_Up_Status status = 0;
 
 void task_unoComm(void *pvParameters)
 {
@@ -24,25 +26,26 @@ void task_unoComm(void *pvParameters)
 	{
 		static uint8_t i = 1;
 		/* Lifts object */
-		if (i)
+		if (i==1)
 		{
 			arlo_lift_object(CUBE);
 			i = 2;
 		}
 		
-		Pick_Up_Status status = 0;
 		if (status != PICK_UP_DONE)
 		{
-			delay_ms(500);
+			//delay_ms(500);
 			status = arlo_get_pick_up_status();
 		}
 		else
 		{
+			printf("liftProcessFinieshed = true\r\n");
 			liftProcessFinished = true;
 			i = 1;
+			vTaskSuspend(NULL);
 		}
 		
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle after have finished everything
-		vTaskSuspend(NULL);
+		//vTaskSuspend(NULL);
 	}
 }

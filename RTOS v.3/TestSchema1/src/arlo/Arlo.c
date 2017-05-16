@@ -25,7 +25,7 @@ void arlo_init()
 	arlo_arm_init();
 	
 	/* Initializes nav-system */
-	arlo_nav_init();
+	// arlo_nav_init();
 }
 
 void arlo_arm_init()

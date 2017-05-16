@@ -30,9 +30,11 @@ int main (void)
 	configureConsole();
 	attach_interupt();
 	PWM_init();
+	
 	/* Arlo robot initialization */
 	arlo_init();
 	coordinatesInit();
+	
 	/* Print info in terminal Window*/
 	printf("-- %s\n\r", BOARD_NAME);
 	printf("-- Compiled: %s %s --\n\r", __DATE__, __TIME__);
