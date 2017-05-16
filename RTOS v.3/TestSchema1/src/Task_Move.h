@@ -20,7 +20,15 @@ typedef struct{
 }coordinates;
 
 coordinates coord;
+<<<<<<< HEAD
 coordinates coordinatesInit (void);
 
+=======
+void coordinatesInit (void);
+void calculateAngleDistance(void);
+void updateLastPresent(void);
+void updateNextPosLasse(void);
+void updateNextPosGL(void);
+>>>>>>> master
 
 #endif /* TASK_MOVE_H_ */

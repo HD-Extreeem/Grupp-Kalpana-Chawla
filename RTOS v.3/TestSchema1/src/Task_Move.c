@@ -38,8 +38,20 @@ int rotationSpeed=90;
 int wait =0;
 int step =0;
 int check =0;
+<<<<<<< HEAD
 typedef enum {START, BEFORE_ROTATE,ROTATE,MOVE,CLOSE,NAVI} states;
 states currentState = START;
+=======
+Bool newData=false;
+uint8_t object_counter = 1;
+Bool liftProcessFinished = false;
+Bool liftStart = false;
+extern xTaskHandle xTaskMove;
+extern xTaskHandle xTaskCom;
+extern xTaskHandle xTaskCoordinate;
+typedef enum {STARTGL,STARTLASSE,BEFORE_ROTATE,ROTATE,MOVE,LIFT,NAVI,CLOSE} states;
+states currentState = STARTGL;
+>>>>>>> master
 states nextState ;
 void task_move(void *pvParameters)
 {
@@ -55,6 +67,7 @@ void task_move(void *pvParameters)
 			/************************************************************************/
 			/*                                                                      */
 			/************************************************************************/
+<<<<<<< HEAD
 			case START:
 			printf("START");
 			step++;
@@ -112,6 +125,55 @@ void task_move(void *pvParameters)
 			distance = calculateDistance(coord.presentX,coord.presentY,coord.targetX,coord.targetY);
 			printf("%d",distance);
 			nextState = BEFORE_ROTATE;
+=======
+			case STARTGL:
+			updateNextPosGL();
+			nextState = BEFORE_ROTATE;
+			if (object_counter>=5)
+			{
+				nextState=CLOSE;
+			}
+			
+			break;
+			/************************************************************************/
+			/*                                                                      */
+			/************************************************************************/
+			case STARTLASSE:
+			updateNextPosLasse();
+			nextState = BEFORE_ROTATE;
+			
+			break;
+			/************************************************************************/
+			/*                                                                      */
+			/************************************************************************/
+			case NAVI:
+			
+			//Kollar efter ny data efter 20 pulser
+			if ((totMovement/20)>=1)
+			{
+				// vTaskResume(xTaskCoordinate);
+			}
+			
+			//Kollar ifall ny data finns efter varje 40ms*20pulser=800ms
+			if (newData)
+			{
+				vTaskSuspend(xTaskCoordinate);
+				updateLastPresent();
+				calculateAngleDistance();
+				nextState = MOVE;
+			}
+			if (liftStart)
+			{
+				vTaskResume(xTaskCom);
+				liftStart=false;
+				nextState = LIFT; //Får ändra senare för att möjligöra rörelse under körning
+			}
+			
+			else{
+				nextState = MOVE;
+			}
+			
+>>>>>>> master
 			break;
 
 			/************************************************************************/
@@ -119,6 +181,7 @@ void task_move(void *pvParameters)
 			/************************************************************************/
 			case MOVE:
 			printf("MOVE");
+<<<<<<< HEAD
 // 			check++;
 // 			if (check==40)
 // 			{
@@ -131,6 +194,20 @@ void task_move(void *pvParameters)
 // 				angle =-90;
 // 				referenceValue = referenceValue - angle/2;
 // 			}
+=======
+			// 			check++;
+			// 			if (check==40)
+			// 			{
+			// 				angle =90;
+			// 				referenceValue = referenceValue - angle/2;
+			// 			}
+			//
+			// 			if (check==90)
+			// 			{
+			// 				angle =-90;
+			// 				referenceValue = referenceValue - angle/2;
+			// 			}
+>>>>>>> master
 			totalPulses = (distance*direction/1.45);
 			if (totMovement+2>=totalPulses)
 			{
@@ -145,13 +222,23 @@ void task_move(void *pvParameters)
 				speed = 200;
 				distance=0;
 				reset_Counter();
+<<<<<<< HEAD
 				nextState = START;
 				wait=0;
+=======
+				liftStart=true;
+				nextState = NAVI;
+				//wait=0;
+>>>>>>> master
 			}
 			else
 			{
 				move();
+<<<<<<< HEAD
 				nextState = MOVE;
+=======
+				nextState = NAVI;
+>>>>>>> master
 
 			}
 			
@@ -189,8 +276,12 @@ void task_move(void *pvParameters)
 				angle=0;
 				totalPulses=0;
 				totMovement=0;
+<<<<<<< HEAD
 				nextState = MOVE;
 				
+=======
+				nextState = NAVI;
+>>>>>>> master
 			}
 			else
 			{
@@ -198,6 +289,7 @@ void task_move(void *pvParameters)
 				rightWheel(1500 - ( rotationSpeed*course) );
 				nextState = ROTATE;
 			}
+<<<<<<< HEAD
 			
 			
 			break;
@@ -206,6 +298,37 @@ void task_move(void *pvParameters)
 			
 			break;
 			
+=======
+			break;
+			
+			case CLOSE:
+			while(1);
+			printf("CLOSE");
+			nextState=CLOSE;
+			break;
+			
+			/************************************************************************/
+			/*                                                                      */
+			/************************************************************************/
+			case LIFT:
+			
+			if (liftProcessFinished)
+			{
+				printf("lift finished\r\n");
+				vTaskSuspend(xTaskCom);
+				nextState = STARTGL;
+			}
+			else
+			{
+				// vTaskResume(xTaskCom);	
+				nextState = LIFT;
+			}
+			
+			break;
+			/************************************************************************/
+			/*                                                                      */
+			/************************************************************************/
+>>>>>>> master
 		}
 		currentState = nextState;
 
@@ -268,16 +391,24 @@ void move (void){
 	{
 		controlValue=-70;
 	}
+<<<<<<< HEAD
 	if (controlValue)
 	{
 	}
+=======
+	
+>>>>>>> master
 	rightWheel(1500 + ((speed+controlValue)*direction));//New speed for rightWheel
 	leftWheel( 1500 + ((speed-controlValue)*direction));//New speed for leftWheel
 	
 }
 
 
+<<<<<<< HEAD
 coordinates coordinatesInit (void){
+=======
+void coordinatesInit (void){
+>>>>>>> master
 	coord.presentX = 0;
 	coord.presentY = 0;
 	coord.lastX = 0;
@@ -295,3 +426,117 @@ coordinates coordinatesInit (void){
 	coord.objectD[0] = 0;
 	coord.objectD[1] = 0;
 }
+<<<<<<< HEAD
+=======
+
+void updateNextPosGL(void){
+	//static uint8_t i = 1;
+	if (object_counter==1)
+	{
+		coord.targetX=coord.objectA[0];
+		coord.targetY=coord.objectA[1];
+		calculateAngleDistance();
+	}
+	
+	else if(object_counter==2){
+		updateLastPresent();
+		coord.presentX=coord.objectA[0];
+		coord.presentY=coord.objectA[1];
+		coord.targetX=coord.objectB[0];
+		coord.targetY=coord.objectB[1];
+		calculateAngleDistance();
+	}
+	
+	else if(object_counter==3){
+		updateLastPresent();
+		coord.presentX=coord.objectB[0];
+		coord.presentY=coord.objectB[1];
+		coord.targetX=coord.objectC[0];
+		coord.targetY=coord.objectC[1];
+		calculateAngleDistance();
+	}
+	
+	else if(object_counter==4){
+		updateLastPresent();
+		coord.presentX=coord.objectC[0];
+		coord.presentY=coord.objectC[1];
+		coord.targetX=coord.objectD[0];
+		coord.targetY=coord.objectD[1];
+		calculateAngleDistance();
+	}
+	
+	printf("I counter %d \r\n",object_counter);
+	object_counter++;
+}
+void updateNextPosLasse(void){
+	//static uint8_t i = 1;
+	if (object_counter==1)
+	{
+		coord.targetX=coord.objectA[0];
+		coord.targetY=coord.objectA[1];
+		calculateAngleDistance();
+	}
+	
+	else if(object_counter==2){
+		updateLastPresent();
+		coord.presentX=coord.objectA[0];
+		coord.presentY=coord.objectA[1];
+		coord.targetX=coord.objectD[0];
+		coord.targetY=coord.objectD[1];
+		calculateAngleDistance();
+	}
+	
+	else if(object_counter==3){
+		updateLastPresent();
+		coord.presentX=coord.objectD[0];
+		coord.presentY=coord.objectD[1];
+		coord.targetX=coord.objectB[0];
+		coord.targetY=coord.objectB[1];
+		calculateAngleDistance();
+	}
+	
+	else if(object_counter==4){
+		updateLastPresent();
+		coord.presentX=coord.objectB[0];
+		coord.presentY=coord.objectB[1];
+		coord.targetX=coord.objectD[0];
+		coord.targetY=coord.objectD[1];
+		calculateAngleDistance();
+	}
+	else if(object_counter==5){
+		updateLastPresent();
+		coord.presentX=coord.objectD[0];
+		coord.presentY=coord.objectD[1];
+		coord.targetX=coord.objectC[0];
+		coord.targetY=coord.objectC[1];
+		calculateAngleDistance();
+	}
+	else if(object_counter==6){
+		updateLastPresent();
+		coord.presentX=coord.objectC[0];
+		coord.presentY=coord.objectC[1];
+		coord.targetX=coord.objectD[0];
+		coord.targetY=coord.objectD[1];
+		calculateAngleDistance();
+	}
+	else{
+		printf("\n close now!\r\n");
+		nextState=CLOSE;
+	}
+	printf("\nObject counter: %d\r\n",object_counter);
+	object_counter++;
+}
+
+void updateLastPresent(void){
+	coord.lastX=coord.presentX;
+	coord.lastY=coord.presentY;
+}
+
+void calculateAngleDistance(void){
+	printf("NAVI");
+	angle = calcluteRotationAngle(coord.lastX,coord.lastY,coord.presentX,coord.presentY,coord.targetX,coord.targetY);
+	printf("%d",angle);
+	distance = calculateDistance(coord.presentX,coord.presentY,coord.targetX,coord.targetY);
+	printf("%d",distance);
+}
+>>>>>>> master

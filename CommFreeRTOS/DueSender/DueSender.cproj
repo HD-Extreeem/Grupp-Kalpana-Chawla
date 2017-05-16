@@ -592,6 +592,7 @@
     <Folder Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\memmang\" />
     <Folder Include="src\comm\" />
     <Folder Include="src\config\" />
+    <Folder Include="src\arlo" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Debug\DueSender.bin">
@@ -1149,6 +1150,12 @@
     <None Include="src\ASF\common\services\clock\osc.h">
       <SubType>compile</SubType>
     </None>
+    <Compile Include="src\arlo\Arlo.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\arlo\Arlo.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\ASF\common\services\clock\sam3x\sysclk.c">
       <SubType>compile</SubType>
     </Compile>

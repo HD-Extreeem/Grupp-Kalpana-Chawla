@@ -2,12 +2,24 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+<<<<<<< HEAD
+=======
+src\arlo\Arlo.c
+
+>>>>>>> master
 src\ASF\common\utils\stdio\read.c
 
 src\ASF\sam\drivers\pwm\pwm.c
 
 src\ASF\sam\drivers\tc\tc.c
 
+<<<<<<< HEAD
+=======
+src\ASF\sam\drivers\twi\twi.c
+
+src\comm\TWIComm.c
+
+>>>>>>> master
 src\ConsoleFunctions.c
 
 src\MathFunctions.c

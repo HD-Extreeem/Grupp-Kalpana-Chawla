@@ -148,9 +148,25 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/common/services/serial/sam_uart/uart_serial.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
+<<<<<<< HEAD
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/Task_Move.h \
  ../src/Task_GetCordinates.h ../src/Task_UnoComm.h \
  ../src/consoleFunctions.h ../src/StepCounter_ISR.h ../src/PwmFunctions.h
+=======
+ ../src/ASF/common/services/twi/sam_twi/twi_master.h \
+ ../src/ASF/sam/drivers/twi/twi.h \
+ ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
+ ../src/ASF/common/services/twi/twi_master.h \
+ ../src/ASF/common/services/twi/sam_twi/twi_master.h \
+ ../src/ASF/common/services/twi/twi_slave.h \
+ ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
+ ../src/ASF/sam/drivers/pio/pio_handler.h \
+ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ ../src/Task_Move.h ../src/Task_GetCordinates.h ../src/Task_UnoComm.h \
+ ../src/consoleFunctions.h ../src/StepCounter_ISR.h ../src/PwmFunctions.h \
+ ../src/config/conf_board.h ../src/comm/TWIComm.h \
+ ../src/comm/TWICommHandler.h ../src/arlo/Arlo.h ../src/comm/TWIComm.h
+>>>>>>> master
 
 ../src/asf.h:
 
@@ -462,8 +478,29 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/sam/drivers/tc/tc.h:
 
+<<<<<<< HEAD
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
+=======
+../src/ASF/common/services/twi/sam_twi/twi_master.h:
+
+../src/ASF/sam/drivers/twi/twi.h:
+
+../src/ASF/common/services/twi/sam_twi/twi_slave.h:
+
+../src/ASF/common/services/twi/twi_master.h:
+
+../src/ASF/common/services/twi/sam_twi/twi_master.h:
+
+../src/ASF/common/services/twi/twi_slave.h:
+
+../src/ASF/common/services/twi/sam_twi/twi_slave.h:
+
+../src/ASF/sam/drivers/pio/pio_handler.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
+
+>>>>>>> master
 ../src/Task_Move.h:
 
 ../src/Task_GetCordinates.h:
@@ -475,3 +512,16 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/StepCounter_ISR.h:
 
 ../src/PwmFunctions.h:
+<<<<<<< HEAD
+=======
+
+../src/config/conf_board.h:
+
+../src/comm/TWIComm.h:
+
+../src/comm/TWICommHandler.h:
+
+../src/arlo/Arlo.h:
+
+../src/comm/TWIComm.h:
+>>>>>>> master

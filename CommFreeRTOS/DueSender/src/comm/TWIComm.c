@@ -7,19 +7,10 @@
 
 #include <asf.h>
 #include "comm/TWIComm.h"
-#include "comm/TWICommHandler.h"
-
-static uint8_t tx_buffer[TX_DATA_LENGTH] = {};
-static uint8_t rx_buffer[RX_DATA_LENGTH] = {};
+#include "arlo/Arlo.h"
 
 twi_package_t tx_packet;
 twi_package_t rx_packet;
-
-Arm_Info arm_info_t;
-TWI_CMD twi_cmd_t = TWI_CMD_ARM_INIT;
-TWI_CMD_Init_Req twi_cmd_init_req_t = TWI_CMD_ARM_REQ_BOX_INFO;
-Pick_Up_Status pick_up_status_t = PICK_UP_IDLE;
-Drop_Off_Status drop_off_status_t;
 
 void twi_init()
 {
@@ -34,153 +25,114 @@ void twi_init()
 	}
 }
 
-void twi_send_packet(uint8_t request_byte, uint8_t recipient_addr)
+void twi_send_packet(uint8_t *tx_buffer, uint8_t recipient_addr)
 {
-	printf("Sending: %d\r\n", request_byte);
-	tx_buffer[0] = request_byte;
+	printf("Sending: %d, %d, %d\r\n", tx_buffer[0], tx_buffer[1], tx_buffer[2]);
+	
+	uint8_t data_length = 0;
+	if (recipient_addr == SLAVE_ADDR_ARM)
+	{
+		data_length = TX_ARM_LENGTH;
+	}
+	else
+	{
+		data_length = TX_NAV_LENGTH;
+	}
 	
 	tx_packet.addr[0] = 0;							// TWI slave memory address data MSB
 	tx_packet.addr[1] = 0;							// TWI slave memory address data LSB
 	tx_packet.addr_length = 0;						// TWI slave memory address data size
 	tx_packet.chip = recipient_addr;				// TWI slave bus address
 	tx_packet.buffer = (void*) tx_buffer;			// transfer data source buffer
-	tx_packet.length = TX_DATA_LENGTH;				// transfer data size (bytes)
+	tx_packet.length = data_length;					// transfer data size (bytes)
 
 	/* Performs a multi-byte write access then checks the result */
 	uint32_t status = twi_master_write(TWI_PORT, &tx_packet);
 	printf("Status: %d\r\n", (int) status);
 }
 
-void twi_request_packet(uint8_t recipient_addr)
+void twi_request_packet(uint8_t *rx_buffer, uint8_t recipient_addr)
 {
+	uint8_t data_length = 0;
+	if (recipient_addr == SLAVE_ADDR_ARM)
+	{
+		data_length = RX_ARM_LENGTH;
+	}
+	else 
+	{
+		data_length = RX_NAV_LENGTH;
+	}
+	
 	rx_packet.addr[0] = 0;							// TWI slave memory address data MSB
 	rx_packet.addr[1] = 0;							// TWI slave memory address data LSB
 	rx_packet.addr_length = 0;						// TWI slave memory address data size
 	rx_packet.chip = recipient_addr;				// TWI slave bus address
 	rx_packet.buffer = (void*) rx_buffer;			// transfer data source buffer
-	rx_packet.length = RX_DATA_LENGTH;				// transfer data size (bytes)
+	rx_packet.length = data_length;					// transfer data size (bytes)
 	
 	/* Performs a multi-byte read access then checks the result */
 	while (twi_master_read(TWI_PORT, &rx_packet) != TWI_SUCCESS);
 	// indicate();
-	
-	for (int i = 0; i < RX_DATA_LENGTH; i++)
-	{
-		if (recipient_addr == SLAVE_ADDR_ARM)
-		{
-			printf("Got from Uno: %d\r\n", rx_buffer[i]);
-		}
-		else
-		{
-			printf("Got from Due: %d\r\n", rx_buffer[i]);
-		}
-	}
 }
 
-Bool twi_crane_init()
+void twi_arm_init(TWI_CMD_Init_Req twi_cmd_init_req_t, uint8_t *tx_buffer, uint8_t *rx_buffer)
 {
-	twi_send_packet(0x20, SLAVE_ADDR_ARM);
-	twi_request_packet(SLAVE_ADDR_ARM);
-
-	/* Checks received data */
-	twi_check_data(SLAVE_ADDR_ARM);
-	twi_request_packet(SLAVE_ADDR_ARM);
-
-	return true;
-}
-
-void twi_check_data(uint8_t recipient_addr)
-{
-	uint8_t objects_left = 2; /* Don't forget to declare as global! */
+	tx_buffer[0] = TWI_CMD_ARM_INIT;
+	tx_buffer[1] = twi_cmd_init_req_t;
 	
-	if (recipient_addr == SLAVE_ADDR_ARM)
+	if (twi_cmd_init_req_t == TWI_CMD_ARM_REQ_BOX_INFO)
 	{
-		switch (twi_cmd_t)
-		{
-			case TWI_CMD_ARM_INIT:
-			twi_cmd_init_req_t = rx_buffer[0];
-			if (twi_cmd_init_req_t == TWI_CMD_ARM_REQ_COLLECT_INFO)
-			{
-				twi_cmd_t = TWI_CMD_PICK_UP_START;
-				twi_send_packet(TWI_CMD_PICK_UP_START, SLAVE_ADDR_ARM);
-			}
-			else
-			{
-				twi_send_packet(TWI_CMD_ARM_INIT, SLAVE_ADDR_ARM);
-			}
-			break;
-			case TWI_CMD_PICK_UP_START:
-			pick_up_status_t = rx_buffer[0];
-			switch (pick_up_status_t)
-			{
-				case PICK_UP_DONE:
-				if (arm_info_t.collect_all && objects_left > 0)
-				{
-					twi_cmd_t = TWI_CMD_PICK_UP_START;
-				}
-				else
-				{
-					twi_cmd_t = TWI_CMD_DROP_OFF_START;
-				}
-				twi_send_packet(twi_cmd_t, SLAVE_ADDR_ARM);
-				break;
-				case PICK_UP_FORWARD:
-				/* ... */
-				break;
-				case PICK_UP_BACKWARD:
-				/* ... */
-				break;
-				case PICK_UP_RUNNING:
-				/* ... */
-				break;
-				case PICK_UP_FAILED:
-				/* ... */
-				break;
-				case PICK_UP_DONE_DRIVE:
-				/* ... */
-				break;
-				case PICK_UP_IDLE:
-				/* ... */
-				break;
-				default:
-				break;
-			}
-			break;
-			case TWI_CMD_DROP_OFF_START:
-			drop_off_status_t = rx_buffer[0];
-			switch (drop_off_status_t)
-			{
-				case DROP_OFF_DONE:
-				objects_left = objects_left - 1;
-				if (objects_left > 0)
-				{
-					twi_cmd_t = TWI_CMD_PICK_UP_START;
-				}
-				else
-				{
-					/* No more objects to pick up */
-					while (1);
-				}
-				break;
-				default:
-				break;
-			}
-			break;
-			case TWI_CMD_ERROR:
-			twi_cmd_t = TWI_CMD_ARM_INIT;
-			twi_send_packet(twi_cmd_t, SLAVE_ADDR_ARM);
-			break;
-			default:
-			break;
-		}
+		/* 0x50 = random value */
+		tx_buffer[2] = 0x50;
 	}
-	else if (recipient_addr == SLAVE_ADDR_NAV)
+	else if (twi_cmd_init_req_t == TWI_CMD_ARM_REQ_OBJ_INFO)
 	{
-		/* Get coordinate data */
+		/* 0x50 = random value */
+		tx_buffer[2] = 0x50;
+	}
+	else if (twi_cmd_init_req_t == TWI_CMD_ARM_REQ_COLLECT_INFO)
+	{
+		/* 1 = arlo can obtain objects without going to box for drop off*/
+		tx_buffer[2] = 1;
 	}
 	else
 	{
-		// Something went wrong...
+		// Something went wrong..
+	}
+	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
+	twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);
+}
+
+void twi_nav_init(uint8_t object_id, uint8_t *tx_nav_buffer, uint8_t *rx_nav_buffer)
+{
+	tx_nav_buffer[0] = object_id;
+
+	twi_send_packet(tx_nav_buffer, SLAVE_ADDR_NAV);
+	twi_request_packet(rx_nav_buffer, SLAVE_ADDR_NAV);
+}
+
+void twi_control_arm(uint8_t *tx_buffer, uint8_t *rx_buffer)
+{
+	TWI_CMD twi_cmd_t = tx_buffer[0]; 
+	switch (twi_cmd_t)
+	{
+		case TWI_CMD_DROP_OFF_START:
+		twi_start_drop_off(tx_buffer, rx_buffer);
+		break;
+		case TWI_CMD_PICK_UP_START:
+		twi_start_pick_up(tx_buffer, rx_buffer);
+		break;
+		case TWI_CMD_DROP_OFF_STATUS:
+		twi_check_drop_off_status(tx_buffer, rx_buffer);
+		break;
+		case TWI_CMD_PICK_UP_STATUS:
+		twi_check_pick_up_status(tx_buffer, rx_buffer);
+		break;
+		case TWI_CMD_ERROR:
+		twi_reset_arm(tx_buffer, rx_buffer);
+		break;
+		default:
+		break;
 	}
 }
 
@@ -191,4 +143,46 @@ void twi_indicate()
 		gpio_toggle_pin(LED0_GPIO);
 		delay_ms(100);
 	}
+}
+
+void twi_start_pick_up(uint8_t *tx_buffer, uint8_t *rx_buffer)
+{
+	tx_buffer[0] = TWI_CMD_PICK_UP_START;
+	
+	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
+	/* No need to get data back */
+}
+
+void twi_start_drop_off(uint8_t *tx_buffer, uint8_t *rx_buffer)
+{
+	tx_buffer[0] = TWI_CMD_DROP_OFF_START;
+	
+	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
+	/* No need to get data back */
+}
+
+void twi_reset_arm(uint8_t *tx_buffer, uint8_t *rx_buffer)
+{
+	/* Re-initialize arm */
+	arlo_arm_init();
+}
+
+void twi_check_pick_up_status(uint8_t *tx_buffer, uint8_t *rx_buffer)
+{
+	tx_buffer[0] = TWI_CMD_PICK_UP_STATUS;
+	
+	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
+	twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);
+	
+	/* Do something with the received data */
+}
+
+void twi_check_drop_off_status(uint8_t *tx_buffer, uint8_t *rx_buffer)
+{
+	tx_buffer[0] = TWI_CMD_DROP_OFF_STATUS;
+	
+	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
+	twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);
+	
+	/* Do something with the received data */
 }

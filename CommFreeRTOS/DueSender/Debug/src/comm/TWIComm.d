@@ -155,7 +155,7 @@ src/comm/TWIComm.d src/comm/TWIComm.o: ../src/comm/TWIComm.c ../src/asf.h \
  ../src/ASF/common/services/twi/twi_slave.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/comm/TWIComm.h \
- ../src/comm/TWICommHandler.h
+ ../src/comm/TWICommHandler.h ../src/arlo/Arlo.h
 
 ../src/asf.h:
 
@@ -484,3 +484,5 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/comm/TWIComm.h:
 
 ../src/comm/TWICommHandler.h:
+
+../src/arlo/Arlo.h:
