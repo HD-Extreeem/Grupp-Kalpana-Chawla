@@ -42,6 +42,7 @@ Bool newData=false;
 uint8_t object_counter = 1;
 Bool liftProcessFinished = false;
 Bool liftStart = false;
+int pulse_counter=0;
 extern xTaskHandle xTaskMove;
 extern xTaskHandle xTaskCom;
 extern xTaskHandle xTaskCoordinate;
@@ -85,15 +86,16 @@ void task_move(void *pvParameters)
 			case NAVI:
 			
 			//Kollar efter ny data efter 20 pulser
-			if ((totMovement/20)>=1)
+			if (pulse_counter>=20 || pulse_counter == 0)
 			{
-				// vTaskResume(xTaskCoordinate);
+				pulse_counter=0;
+				vTaskResume(xTaskCoordinate);
 			}
 			
 			//Kollar ifall ny data finns efter varje 40ms*20pulser=800ms
 			if (newData)
 			{
-				vTaskSuspend(xTaskCoordinate);
+				//vTaskSuspend(xTaskCoordinate);
 				updateLastPresent();
 				calculateAngleDistance();
 				nextState = MOVE;
@@ -247,6 +249,7 @@ void move (void){
 	}
 
 	totMovement = ((counter_1+counter_2)/2);
+	pulse_counter = pulse_counter + 1;
 	measurementValue = (counter_2-counter_1);// Calculates the error differences
 	proportionalError = (referenceValue - measurementValue); // Calculates p-controller gain
 	if ((referenceValue > 0) && (proportionalError < 0))
