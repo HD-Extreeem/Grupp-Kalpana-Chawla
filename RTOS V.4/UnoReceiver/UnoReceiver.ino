@@ -16,17 +16,6 @@
 /* Crane-id */
 #define CRANE 0x33
 
-typedef struct
-{
-  /* Distances are in cm and angles are in degrees */
-  uint8_t box_distance;
-  uint8_t box_angle;
-  uint8_t object_distance;
-  uint8_t object_angle;
-  uint8_t collect_all;            // False if robot can only carry one object at a time
-  uint8_t has_data;             // Just to check if the struct is set
-} Arm_Info;
-
 /* TWI states */
 typedef enum
 {
@@ -35,7 +24,8 @@ typedef enum
   TWI_CMD_PICK_UP_START = 0x22,
   TWI_CMD_DROP_OFF_STATUS = 0x23,
   TWI_CMD_PICK_UP_STATUS  = 0x24,
-  TWI_CMD_ERROR     = 0x25
+  TWI_CMD_ERROR     = 0x25,
+  TWI_CMD_NONE = 0x26
 } TWI_CMD;
 
 typedef enum
@@ -75,6 +65,7 @@ Object object_t;
 TWI_CMD_Init_Req twi_cmd_init_req_t;
 Drop_Off_Status drop_off_status_t;
 Pick_Up_Status pick_up_status_t = PICK_UP_IDLE;
+TWI_CMD twi_cmd_t = TWI_CMD_NONE;
 
 /* Buffers for receiving and transmitting bytes */
 uint16_t rx_buf[RX_DATA_LENGTH];
@@ -91,7 +82,29 @@ void setup()
 
 void loop()
 {
-  delay(100);
+  if (twi_cmd_t == TWI_CMD_PICK_UP_START && pick_up_status_t != PICK_UP_DONE)
+  {
+    Serial.println("\nStart pick-up has been requested");
+    switch (object_t)
+    {
+      case SOCK:
+        /* Lift sock */
+        liftSock();
+        break;
+      case CUBE:
+        /* Lift cube */
+        liftCube();
+        break;
+      case GLASS:
+        /* Lift glass */
+        liftGlass();
+        break;
+      default:
+        break;
+    }
+    pick_up_status_t = PICK_UP_DONE;
+    twi_cmd_t = TWI_CMD_NONE;
+  }
 }
 
 void receiveEvent(int howMany)
@@ -109,29 +122,13 @@ void receiveEvent(int howMany)
   }
   Serial.println();
 
-  TWI_CMD twi_cmd_t = rx_buf[0];
+  twi_cmd_t = rx_buf[0];
   switch (twi_cmd_t)
   {
     case TWI_CMD_PICK_UP_START:
       /* Pick up object */
       object_t = rx_buf[1];
-      switch (object_t)
-      {
-        case SOCK:
-          /* Lift sock */
-          liftSock();
-          break;
-        case CUBE:
-          /* Lift cube */
-          liftCube();
-          break;
-        case GLASS:
-          /* Lift glass */
-          liftGlass();
-          break;
-        default:
-          break;
-      }
+      pick_up_status_t = PICK_UP_IDLE;
       break;
     case TWI_CMD_DROP_OFF_START:
       /* Drop off object */
@@ -148,7 +145,7 @@ void receiveEvent(int howMany)
 void requestEvent()
 {
   tx_buf[TX_DATA_LENGTH] = {0};
-  TWI_CMD twi_cmd_t = rx_buf[0];
+  twi_cmd_t = rx_buf[0];
   switch (twi_cmd_t)
   {
     case TWI_CMD_ARM_INIT:
@@ -176,14 +173,15 @@ void requestEvent()
       }
       break;
     case TWI_CMD_DROP_OFF_STATUS:
-      drop_off_status_t = getDropOffStatus();
       tx_buf[0] = TWI_CMD_DROP_OFF_STATUS;
       tx_buf[1] = drop_off_status_t;  // Fill index with current drop off status
       break;
     case TWI_CMD_PICK_UP_STATUS:
-      pick_up_status_t = getPickUpStatus();
+      Serial.println("\nRobot requesting pick-up status!");
       tx_buf[0] = TWI_CMD_PICK_UP_STATUS;
       tx_buf[1] = pick_up_status_t;  // Fill index with current drop off status
+      Serial.print(pick_up_status_t, HEX);
+      Serial.println();
       break;
     default:
       // Do nothing
@@ -200,15 +198,28 @@ void requestEvent()
   Serial.println("\n");
 }
 
-boolean liftCube()
+void liftCube()
 {
+  // noInterrupts();
+
   /* Program code goes here... */
-  Serial.println("Lifting cube...");
+  Serial.println("\n~~~~~~~~\nLifting cube");
   pick_up_status_t = PICK_UP_RUNNING;
-  delay(500);
+
+  Serial.println("Lifting... lifting...");
+  for (int i = 0; i < 10000; i++)
+  {
+    Serial.println(i);
+    // Serial.println(i);
+    // Serial.print(' ');
+    // delay(400000);
+  }
+  // Serial.println();
+  
   pick_up_status_t = PICK_UP_DONE;
-  Serial.println("Cube was lifted...");
-  return true;
+  Serial.println("Cube was lifted\n~~~~~~~~\n");
+  
+  // interrupts();
 }
 
 boolean liftGlass()
@@ -236,14 +247,4 @@ boolean returnObject()
   /* Program code goes here... */
   Serial.println("Returning object...");
   return true;
-}
-
-int getDropOffStatus()
-{
-  return 0;
-}
-
-Pick_Up_Status getPickUpStatus()
-{
-  return pick_up_status_t;
 }
