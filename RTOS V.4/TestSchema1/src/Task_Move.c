@@ -210,8 +210,12 @@ void task_move(void *pvParameters)
 			
 			if (liftProcessFinished)
 			{
-				printf("lift finished\r\n");
-				vTaskSuspend(xTaskCom);
+				printf("Lift finished\r\n");
+				//vTaskSuspend(xTaskCom);
+				// status = arlo_get_pick_up_status();
+				//status=0;
+				//flag_i=1;
+				liftProcessFinished=false;
 				nextState = STARTGL;
 			}
 			else

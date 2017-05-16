@@ -12,7 +12,8 @@
 #include "arlo/Arlo.h"
 
 extern Bool liftProcessFinished;
-Pick_Up_Status status = 0;
+extern Pick_Up_Status status = 0;
+extern uint8_t flag_i = 1;
 
 void task_unoComm(void *pvParameters)
 {
@@ -26,10 +27,10 @@ void task_unoComm(void *pvParameters)
 	{
 		static uint8_t i = 1;
 		/* Lifts object */
-		if (i==1)
+		if (flag_i==1)
 		{
 			arlo_lift_object(CUBE);
-			i = 2;
+			flag_i = 2;
 		}
 		
 		if (status != PICK_UP_DONE)
@@ -41,7 +42,8 @@ void task_unoComm(void *pvParameters)
 		{
 			printf("liftProcessFinieshed = true\r\n");
 			liftProcessFinished = true;
-			i = 1;
+			flag_i = 1;
+			status = 0;
 			vTaskSuspend(NULL);
 		}
 		
