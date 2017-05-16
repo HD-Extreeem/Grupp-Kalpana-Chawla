@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Archive member included because of file (symbol)
 
 c:/program files (x86)/atmel/atmel toolchain/arm gcc/native/4.8.1443/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7-m\libm.a(lib_a-s_atan.o)
@@ -10543,6 +10544,8 @@ xTimerCreateTimerTask                             src/ASF/thirdparty/freertos/fr
 xTimerGenericCommand                              src/ASF/thirdparty/freertos/freertos-7.3.0/source/timers.o
 xTimerIsTimerActive                               src/ASF/thirdparty/freertos/freertos-7.3.0/source/timers.o
 =======
+=======
+>>>>>>> master
 Archive member included because of file (symbol)
 
 c:/program files (x86)/atmel/atmel toolchain/arm gcc/native/4.8.1443/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv7-m\libm.a(lib_a-s_atan.o)
@@ -22235,4 +22238,7 @@ xTimerCreateTimerTask                             src/ASF/thirdparty/freertos/fr
                                                   src/ASF/thirdparty/freertos/freertos-7.3.0/source/tasks.o
 xTimerGenericCommand                              src/ASF/thirdparty/freertos/freertos-7.3.0/source/timers.o
 xTimerIsTimerActive                               src/ASF/thirdparty/freertos/freertos-7.3.0/source/timers.o
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master

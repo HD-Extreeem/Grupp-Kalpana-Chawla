@@ -149,7 +149,10 @@ src/PwmFunctions.d src/PwmFunctions.o: ../src/PwmFunctions.c ../src/asf.h \
  ../src/ASF/sam/drivers/uart/uart.h ../src/ASF/sam/drivers/usart/usart.h \
  ../src/config/conf_uart_serial.h ../src/ASF/sam/drivers/tc/tc.h \
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
  ../src/ASF/common/services/twi/sam_twi/twi_master.h \
  ../src/ASF/sam/drivers/twi/twi.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
@@ -157,6 +160,9 @@ src/PwmFunctions.d src/PwmFunctions.o: ../src/PwmFunctions.c ../src/asf.h \
  ../src/ASF/common/services/twi/sam_twi/twi_master.h \
  ../src/ASF/common/services/twi/twi_slave.h \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/PwmFunctions.h
 
@@ -471,7 +477,10 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/ASF/sam/drivers/tc/tc.h:
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 ../src/ASF/common/services/twi/sam_twi/twi_master.h:
 
 ../src/ASF/sam/drivers/twi/twi.h:
@@ -486,6 +495,9 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/common/services/twi/sam_twi/twi_slave.h:
 
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 

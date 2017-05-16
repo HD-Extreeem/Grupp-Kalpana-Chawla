@@ -3,6 +3,11 @@
 ################################################################################
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+src\arlo\Arlo.c
+
+>>>>>>> master
 =======
 src\arlo\Arlo.c
 
@@ -14,11 +19,17 @@ src\ASF\sam\drivers\pwm\pwm.c
 src\ASF\sam\drivers\tc\tc.c
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> master
 src\ASF\sam\drivers\twi\twi.c
 
 src\comm\TWIComm.c
 
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 src\ConsoleFunctions.c
 

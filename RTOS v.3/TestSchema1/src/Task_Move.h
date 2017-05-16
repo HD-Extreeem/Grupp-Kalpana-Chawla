@@ -21,14 +21,20 @@ typedef struct{
 
 coordinates coord;
 <<<<<<< HEAD
+<<<<<<< HEAD
 coordinates coordinatesInit (void);
 
 =======
+=======
+>>>>>>> master
 void coordinatesInit (void);
 void calculateAngleDistance(void);
 void updateLastPresent(void);
 void updateNextPosLasse(void);
 void updateNextPosGL(void);
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 
 #endif /* TASK_MOVE_H_ */

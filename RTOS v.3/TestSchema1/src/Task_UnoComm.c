@@ -9,6 +9,7 @@
 #include "Task_UnoComm.h"
 #include <FreeRTOS.h>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 void task_unoComm(void *pvParameters)
 {
@@ -16,6 +17,8 @@ void task_unoComm(void *pvParameters)
 	portTickType xLastWakeTime;
 	const portTickType xTimeIncrement = 50;
 =======
+=======
+>>>>>>> master
 #include "task.h"
 #include "arlo/Arlo.h"
 
@@ -27,6 +30,9 @@ void task_unoComm(void *pvParameters)
 	
 	portTickType xLastWakeTime;
 	const portTickType xTimeIncrement = 1000;
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
@@ -34,9 +40,12 @@ void task_unoComm(void *pvParameters)
 	while (1)
 	{
 <<<<<<< HEAD
+<<<<<<< HEAD
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle after have finished everything
 		
 =======
+=======
+>>>>>>> master
 		static uint8_t i = 1;
 		/* Lifts object */
 		if (i==1)
@@ -60,6 +69,9 @@ void task_unoComm(void *pvParameters)
 		
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle after have finished everything
 		//vTaskSuspend(NULL);
+<<<<<<< HEAD
+>>>>>>> master
+=======
 >>>>>>> master
 	}
 }
