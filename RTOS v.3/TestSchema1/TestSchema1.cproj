@@ -20,12 +20,27 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <RamSnippetAddress />
+    <UncachedRange />
+    <preserveEEPROM>true</preserveEEPROM>
+    <OverrideVtorValue />
+    <BootSegment>2</BootSegment>
+    <eraseonlaunchrule>1</eraseonlaunchrule>
+=======
+=======
+>>>>>>> master
     <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
     <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
     <eraseonlaunchrule>0</eraseonlaunchrule>
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
     <AsfFrameworkConfig>
       <framework-data>
         <options>
@@ -34,7 +49,14 @@
           <option id="common.services.delay" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.services.basic.gpio" value="Add" config="" content-id="Atmel.ASF" />
           <option id="common.services.ioport" value="Add" config="" content-id="Atmel.ASF" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
           <option id="common.utils.interrupt" value="Add" config="" content-id="Atmel.ASF" />
+>>>>>>> master
+=======
+          <option id="common.utils.interrupt" value="Add" config="" content-id="Atmel.ASF" />
+>>>>>>> master
           <option id="common.utils.stdio.stdio_serial" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.pio" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.pmc" value="Add" config="" content-id="Atmel.ASF" />
@@ -42,7 +64,15 @@
           <option id="sam.drivers.tc.appnote" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.drivers.uart" value="Add" config="" content-id="Atmel.ASF" />
           <option id="thirdparty.os.freertos.version" value="Add" config="7.3.0" content-id="Atmel.ASF" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+          <option id="common.utils.interrupt" value="Add" config="" content-id="Atmel.ASF" />
+=======
           <option id="common.services.basic.twi" value="Add" config="" content-id="Atmel.ASF" />
+>>>>>>> master
+=======
+          <option id="common.services.basic.twi" value="Add" config="" content-id="Atmel.ASF" />
+>>>>>>> master
           <option id="common.applications.user_application" value="Add" config="" content-id="Atmel.ASF" />
           <option id="sam.utils.cmsis.sam3x.source.template" value="Add" config="" content-id="Atmel.ASF" />
         </options>
@@ -233,12 +263,21 @@
           <file path="src/ASF/sam/drivers/tc/tc_capture_waveform_example/tc_capture_waveform_example.h" framework="" version="3.21.0" source="sam\drivers\tc\tc_capture_waveform_example\tc_capture_waveform_example.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam/drivers/pwm/pwm.c" framework="" version="3.21.0" source="sam\drivers\pwm\pwm.c" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam/drivers/pwm/pwm.h" framework="" version="3.21.0" source="sam\drivers\pwm\pwm.h" changed="False" content-id="Atmel.ASF" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> master
           <file path="src/ASF/common/services/twi/twi_slave.h" framework="" version="3.21.0" source="common\services\twi\twi_slave.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/common/services/twi/sam_twi/twi_master.h" framework="" version="3.21.0" source="common\services\twi\sam_twi\twi_master.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/common/services/twi/twi_master.h" framework="" version="3.21.0" source="common\services\twi\twi_master.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/common/services/twi/sam_twi/twi_slave.h" framework="" version="3.21.0" source="common\services\twi\sam_twi\twi_slave.h" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam/drivers/twi/twi.c" framework="" version="3.21.0" source="sam\drivers\twi\twi.c" changed="False" content-id="Atmel.ASF" />
           <file path="src/ASF/sam/drivers/twi/twi.h" framework="" version="3.21.0" source="sam\drivers\twi\twi.h" changed="False" content-id="Atmel.ASF" />
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
         </files>
         <documentation help="http://asf.atmel.com/docs/3.21.0/common.applications.user_application.arduino_due_x/html/index.html" />
         <offline-documentation help="" />
@@ -301,8 +340,16 @@
       <Value>../src/ASF/sam/drivers/usart</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/sam/drivers/pwm</Value>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
       <Value>../src/ASF/common/services/twi</Value>
       <Value>../src/ASF/sam/drivers/twi</Value>
+>>>>>>> master
+=======
+      <Value>../src/ASF/common/services/twi</Value>
+      <Value>../src/ASF/sam/drivers/twi</Value>
+>>>>>>> master
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -357,8 +404,16 @@
       <Value>../src/ASF/sam/drivers/usart</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/sam/drivers/pwm</Value>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
       <Value>../src/ASF/common/services/twi</Value>
       <Value>../src/ASF/sam/drivers/twi</Value>
+>>>>>>> master
+=======
+      <Value>../src/ASF/common/services/twi</Value>
+      <Value>../src/ASF/sam/drivers/twi</Value>
+>>>>>>> master
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>
@@ -415,8 +470,16 @@
       <Value>../src/ASF/sam/drivers/usart</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/sam/drivers/pwm</Value>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
       <Value>../src/ASF/common/services/twi</Value>
       <Value>../src/ASF/sam/drivers/twi</Value>
+>>>>>>> master
+=======
+      <Value>../src/ASF/common/services/twi</Value>
+      <Value>../src/ASF/sam/drivers/twi</Value>
+>>>>>>> master
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize (-O1)</armgcc.compiler.optimization.level>
@@ -473,8 +536,16 @@
       <Value>../src/ASF/sam/drivers/usart</Value>
       <Value>../src/ASF/sam/drivers/tc</Value>
       <Value>../src/ASF/sam/drivers/pwm</Value>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
       <Value>../src/ASF/common/services/twi</Value>
       <Value>../src/ASF/sam/drivers/twi</Value>
+>>>>>>> master
+=======
+      <Value>../src/ASF/common/services/twi</Value>
+      <Value>../src/ASF/sam/drivers/twi</Value>
+>>>>>>> master
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
@@ -483,7 +554,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
     <Folder Include="src\arlo\" />
+>>>>>>> master
+=======
+    <Folder Include="src\arlo\" />
+>>>>>>> master
     <Folder Include="src\ASF\" />
     <Folder Include="src\ASF\common\" />
     <Folder Include="src\ASF\common\boards\" />
@@ -498,8 +576,16 @@
     <Folder Include="src\ASF\common\services\ioport\sam\" />
     <Folder Include="src\ASF\common\services\serial\" />
     <Folder Include="src\ASF\common\services\serial\sam_uart\" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
     <Folder Include="src\ASF\common\services\twi\" />
     <Folder Include="src\ASF\common\services\twi\sam_twi\" />
+>>>>>>> master
+=======
+    <Folder Include="src\ASF\common\services\twi\" />
+    <Folder Include="src\ASF\common\services\twi\sam_twi\" />
+>>>>>>> master
     <Folder Include="src\ASF\common\utils\" />
     <Folder Include="src\ASF\common\utils\interrupt\" />
     <Folder Include="src\ASF\common\utils\stdio\" />
@@ -513,7 +599,14 @@
     <Folder Include="src\ASF\sam\drivers\pwm\" />
     <Folder Include="src\ASF\sam\drivers\tc\" />
     <Folder Include="src\ASF\sam\drivers\tc\tc_capture_waveform_example\" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
     <Folder Include="src\ASF\sam\drivers\twi\" />
+>>>>>>> master
+=======
+    <Folder Include="src\ASF\sam\drivers\twi\" />
+>>>>>>> master
     <Folder Include="src\ASF\sam\drivers\uart\" />
     <Folder Include="src\ASF\sam\drivers\usart\" />
     <Folder Include="src\ASF\sam\utils\" />
@@ -548,6 +641,14 @@
     <Folder Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\gcc\" />
     <Folder Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\gcc\sam\" />
     <Folder Include="src\ASF\thirdparty\freertos\freertos-7.3.0\source\portable\memmang\" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <Folder Include="src\config\" />
+  </ItemGroup>
+  <ItemGroup>
+=======
+=======
+>>>>>>> master
     <Folder Include="src\comm\" />
     <Folder Include="src\config\" />
   </ItemGroup>
@@ -570,6 +671,10 @@
     <Compile Include="src\arlo\Arlo.h">
       <SubType>compile</SubType>
     </Compile>
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
     <Compile Include="src\ASF\common\utils\stdio\read.c">
       <SubType>compile</SubType>
     </Compile>
@@ -582,6 +687,11 @@
     <Compile Include="src\ASF\sam\drivers\tc\tc.c">
       <SubType>compile</SubType>
     </Compile>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> master
     <Compile Include="src\ASF\sam\drivers\twi\twi.c">
       <SubType>compile</SubType>
     </Compile>
@@ -597,6 +707,10 @@
     <Compile Include="src\comm\TWICommHandler.h">
       <SubType>compile</SubType>
     </Compile>
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
     <Compile Include="src\ConsoleFunctions.c">
       <SubType>compile</SubType>
     </Compile>

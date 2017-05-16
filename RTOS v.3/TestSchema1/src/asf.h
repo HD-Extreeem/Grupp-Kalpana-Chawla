@@ -110,6 +110,11 @@
 // From module: TC - Timer Counter
 #include <tc.h>
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> master
 // From module: TWI - Two-Wire Interface - SAM implementation
 #include <sam_twi/twi_master.h>
 #include <sam_twi/twi_slave.h>
@@ -119,6 +124,10 @@
 // From module: TWI - Two-wire Interface
 #include <twi.h>
 
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
 // From module: UART - Univ. Async Rec/Trans
 #include <uart.h>
 

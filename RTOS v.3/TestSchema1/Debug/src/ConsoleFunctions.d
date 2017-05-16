@@ -147,6 +147,13 @@ src/ConsoleFunctions.d src/ConsoleFunctions.o: ../src/ConsoleFunctions.c \
  ../src/ASF/common/services/ioport/ioport.h \
  ../src/ASF/common/services/ioport/sam/ioport_pio.h \
  ../src/ASF/sam/drivers/pmc/sleep.h ../src/ASF/sam/drivers/pwm/pwm.h \
+<<<<<<< HEAD
+<<<<<<< HEAD
+ ../src/ASF/sam/drivers/tc/tc.h ../src/ASF/sam/drivers/pio/pio_handler.h \
+ ../src/config/conf_board.h ../src/consoleFunctions.h
+=======
+=======
+>>>>>>> master
  ../src/ASF/sam/drivers/tc/tc.h \
  ../src/ASF/common/services/twi/sam_twi/twi_master.h \
  ../src/ASF/sam/drivers/twi/twi.h \
@@ -157,6 +164,10 @@ src/ConsoleFunctions.d src/ConsoleFunctions.o: ../src/ConsoleFunctions.c \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h ../src/config/conf_board.h \
  ../src/consoleFunctions.h
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
 
 ../src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h:
 
@@ -468,6 +479,11 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/sam/drivers/tc/tc.h:
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> master
 ../src/ASF/common/services/twi/sam_twi/twi_master.h:
 
 ../src/ASF/sam/drivers/twi/twi.h:
@@ -482,6 +498,10 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 
 ../src/ASF/common/services/twi/sam_twi/twi_slave.h:
 
+<<<<<<< HEAD
+>>>>>>> master
+=======
+>>>>>>> master
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
 ../src/config/conf_board.h:
