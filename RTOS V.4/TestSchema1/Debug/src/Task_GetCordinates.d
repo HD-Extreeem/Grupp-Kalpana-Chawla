@@ -157,6 +157,7 @@ src/Task_GetCordinates.d src/Task_GetCordinates.o: \
  ../src/ASF/common/services/twi/sam_twi/twi_slave.h \
  ../src/ASF/sam/drivers/pio/pio_handler.h \
  c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h \
+ ../src/arlo/Arlo.h ../src/comm/TWIComm.h ../src/comm/TWICommHandler.h \
  ../src/Task_GetCordinates.h
 
 ../src/asf.h:
@@ -486,5 +487,11 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu
 ../src/ASF/sam/drivers/pio/pio_handler.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ toolchain\arm\ gcc\native\4.8.1443\arm-gnu-toolchain\arm-none-eabi\include\inttypes.h:
+
+../src/arlo/Arlo.h:
+
+../src/comm/TWIComm.h:
+
+../src/comm/TWICommHandler.h:
 
 ../src/Task_GetCordinates.h:
