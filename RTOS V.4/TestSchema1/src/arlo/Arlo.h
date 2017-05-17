@@ -13,7 +13,7 @@
 
 void arlo_init(void);
 void arlo_arm_init(void);
-void arlo_nav_init(void);
+void arlo_nav_init(uint16_t *object_buffer);
 
 void arlo_lift_object(Object object_t);
 void arlo_drop_object(Object object_t);

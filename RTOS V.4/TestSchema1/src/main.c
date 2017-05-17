@@ -19,9 +19,11 @@
 #include "comm/TWIComm.h"
 #include "arlo/Arlo.h"
 
- xTaskHandle xTaskMove=NULL;
- xTaskHandle xTaskCom = NULL;
- xTaskHandle xTaskCoordinate=NULL;
+xTaskHandle xTaskMove=NULL;
+xTaskHandle xTaskCom = NULL;
+xTaskHandle xTaskCoordinate=NULL;
+
+uint16_t pos_buffer[4] = {0};
 
 int main (void)
 {
@@ -35,7 +37,17 @@ int main (void)
 	arlo_init();
 	coordinatesInit();
 	
-	/* Print info in terminal Window*/
+	/* Test nav system */
+	/*while(1)
+	{
+		arlo_get_position(pos_buffer);
+		printf("Position (x1, y1): %d, %d\r\n", pos_buffer[0], pos_buffer[1]);
+		printf("Position (x2, y2): %d, %d\r\n", pos_buffer[2], pos_buffer[3]);
+		
+		delay_ms(800);
+	}*/
+	
+	/* Print info in terminal Window */
 	printf("-- %s\n\r", BOARD_NAME);
 	printf("-- Compiled: %s %s --\n\r", __DATE__, __TIME__);
 	
@@ -44,18 +56,18 @@ int main (void)
 		printf("Failed to test task_Move task\r\n");
 	}
 	
-	// 	/* Create the task with the second priority the task_GetCordinates*/
-	 	if (xTaskCreate(task_getCordinates, (const signed char * const) "¨Get", TASK_GET_STACK_SIZE, NULL, TASK_GET_STACK_PRIORITY, &xTaskCoordinate) != pdPASS) {
- 		printf("Failed to test GetCordinates task\r\n");
-	 	}
+	/* Create the task with the second priority the task_GetCordinates*/
+	if (xTaskCreate(task_getCordinates, (const signed char * const) "¨Get", TASK_GET_STACK_SIZE, NULL, TASK_GET_STACK_PRIORITY, &xTaskCoordinate) != pdPASS) {
+		printf("Failed to test GetCordinates task\r\n");
+	}
 	
-	// 		/* Create the task with the least priority the task task_UnoComm */
-	 	if (xTaskCreate(task_unoComm, (const signed char * const) "UNO", TASK_UNO_STACK_SIZE, NULL, TASK_UNO_STACK_PRIORITY, &xTaskCom) != pdPASS) {
-	 		printf("Failed to test UnoComm task\r\n");
-	 	}
-		 
-		 vTaskSuspend(xTaskCom);
-		 vTaskSuspend(xTaskCoordinate);
+	/* Create the task with the least priority the task task_UnoComm */
+	if (xTaskCreate(task_unoComm, (const signed char * const) "UNO", TASK_UNO_STACK_SIZE, NULL, TASK_UNO_STACK_PRIORITY, &xTaskCom) != pdPASS) {
+		printf("Failed to test UnoComm task\r\n");
+	}
+	
+	vTaskSuspend(xTaskCom);
+	vTaskSuspend(xTaskCoordinate);
 	
 	/* Start the FreeRTOS scheduler running all tasks indefinitely*/
 	vTaskStartScheduler();

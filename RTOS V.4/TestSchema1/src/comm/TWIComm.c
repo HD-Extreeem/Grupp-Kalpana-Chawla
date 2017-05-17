@@ -73,6 +73,8 @@ void twi_request_packet(uint8_t *rx_buffer, uint8_t recipient_addr)
 	/* Performs a multi-byte read access then checks the result */
 	while (twi_master_read(TWI_PORT, &rx_packet) != TWI_SUCCESS);
 	// indicate();
+	
+	printf("Sending: %d, %d, %d\r\n", rx_buffer[0], rx_buffer[1], rx_buffer[2]);
 }
 
 void twi_arm_init(TWI_CMD_Init_Req twi_cmd_init_req_t, uint8_t *tx_buffer, uint8_t *rx_buffer)

@@ -16,6 +16,8 @@ uint8_t rx_arm_buffer[RX_ARM_LENGTH] = {0};
 uint8_t tx_nav_buffer[TX_NAV_LENGTH] = {0};
 uint8_t rx_nav_buffer[RX_NAV_LENGTH] = {0};
 
+uint16_t object_buffer[6] = {0};
+
 void arlo_init()
 {
 	// ioport_init();
@@ -25,7 +27,11 @@ void arlo_init()
 	arlo_arm_init();
 	
 	/* Initializes nav-system */
-	arlo_nav_init();
+	arlo_nav_init(object_buffer);
+	
+	printf("Position for sock: %d, %d\r\n", object_buffer[0], object_buffer[1]);
+	printf("Position for cube: %d, %d\r\n", object_buffer[2], object_buffer[3]);
+	printf("Position for glass: %d, %d\r\n", object_buffer[4], object_buffer[5]);
 }
 
 void arlo_arm_init()
@@ -63,16 +69,28 @@ Pick_Up_Status arlo_get_pick_up_status()
 	return pick_up_status_t;
 }
 
-void arlo_nav_init()
+void arlo_nav_init(uint16_t *object_buffer)
 {
 	/* Get coordinate for sock */
 	twi_nav_init(0x52, tx_nav_buffer, rx_nav_buffer);
 	
+	/* Convert uint8_t to uint16_t */
+	object_buffer[0] = (uint16_t) ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	object_buffer[1] = (uint16_t) ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
+	
 	/* Get coordinate for cube */
 	twi_nav_init(0x53, tx_nav_buffer, rx_nav_buffer);
 	
+	/* Convert uint8_t to uint16_t */
+	object_buffer[2] = (uint16_t) ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	object_buffer[3] = (uint16_t) ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
+		
 	/* Get coordinate for glass */
 	twi_nav_init(0x54, tx_nav_buffer, rx_nav_buffer);
+	
+	/* Convert uint8_t to uint16_t */
+	object_buffer[4] = (uint16_t) ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	object_buffer[5] = (uint16_t) ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 }
 
 void arlo_get_position(uint16_t *position_buffer)
@@ -85,6 +103,7 @@ void arlo_get_position(uint16_t *position_buffer)
 	
 	/* Convert uint8_t to uint16_t */
 	position_buffer[0] = (uint16_t) ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	position_buffer[1] = (uint16_t) ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 	
 	/* Get second coordinate (y-coordinate) */
 	tx_nav_buffer[0] = 0x51;
@@ -93,7 +112,8 @@ void arlo_get_position(uint16_t *position_buffer)
 	twi_request_packet(rx_nav_buffer, SLAVE_ADDR_NAV);
 	
 	/* Convert uint8_t to uint16_t */
-	position_buffer[1] = (uint16_t) ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
+	position_buffer[2] = (uint16_t) ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	position_buffer[3] = (uint16_t) ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 }
 
 void arlo_lift_object(Object object_t)
