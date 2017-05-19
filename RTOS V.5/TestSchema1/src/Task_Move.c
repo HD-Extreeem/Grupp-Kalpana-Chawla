@@ -265,7 +265,7 @@ void task_move(void *pvParameters)
 				// nextState = STARTGL;
 				nextState = START;
 			}
-			else if (distance !=0)
+			else if (distance!=0)
 			{
 				nextState = MOVE;
 			}
