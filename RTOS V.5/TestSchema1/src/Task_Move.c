@@ -83,6 +83,7 @@ void task_move(void *pvParameters)
 				
 				if (object_counter > 4)
 				{
+					// Helloooooooooooo
 					nextState = CLOSE;
 				}
 				else
