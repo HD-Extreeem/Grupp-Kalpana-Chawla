@@ -11,7 +11,7 @@
 #include "arlo/Arlo.h"
 #include "Task_GetCordinates.h"
 #include "task.h"
-uint16_t coord_arr[2] = {0};
+int16_t coord_arr[2] = {0};
 
 void task_getCordinates(void *pvParameters)
 {

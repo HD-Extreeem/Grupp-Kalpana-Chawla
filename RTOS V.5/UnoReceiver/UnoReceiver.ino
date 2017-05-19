@@ -17,7 +17,7 @@
 #define CRANE 0x33
 
 /* TWI states */
-typedef enum  
+typedef enum
 {
   TWI_CMD_ARM_INIT      = 0x20,
   TWI_CMD_DROP_OFF_START    = 0x21,
@@ -30,7 +30,7 @@ typedef enum
   TWI_CMD_NONE = 0x28
 } TWI_CMD;
 
-typedef enum  
+typedef enum
 {
   TWI_CMD_ARM_REQ_BOX_INFO    = 2,
   TWI_CMD_ARM_REQ_OBJ_INFO    = 3,
@@ -47,7 +47,7 @@ typedef enum
   ARLO_BACKWARD   = 7
 } Find_Object_Status;
 
-typedef enum 
+typedef enum
 {
   PICK_UP_DONE    = 2,
   PICK_UP_FORWARD   = 3,
@@ -58,7 +58,7 @@ typedef enum
   PICK_UP_IDLE    = 8
 } Pick_Up_Status;
 
-typedef enum 
+typedef enum
 {
   DROP_OFF_DONE   = 2,
   DROP_OFF_RUNNING  = 3,
@@ -66,7 +66,7 @@ typedef enum
   DROP_OFF_IDLE   = 5
 } Drop_Off_Status;
 
-typedef enum 
+typedef enum
 {
   SOCK  = 2,
   CUBE  = 3,
@@ -98,7 +98,7 @@ void loop()
 {
   if (twi_cmd_t == TWI_CMD_FIND_OBJECT && find_object_status_t == OBJECT_NOT_FOUND)
   {
-    findObject(); 
+    findObject();
   }
   else if (twi_cmd_t == TWI_CMD_PICK_UP_START && pick_up_status_t != PICK_UP_DONE)
   {
@@ -116,6 +116,9 @@ void loop()
       case GLASS:
         /* Lift glass */
         liftGlass();
+        break;
+      case OBJECT:
+        liftCube();
         break;
       default:
         break;
@@ -146,7 +149,7 @@ void receiveEvent(int howMany)
     case TWI_CMD_FIND_OBJECT:
       /* Pick up object */
       object_t = rx_buf[1];
-      find_object_status_t = OBJECT_NOT_FOUND;      
+      find_object_status_t = OBJECT_NOT_FOUND;
       break;
     case TWI_CMD_PICK_UP_START:
       /* Pick up object */
@@ -196,6 +199,7 @@ void requestEvent()
       }
       break;
     case TWI_CMD_DROP_OFF_STATUS:
+      Serial.println("\nRobot requesting drop off status!");
       tx_buf[0] = TWI_CMD_DROP_OFF_STATUS;
       tx_buf[1] = drop_off_status_t;  // Fill index with current drop off status
       break;
@@ -245,10 +249,10 @@ void liftCube()
     // delay(400000);
   }
   // Serial.println();
-  
+
   pick_up_status_t = PICK_UP_DONE;
   Serial.println("Cube was lifted\n~~~~~~~~\n");
-  
+
   // interrupts();
 }
 
@@ -294,7 +298,7 @@ void findObject()
     // delay(400000);
   }
   // Serial.println();
-  
+
   find_object_status_t = OBJECT_FOUND;
   Serial.println("Cube was found - NOT\n~~~~~~~~\n");
 }

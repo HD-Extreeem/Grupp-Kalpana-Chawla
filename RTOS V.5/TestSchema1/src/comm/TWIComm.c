@@ -162,6 +162,9 @@ void twi_control_arm(uint8_t *tx_buffer, uint8_t *rx_buffer)
 		case TWI_CMD_FIND_OBJECT:
 		twi_find_object(tx_buffer, rx_buffer);
 		break;
+		case TWI_CMD_FIND_OBJECT_STATUS:
+		twi_check_find_object_status(tx_buffer, rx_buffer);
+		break;
 		default:
 		// Do nothing
 		break;

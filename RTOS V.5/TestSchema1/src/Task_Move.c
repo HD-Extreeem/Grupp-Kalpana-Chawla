@@ -40,7 +40,8 @@ int wait =0;
 int step =0;
 int check =0;
 Bool newData=false;
-uint8_t object_counter = 1;
+extern uint8_t object_counter;
+Bool process_running=false;
 
 Bool liftProcessFinished = false;
 Bool liftStart = false;
@@ -58,9 +59,11 @@ states currentState = START;
 states nextState;
 
 Bool pick_up_process_finished = false;
+
 Bool drop_off_process_finished = false;
 Pick_Up_Status pick_up_status_t=0;
-
+Find_Object_Status find_object_status_t = 0;
+Drop_Off_Status drop_off_status_t = 0;
 void task_move(void *pvParameters)
 {
 	portTickType xLastWakeTime;
@@ -73,23 +76,30 @@ void task_move(void *pvParameters)
 		switch (currentState)
 		{
 			case START:
-			/* If Arlo can pick up all objects without going to box in between pick-ups*/
+			/* If Arlo can pick up all objects without going to box in between pick-ups */
 			if (arlo_get_collect_status() == 1)
 			{
 				updateNextPosition(); // Grönwall&Larz
-				nextState = BEFORE_ROTATE;
-				if (object_counter >= 5)
+				
+				if (object_counter > 4)
 				{
 					nextState = CLOSE;
+				}
+				else
+				{
+					nextState = BEFORE_ROTATE;
 				}
 			}
 			else 
 			{
 				updateNextPosition();
-				nextState = BEFORE_ROTATE;
-				if (object_counter >= 6)
+				if (object_counter > 7)
 				{
 					nextState = CLOSE;
+				}
+				else
+				{
+					nextState = BEFORE_ROTATE;
 				}
 			}
 			break;
@@ -138,12 +148,14 @@ void task_move(void *pvParameters)
 				nextState = MOVE;
 			}
 			
-// 			if (liftStart)
-// 			{
-// 				vTaskResume(xTaskCom);
-// 				liftStart=false;
-// 				nextState = COMM; //Får ändra senare för att möjligöra rörelse under körning
-// 			}
+			if ((liftStart && find_object_status_t==0) && (liftStart && drop_off_status_t == 0))
+			{
+				printf("Startar kommunikationen med UNO!\r\n");
+				pick_up_status_t = PICK_UP_RUNNING;
+				liftStart=false;
+				nextState = COMM;
+				vTaskResume(xTaskCom);
+			}
 			else
 			{
 				nextState = MOVE;
@@ -180,7 +192,8 @@ void task_move(void *pvParameters)
 				speed = 200;
 				distance=0;
 				reset_Counter();
-				nextState = COMM;
+				liftStart=true;
+				nextState = NAVI;
 				//wait=0;
 			}
 			else
@@ -232,35 +245,31 @@ void task_move(void *pvParameters)
 			case CLOSE:
 			printf("CLOSE");
 			nextState = CLOSE;
-			// while(1);
+			while(1);
 			break;
 			/************************************************************************/
 			/*                                 COMM                                 */
 			/************************************************************************/
 			case COMM:
-			if (pick_up_status_t==0)
-			{
-				pick_up_status_t = PICK_UP_RUNNING;
-				nextState = COMM;
-				vTaskResume(xTaskCom);
-			}
 			
 			if (pick_up_process_finished)
 			{
-				printf("Lift finished\r\n");
+				printf("Pick up process finished\r\n");
 				//vTaskSuspend(xTaskCom);
 				// status = arlo_get_pick_up_status();
 				//status=0;
 				//flag_i=1;
+				process_running=false;
 				pick_up_process_finished=false;
 				// nextState = STARTGL;
 				nextState = START;
 			}
 			else
 			{
-				// vTaskResume(xTaskCom);	
+				// vTaskResume(xTaskCom);
 				nextState = COMM;
 			}
+			
 			break;
 			/************************************************************************/
 			/*                           SLUTET AV SWITCH CASE                      */
@@ -334,7 +343,7 @@ void move (void)
 
 void coordinatesInit (void)
 {
-	uint16_t object_buffer[6] = {0};
+	int16_t object_buffer[8] = {0};
 	arlo_get_object_positions(object_buffer);
 	
 	coord.presentX = 0;
@@ -362,12 +371,14 @@ void updateNextPosition()
 	{
 		if (object_counter == 1)
 		{
+			printf("Driving to sock!\r\n");
 			coord.targetX=coord.sock[0];
 			coord.targetY=coord.sock[1];
 			calculateAngleDistance();
 		}	
 		else if (object_counter == 2)
 		{
+			printf("Driving to cube!\r\n");
 			updateLastPresent();
 			coord.presentX=coord.sock[0];
 			coord.presentY=coord.sock[1];
@@ -377,6 +388,7 @@ void updateNextPosition()
 		}
 		else if (object_counter == 3)
 		{
+			printf("Driving to glass!\r\n");
 			updateLastPresent();
 			coord.presentX=coord.cube[0];
 			coord.presentY=coord.cube[1];
@@ -386,6 +398,7 @@ void updateNextPosition()
 		}
 		else if(object_counter == 4)
 		{
+			printf("Driving to box!\r\n");
 			updateLastPresent();
 			coord.presentX=coord.glass[0];
 			coord.presentY=coord.glass[1];
@@ -449,12 +462,8 @@ void updateNextPosition()
 			coord.targetY=coord.box[1];
 			calculateAngleDistance();
 		}
-		else
-		{
-			printf("\n close now!\r\n");
-			nextState = CLOSE;
-		}
-		printf("\nObject counter: %d\r\n",object_counter);
+		
+		printf("\nObject counter Lasse: %d\r\n",object_counter);
 		object_counter++;
 	}
 }

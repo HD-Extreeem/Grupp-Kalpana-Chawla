@@ -17,10 +17,13 @@
 
 extern Bool pick_up_process_finished;
 extern Bool drop_off_process_finished;
+extern Bool process_running;
 
 extern Pick_Up_Status pick_up_status_t;
-Find_Object_Status find_object_status_t = 0;
-Drop_Off_Status drop_off_status_t = 0;
+extern Find_Object_Status find_object_status_t;
+extern Drop_Off_Status drop_off_status_t;
+
+uint8_t object_counter=1;
 
 typedef enum
 {
@@ -28,10 +31,10 @@ typedef enum
 	SEARCH,
 	PICK_UP,
 	DROP_OFF
-} State;
+} states;
 
-State current_state = START;
-State next_state;
+states current_state = START;
+states next_state;
 
 uint8_t already_lifted = 0;
 uint8_t already_dropped = 0;
@@ -53,18 +56,20 @@ void task_unoComm(void *pvParameters)
 		{
 			///////////////////////////Start-state//////////////////////////////////////
 			case START:
-			printf("START CASE");
+			printf("START CASE\r\n");
 			arlo_find_object(OBJECT);
 			next_state = SEARCH;
 			break;
 			///////////////////////////Search-state////////////////////////////////////
 			case SEARCH:
-			printf("SEARCH CASE");
+			printf("SEARCH CASE\r\n");
 			if (pick_up_tries >= 3)
 			{
-				printf("liftProcessFinished = true\r\n");
+				printf("pick_up_process_finished = true\r\n");
 				pick_up_process_finished = true;
 				pick_up_status_t = 0;
+				find_object_status_t = 0;
+				next_state = START;
 				vTaskSuspend(NULL);
 			}
 			else
@@ -72,38 +77,42 @@ void task_unoComm(void *pvParameters)
 				find_object_status_t = arlo_get_find_object_status();
 				if (find_object_status_t == OBJECT_FOUND)
 				{
+					printf("Object found\r\n");
 					number_of_rotations = 0;
 					pick_up_tries = 0;
 					next_state = PICK_UP;
 				}
-				else if (find_object_status_t == ARLO_ROTATE_LEFT)
+				else
 				{
-					// angle = -10;
-				}
-				else if (find_object_status_t == ARLO_ROTATE_RIGHT)
-				{
-					// angle = 10;
-				}
-				else if (find_object_status_t == ARLO_FORWARD)
-				{
-					// distance = 10;
-				}
-				else if (find_object_status_t == ARLO_BACKWARD)
-				{
-					// distance = -10;
-				}
-				else if (find_object_status_t == OBJECT_NOT_FOUND)
-				{
-					number_of_rotations++;
-					if (number_of_rotations == 36)
+					if (find_object_status_t == ARLO_ROTATE_LEFT)
 					{
-						printf("Rotating");
-						number_of_rotations =0;
-						pick_up_tries++;
+						// angle = -10;
 					}
+					else if (find_object_status_t == ARLO_ROTATE_RIGHT)
+					{
+						// angle = 10;
+					}
+					else if (find_object_status_t == ARLO_FORWARD)
+					{
+						// distance = 10;
+					}
+					else if (find_object_status_t == ARLO_BACKWARD)
+					{
+						// distance = -10;
+					}
+					else if (find_object_status_t == OBJECT_NOT_FOUND)
+					{
+						number_of_rotations++;
+						if (number_of_rotations == 36)
+						{
+							printf("Rotating");
+							number_of_rotations = 0;
+							pick_up_tries++;
+						}
+					}
+					next_state = SEARCH;
 				}
 			}
-			next_state = SEARCH;
 			break;
 			///////////////////////////Pick_up-state////////////////////////////////////
 			case PICK_UP:
@@ -116,14 +125,17 @@ void task_unoComm(void *pvParameters)
 			}
 			else
 			{
-				pick_up_status_t = arlo_get_pick_up_status();
-				
-				if (pick_up_status_t == PICK_UP_DONE)
+				if (pick_up_status_t != PICK_UP_DONE)
+				{
+					pick_up_status_t = arlo_get_pick_up_status();
+				}
+				else
 				{
 					printf("Pick up process finished\r\n");
 					pick_up_process_finished = true;
 					// liftProcessFinished = true;
 					pick_up_status_t = 0;
+					find_object_status_t=0;
 					already_lifted = 0;
 					
 					// If Arlo can collect all items and there are no more objects to pick up or if it cannot collect them all
@@ -141,7 +153,7 @@ void task_unoComm(void *pvParameters)
 			break;
 			///////////////////////////Drop_off-state////////////////////////////////////
 			case DROP_OFF:
-			printf("DROP OFF CASE");
+			printf("DROP OFF CASE\r\n");
 			if (already_dropped == 0)
 			{
 				arlo_drop_object(OBJECT);
@@ -151,13 +163,21 @@ void task_unoComm(void *pvParameters)
 			else
 			{
 				drop_off_status_t = arlo_get_drop_off_status();
-				
 				if (drop_off_status_t == DROP_OFF_DONE)
 				{
 					printf("Drop off process finished\r\n");
 					drop_off_process_finished = true;
+					if (arlo_get_collect_status() == 1) 
+					{
+						objects_left = objects_left - 3;
+					}
+					else 
+					{
+						objects_left--;
+					}
+				
 					// liftProcessFinished = true;
-					drop_off_status_t = DROP_OFF_IDLE;
+					drop_off_status_t = 0;
 					already_dropped = 0;
 					
 					next_state = START;
@@ -169,13 +189,9 @@ void task_unoComm(void *pvParameters)
 				}
 			}
 			break;
-			
-			default:
-			// Do nothing
-			break;
 			////////////////////////-----SLUT-----!!!!///////////////////////////////////
 		}
-		next_state = current_state;
+		current_state = next_state;
 		
 		//		static uint8_t i = 1;
 		/* Lifts object */

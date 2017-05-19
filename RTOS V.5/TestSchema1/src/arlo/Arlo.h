@@ -28,6 +28,6 @@ Drop_Off_Status arlo_get_drop_off_status(void);
 
 uint8_t arlo_get_collect_status(void);
 
-void arlo_get_object_positions(uint16_t *object_buffer);
+void arlo_get_object_positions(int16_t *object_buffer);
 
 #endif /* ARLO_H_ */
