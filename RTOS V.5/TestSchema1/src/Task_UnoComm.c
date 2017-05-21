@@ -14,7 +14,8 @@
 #include "arlo/Arlo.h"
 
 //extern Bool liftProcessFinished;
-
+int angle=0;
+int distance=0;
 extern Bool pick_up_process_finished;
 extern Bool drop_off_process_finished;
 extern Bool process_running;
@@ -86,19 +87,19 @@ void task_unoComm(void *pvParameters)
 				{
 					if (find_object_status_t == ARLO_ROTATE_LEFT)
 					{
-						// angle = -10;
+						angle = -10;
 					}
 					else if (find_object_status_t == ARLO_ROTATE_RIGHT)
 					{
-						// angle = 10;
+						angle = 10;
 					}
 					else if (find_object_status_t == ARLO_FORWARD)
 					{
-						// distance = 10;
+						distance = 10;
 					}
 					else if (find_object_status_t == ARLO_BACKWARD)
 					{
-						// distance = -10;
+						distance = -10;
 					}
 					else if (find_object_status_t == OBJECT_NOT_FOUND)
 					{

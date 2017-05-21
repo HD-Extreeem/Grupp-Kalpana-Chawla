@@ -15,8 +15,8 @@ Desiree J�nsson och Jonas Eiselt
 #include "PwmFunctions.h"
 #include "StepCounter_ISR.h"
  
-int distance=0;
-int angle=0;
+extern int distance;
+extern int angle;
 int direction=1;
 double totalPulses; //Calculate the total pulses needed to move to destination
 uint16_t speed = 200; // Set speed for moving the robot
@@ -264,6 +264,14 @@ void task_move(void *pvParameters)
 				pick_up_process_finished=false;
 				// nextState = STARTGL;
 				nextState = START;
+			}
+			else if (distance!=0)
+			{
+				nextState = MOVE;
+			}
+			else if(angle!=0)
+			{
+				nextState = ROTATE;
 			}
 			else
 			{
