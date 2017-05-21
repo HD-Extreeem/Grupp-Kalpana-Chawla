@@ -184,12 +184,26 @@ void loop()
         Serial.println("Object was detected!");
 
         /* Vi vill att Arlo ska köra bakåt OCH vänta tills Arlo kört färdigt */
-        pick_up_status_t = PICK_UP_BACKWARD;
         state = Wait;
+        detectionTries = 0;
+        
+        pick_up_status_t = PICK_UP_BACKWARD;
       }
       else
       {
-        state = SensorDetection;
+        /* Vi vill säga till Arlo att objekt inte har hittats så att den kan rotera 10 grader */
+        if (detectionTries == 5)
+        {
+          state = Wait;
+          detectionTries = 0;
+
+          /* Arlo kommer sedan skicka kommandot TWI_CMD_PICK_UP_START när den har roterat 10 grader */
+          pick_up_status_t = PICK_UP_FAILED;
+        }
+        else 
+        {
+          state = SensorDetection;
+        }
       }
       break;
     case GrabObject:
