@@ -23,11 +23,11 @@ void arlo_find_object(Object object_t);
 void arlo_get_position(int16_t *position_buffer);
 
 Pick_Up_Status arlo_get_pick_up_status(void);
-Find_Object_Status arlo_get_find_object_status(void);
 Drop_Off_Status arlo_get_drop_off_status(void);
 
 uint8_t arlo_get_collect_status(void);
 
+void arlo_done_drive(Pick_Up_Status pick_up_status_t);
 void arlo_get_object_positions(int16_t *object_buffer);
 
 #endif /* ARLO_H_ */

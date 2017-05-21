@@ -41,9 +41,7 @@ typedef enum
 	TWI_CMD_PICK_UP_START		= 0x22,
 	TWI_CMD_DROP_OFF_STATUS		= 0x23,
 	TWI_CMD_PICK_UP_STATUS		= 0x24,
-	TWI_CMD_ERROR				= 0x25,
-	TWI_CMD_FIND_OBJECT			= 0x26,
-	TWI_CMD_FIND_OBJECT_STATUS	= 0x27
+	TWI_CMD_ERROR				= 0x25
 } TWI_CMD;
 
 typedef enum  
@@ -53,17 +51,6 @@ typedef enum
 	TWI_CMD_ARM_REQ_COLLECT_INFO	= 4
 } TWI_CMD_Init_Req;
 
-typedef enum
-{
-	OBJECT_NOT_FOUND	= 2,
-	OBJECT_FOUND		= 3,
-	ARLO_ROTATE_LEFT	= 4,
-	ARLO_ROTATE_RIGHT	= 5,
-	ARLO_FORWARD		= 6,
-	ARLO_BACKWARD		= 7,
-	ARLO_READY			= 8
-} Find_Object_Status;
-
 typedef enum 
 {
 	PICK_UP_DONE		= 2,
@@ -72,9 +59,7 @@ typedef enum
 	PICK_UP_RUNNING		= 5,
 	PICK_UP_FAILED		= 6,
 	PICK_UP_DONE_DRIVE	= 7,
-	PICK_UP_IDLE		= 8,
-	PICK_UP_ROTATE_LEFT = 9,
-	PICK_UP_ROTATE_RIGHT= 10
+	PICK_UP_IDLE		= 8
 } Pick_Up_Status;
 
 typedef enum 

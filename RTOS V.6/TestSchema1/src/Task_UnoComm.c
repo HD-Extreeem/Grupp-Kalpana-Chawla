@@ -20,22 +20,24 @@ extern Bool pick_up_process_finished;
 extern Bool drop_off_process_finished;
 extern Bool process_running;
 
+extern Bool requestedByUno;
+
 extern Pick_Up_Status pick_up_status_t;
-extern Find_Object_Status find_object_status_t;
 extern Drop_Off_Status drop_off_status_t;
 
 uint8_t object_counter=1;
 
 typedef enum
 {
-	START,
-	SEARCH,
-	PICK_UP,
+	PICK_UP_START,
+	PICK_UP_DO,
 	DROP_OFF
 } states;
 
-states current_state = START;
+states current_state = PICK_UP_START;
 states next_state;
+extern Bool arloNeedsToDrive;
+extern Bool arloIsDone;
 
 uint8_t already_lifted = 0;
 uint8_t already_dropped = 0;
@@ -47,7 +49,7 @@ uint8_t number_of_rotations = 0;	// Used for
 void task_unoComm(void *pvParameters)
 {
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 1000;
+	const portTickType xTimeIncrement = 300;
 
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 
@@ -56,90 +58,77 @@ void task_unoComm(void *pvParameters)
 		switch (current_state)
 		{
 			///////////////////////////Start-state//////////////////////////////////////
-			case START:
-			printf("START CASE\r\n");
-			arlo_find_object(OBJECT);
-			next_state = SEARCH;
+			case PICK_UP_START:
+			printf("PICK_UP_START\r\n");
+			arlo_pick_up_object(OBJECT);
+			next_state = PICK_UP_DO;
 			break;
 			///////////////////////////Search-state////////////////////////////////////
-			case SEARCH:
-			printf("SEARCH CASE\r\n");
-			if (pick_up_tries >= 3)
+			case PICK_UP_DO:
+			printf("PICK_UP_DO\r\n");
+			pick_up_status_t = arlo_get_pick_up_status();
+			
+			switch (pick_up_status_t)
 			{
-				printf("pick_up_process_finished = true\r\n");
-				pick_up_process_finished = true;
-				pick_up_status_t = 0;
-				find_object_status_t = 0;
-				next_state = START;
-				vTaskSuspend(NULL);
-			}
-			else
-			{
-				find_object_status_t = arlo_get_find_object_status();
-				if (find_object_status_t == OBJECT_FOUND)
+				case PICK_UP_FAILED:
+				printf("PICK_UP_FAILED\r\n");
+				if (!arloNeedsToDrive)
 				{
-					printf("Object found\r\n");
-					number_of_rotations = 0;
-					pick_up_tries = 0;
-					next_state = PICK_UP;
+					arloNeedsToDrive = true;
+					angle = 10;
+				}
+				if (arloIsDone)
+				{
+					arloNeedsToDrive = false;
+					arloIsDone=false;
+					arlo_done_drive(PICK_UP_DONE_DRIVE);
+					next_state = PICK_UP_START;
+				}
+				break;
+				case PICK_UP_FORWARD:
+				printf("PICK_UP_FORWARD\r\n");
+				if (!arloNeedsToDrive)
+				{
+					distance = 10;
+					arloNeedsToDrive = true;
+				}
+				if (arloIsDone)
+				{
+					arloNeedsToDrive = false;
+					arlo_done_drive(PICK_UP_DONE_DRIVE);
+					next_state = PICK_UP_START;
+				}
+				break;
+				case PICK_UP_BACKWARD:
+				printf("PICK_UP_BACKWARD\r\n");
+				if (!arloNeedsToDrive)
+				{
+					distance = -10;
+					arloNeedsToDrive = true;
+				}
+				if (arloIsDone)
+				{
+					arloNeedsToDrive = false;
+					arlo_done_drive(PICK_UP_DONE_DRIVE);
+					next_state = PICK_UP_START;
+				}
+				break;
+				case PICK_UP_DONE:
+				printf("PICK_UP_DONE\r\n");
+				objects_left--;
+				// If Arlo can collect all items and there are no more objects to pick up or if it cannot collect them all
+				if ((arlo_get_collect_status() == 1 && objects_left == 0) || (arlo_get_collect_status() == 0))
+				{
+					next_state = DROP_OFF;
 				}
 				else
 				{
-					next_state = SEARCH;
-				}
-			}
-			break;
-			///////////////////////////Pick_up-state////////////////////////////////////
-			case PICK_UP:
-			printf("PICK UP CASE");
-			if (already_lifted == 0)
-			{
-				arlo_pick_up_object(OBJECT);
-				already_lifted = 1;
-				next_state = PICK_UP;
-			}
-			else
-			{
-				if (pick_up_status_t != PICK_UP_DONE)
-				{
-					pick_up_status_t = arlo_get_pick_up_status();
-					if (pick_up_status_t == PICK_UP_ROTATE_LEFT)
-					{
-						angle = -10;
-					}
-					else if (pick_up_status_t == PICK_UP_ROTATE_RIGHT)
-					{
-						angle = 10;
-					}
-					else if (pick_up_status_t == PICK_UP_FORWARD)
-					{
-						distance = 10;
-					}
-					else if (pick_up_status_t == PICK_UP_BACKWARD)
-					{
-						distance = -10;
-					}
-				}
-				else
-				{
-					printf("Pick up process finished\r\n");
-					pick_up_process_finished = true;
-					// liftProcessFinished = true;
-					pick_up_status_t = 0;
-					find_object_status_t=0;
-					already_lifted = 0;
-					
-					// If Arlo can collect all items and there are no more objects to pick up or if it cannot collect them all
-					if ((arlo_get_collect_status() == 1 && objects_left == 0) || (arlo_get_collect_status() == 0))
-					{
-						next_state = DROP_OFF;
-					}
-					else
-					{
-						next_state = START;
-					}
+					printf("\n pick_up_process_finished=true\r\n");
+					pick_up_process_finished=true;
+					next_state = PICK_UP_START;
 					vTaskSuspend(NULL);
 				}
+				break;
 			}
 			break;
 			///////////////////////////Drop_off-state////////////////////////////////////
@@ -158,20 +147,10 @@ void task_unoComm(void *pvParameters)
 				{
 					printf("Drop off process finished\r\n");
 					drop_off_process_finished = true;
-					if (arlo_get_collect_status() == 1) 
-					{
-						objects_left = objects_left - 3;
-					}
-					else 
-					{
-						objects_left--;
-					}
-				
-					// liftProcessFinished = true;
+					pick_up_process_finished=true;
 					drop_off_status_t = 0;
 					already_dropped = 0;
-					
-					next_state = START;
+					next_state = PICK_UP_START;
 					vTaskSuspend(NULL);
 				}
 				else
@@ -182,8 +161,7 @@ void task_unoComm(void *pvParameters)
 			break;
 			////////////////////////-----SLUT-----!!!!///////////////////////////////////
 		}
-		current_state = next_state;
-		
+		current_state = next_state;		
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	// Wait for the next cycle after have finished everything
 	}
 }
