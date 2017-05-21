@@ -97,7 +97,7 @@ Pick_Up_Status pick_up_status_t = PICK_UP_IDLE;
 TWI_CMD twi_cmd_t = TWI_CMD_NONE;
 
 /* Buffers for receiving and transmitting bytes */
-uint16_t rx_buf[RX_DATA_LENGTH];
+uint8_t rx_buf[RX_DATA_LENGTH];
 uint8_t tx_buf[TX_DATA_LENGTH];
 
 void setup()
