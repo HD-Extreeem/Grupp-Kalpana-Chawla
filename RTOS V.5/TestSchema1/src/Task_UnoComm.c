@@ -28,10 +28,11 @@ typedef enum
 	SEARCH,
 	PICK_UP,
 	DROP_OFF
-} State;
+} states;
 
-State current_state = START;
-State next_state;
+states current_state = START;
+states next_state;
+
 
 uint8_t already_lifted = 0;
 uint8_t already_dropped = 0;
@@ -100,10 +101,12 @@ void task_unoComm(void *pvParameters)
 						printf("Rotating");
 						number_of_rotations =0;
 						pick_up_tries++;
+						
 					}
 				}
+				next_state = SEARCH;
 			}
-			next_state = SEARCH;
+			
 			break;
 			///////////////////////////Pick_up-state////////////////////////////////////
 			case PICK_UP:
@@ -127,7 +130,7 @@ void task_unoComm(void *pvParameters)
 					already_lifted = 0;
 					
 					// If Arlo can collect all items and there are no more objects to pick up or if it cannot collect them all
-					if ((arlo_get_collect_status() == 1 && objects_left == 0) || (arlo_get_collect_status() == 0))
+					if ((arlo_get_collect_status() == 1 && objects_left == 0) || (arlo_get_collect_status() == 1))
 					{
 						next_state = DROP_OFF;
 					}
@@ -175,7 +178,7 @@ void task_unoComm(void *pvParameters)
 			break;
 			////////////////////////-----SLUT-----!!!!///////////////////////////////////
 		}
-		next_state = current_state;
+		current_state=next_state;
 		
 		//		static uint8_t i = 1;
 		/* Lifts object */
