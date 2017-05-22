@@ -18,7 +18,7 @@ extern Bool newData;
 void task_getCordinates(void *pvParameters)
 {
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 200;
+	const portTickType xTimeIncrement = 300;
 
 	xLastWakeTime = xTaskGetTickCount();//Initialise the xLastWakeTime variable with the current time.
 	while (1) 
@@ -29,9 +29,9 @@ void task_getCordinates(void *pvParameters)
 		coord.presentY=coord_arr[1];
 		printf("\n x : %d\r\n", coord.presentX);
 		printf("y : %d\r\n", coord.presentY);
-		//newData=true;
-		//updateLastPresent(coord_arr);
-		calculateAngleDistance();
+		//updateLastPresent();
+		//calculateAngleDistance();
+		newData=false;
 		vTaskSuspend(NULL);
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
 	}

@@ -49,7 +49,7 @@ uint8_t number_of_rotations = 0;	// Used for
 void task_unoComm(void *pvParameters)
 {
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 400;
+	const portTickType xTimeIncrement = 200;
 
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 

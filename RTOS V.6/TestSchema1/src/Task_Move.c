@@ -54,7 +54,7 @@ extern xTaskHandle xTaskCom;
 extern xTaskHandle xTaskCoordinate;
 
 // typedef enum {START,STARTGL,STARTLASSE,BEFORE_ROTATE,ROTATE,MOVE,LIFT,NAVI,CLOSE} states;
-typedef enum {START,BEFORE_ROTATE,ROTATE,MOVE,COMM,NAVI,CLOSE} states;
+typedef enum {START,BEFORE_ROTATE,ROTATE,MOVE,COMM,NAVI,CLOSE,WAIT} states;
 
 states currentState = START;
 states nextState;
@@ -70,7 +70,7 @@ Drop_Off_Status drop_off_status_t = 0;
 void task_move(void *pvParameters)
 {
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 300; //Time given for the task to complete work...
+	const portTickType xTimeIncrement = 200; //Time given for the task to complete work...
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 	while (1)
 	{
@@ -112,10 +112,11 @@ void task_move(void *pvParameters)
 			case NAVI:
 			
 			// Kollar efter ny data efter 20 pulser
-			if (pulse_counter >= 20 || pulse_counter == 0)
+			if (newData)
 			{
-				pulse_counter = 0;
+				//pulse_counter = 0;
 				vTaskResume(xTaskCoordinate);
+				nextState=WAIT;
 			}
 			
 			// Kollar ifall ny data finns efter varje 40ms*20pulser=800ms
@@ -144,6 +145,7 @@ void task_move(void *pvParameters)
 				nextState = COMM;
 			}
 			else{
+				//printf("%d",distance);
 				nextState = MOVE;
 			}
 		
@@ -174,13 +176,14 @@ void task_move(void *pvParameters)
  				{
  					arloIsDone=true;
  				}
+				newData=true;
 				nextState = NAVI;
 				//wait=0;
 			}
 			else
 			{
 				move();
-				nextState = NAVI;
+				nextState = MOVE;
 			}
 			break;
 			/************************************************************************/
@@ -218,7 +221,7 @@ void task_move(void *pvParameters)
 				{
 					arloIsDone=true;
 				}
-				nextState = NAVI;
+				nextState = MOVE;
 			}
 			else
 			{
@@ -252,22 +255,34 @@ void task_move(void *pvParameters)
 				// nextState = STARTGL;
 				nextState = START;
 			}
-			else if (distance!=0)
-			{
-				printf("I want to move!!\r\n");
-				nextState = MOVE;
-			}
-			else if(angle!=0)
-			{
-				printf("I want to move my angle!!\r\n");
-				nextState = ROTATE;
-			}
+// 			else if (distance!=0)
+// 			{
+// 				printf("I want to move!!\r\n");
+// 				nextState = MOVE;
+// 			}
+// 			else if(angle!=0)
+// 			{
+// 				printf("I want to move my angle!!\r\n");
+// 				nextState = ROTATE;
+// 			}
 			else
 			{
 				// vTaskResume(xTaskCom);
 				nextState = COMM;
 			}
 			
+			break;
+			
+			case WAIT:
+				if (!newData)
+				{
+					nextState=NAVI;
+				}
+				else
+				{
+					nextState = WAIT;
+				}
+				
 			break;
 			/************************************************************************/
 			/*                           SLUTET AV SWITCH CASE                      */
@@ -349,23 +364,23 @@ void coordinatesInit (void)
 	coord.lastX = 0;
 	coord.lastY = -100;
 
-// 	coord.sock[0] = object_buffer[0];
-// 	coord.sock[1] = object_buffer[1];
-// 
-// 	coord.cube[0] = object_buffer[2];
-// 	coord.cube[1] = object_buffer[3];
-// 
-// 	coord.glass[0] = object_buffer[4];
-// 	coord.glass[1] = object_buffer[5];
+	coord.sock[0] = object_buffer[0];
+	coord.sock[1] = object_buffer[1];
+
+	coord.cube[0] = object_buffer[2];
+	coord.cube[1] = object_buffer[3];
+
+	coord.glass[0] = object_buffer[4];
+	coord.glass[1] = object_buffer[5];
 	
-	coord.sock[0] = 66;
-	coord.sock[1] = 91;
-
-	coord.cube[0] = 160;
-	coord.cube[1] = 247;
-
-	coord.glass[0] = 85;
-	coord.glass[1] = 338;
+// 	coord.sock[0] = 66;
+// 	coord.sock[1] = 91;
+// 
+// 	coord.cube[0] = 160;
+// 	coord.cube[1] = 247;
+// 
+// 	coord.glass[0] = 85;
+// 	coord.glass[1] = 338;
 	
 	
 
@@ -388,9 +403,11 @@ void updateNextPosition()
 		else if (object_counter == 2)
 		{
 			printf("Driving to cube!\r\n");
-			//updateLastPresent();
+			updateLastPresent();
 			coord.presentX=(double)coord.sock[0];
 			coord.presentY=(double)coord.sock[1];
+			coord.lastX=(double) 0;
+			coord.lastY=(double) 0;
 			coord.targetX=(double)coord.cube[0];
 			coord.targetY=(double)coord.cube[1];
 			calculateAngleDistance();
@@ -398,9 +415,11 @@ void updateNextPosition()
 		else if (object_counter == 3)
 		{
 			printf("Driving to glass!\r\n");
-			//updateLastPresent();
+			updateLastPresent();
 			coord.presentX=(double)coord.cube[0];
 			coord.presentY=(double)coord.cube[1];
+			coord.lastX=(double)coord.sock[0];
+			coord.lastY=(double)coord.sock[1];
 			coord.targetX=(double)coord.glass[0];
 			coord.targetY=(double)coord.glass[1];
 			calculateAngleDistance();
@@ -408,9 +427,11 @@ void updateNextPosition()
 		else if(object_counter == 4)
 		{
 			printf("Driving to box!\r\n");
-			//updateLastPresent();
+			updateLastPresent();
 			coord.presentX=(double)coord.glass[0];
 			coord.presentY=(double)coord.glass[1];
+			coord.lastX=(double)coord.cube[0];
+			coord.lastY=(double)coord.cube[1];
 			coord.targetX=(double)coord.box[0];
 			coord.targetY=(double)coord.box[1];
 			calculateAngleDistance();
@@ -485,7 +506,7 @@ void updateLastPresent()
 void calculateAngleDistance(void){
 	printf("NAVI");
 	angle = calcluteRotationAngle(coord.lastX,coord.lastY,coord.presentX,coord.presentY,coord.targetX,coord.targetY);
-	printf("%d",angle);
+	printf("%d ANGLE\r\n",angle);
 	distance = calculateDistance(coord.presentX,coord.presentY,coord.targetX,coord.targetY);
-	printf("%d",distance);
+	printf("%d Distance\r\n",distance);
 }
