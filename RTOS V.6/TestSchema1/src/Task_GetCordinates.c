@@ -25,8 +25,8 @@ void task_getCordinates(void *pvParameters)
 	{	
 		int16_t coord_arr[2]={0};
 		arlo_get_position(coord_arr);
-		coord.presentX=(double)coord_arr[0];
-		coord.presentY=(double)coord_arr[1];
+		coord.presentX=coord_arr[0];
+		coord.presentY=coord_arr[1];
 		printf("\n x : %d\r\n", coord.presentX);
 		printf("y : %d\r\n", coord.presentY);
 		//newData=true;
