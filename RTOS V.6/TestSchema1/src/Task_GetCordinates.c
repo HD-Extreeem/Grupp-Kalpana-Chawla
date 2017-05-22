@@ -11,21 +11,26 @@
 #include "arlo/Arlo.h"
 #include "Task_GetCordinates.h"
 #include "task.h"
-int16_t coord_arr[2] = {0};
+#include "Task_Move.h"
+int16_t coord_arr[2];
+extern Bool newData;
 
 void task_getCordinates(void *pvParameters)
 {
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 100;
+	const portTickType xTimeIncrement = 200;
 
 	xLastWakeTime = xTaskGetTickCount();//Initialise the xLastWakeTime variable with the current time.
-
 	while (1) 
 	{	
 		arlo_get_position(coord_arr);
-		printf("\n x : %d\r\n", coord_arr[0]);
-		printf("y : %d\r\n", coord_arr[1]);
-		//updateLastPresent();
+		coord.presentX=coord_arr[0];
+		coord.presentY=coord_arr[1];
+		printf("\n x : %d\r\n", coord.presentX);
+		printf("y : %d\r\n", coord.presentY);
+		//newData=true;
+		//updateLastPresent(coord_arr);
+		calculateAngleDistance();
 		vTaskSuspend(NULL);
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
 	}

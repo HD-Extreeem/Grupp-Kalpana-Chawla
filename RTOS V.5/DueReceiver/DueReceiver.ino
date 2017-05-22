@@ -21,16 +21,16 @@ uint8_t tx_buf[TX_DATA_LENGTH];
   uint16_t cube_y = 100;
 
   
-  uint16_t sock_x = 300;
+  uint16_t sock_x = 270;
   uint16_t sock_y = 100;
 
   
   uint16_t glass_x = 120;
-  uint16_t glass_y = 300;
+  uint16_t glass_y = 400;
 
   
-  uint16_t box_x = 20;
-  uint16_t box_y = 0;
+  uint16_t box_x = 10;
+  uint16_t box_y = 10;
 
    uint8_t msb_x;
   uint8_t lsb_x;

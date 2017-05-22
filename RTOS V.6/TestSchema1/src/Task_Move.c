@@ -112,22 +112,22 @@ void task_move(void *pvParameters)
 			case NAVI:
 			
 			// Kollar efter ny data efter 20 pulser
-			if (pulse_counter >= 20 || pulse_counter == 0)
+			if (pulse_counter >= 18 || pulse_counter == 0)
 			{
 				pulse_counter = 0;
 				vTaskResume(xTaskCoordinate);
 			}
 			
 			// Kollar ifall ny data finns efter varje 40ms*20pulser=800ms
-			if (newData)
+			/*if (newData)
 			{
 				printf("NewData!\r\n");
 				//vTaskSuspend(xTaskCoordinate);
 				newData = false;
-				updateLastPresent();
+				//updateLastPresent();
 				calculateAngleDistance();
 				nextState = MOVE;
-			}
+			}*/
 			
 			if (liftStart && !comAlreadyOn)
 			{
@@ -166,6 +166,7 @@ void task_move(void *pvParameters)
 				sum=0;
 				speed = 200;
 				distance=0;
+				pulse_counter=0;				
 				reset_Counter();
 				liftStart=true;
 				if (arloNeedsToDrive)
@@ -464,107 +465,7 @@ void updateNextPosition()
 	}
 }
 
-
-void updateNextPosGL(void){
-	//static uint8_t i = 1;
-	if (object_counter==1)
-	{
-		coord.targetX=coord.sock[0];
-		coord.targetY=coord.sock[1];
-		calculateAngleDistance();
-	}
-	
-	else if(object_counter==2){
-		updateLastPresent();
-		coord.presentX=coord.sock[0];
-		coord.presentY=coord.sock[1];
-		coord.targetX=coord.cube[0];
-		coord.targetY=coord.cube[1];
-		calculateAngleDistance();
-	}
-	
-	else if(object_counter==3){
-		updateLastPresent();
-		coord.presentX=coord.cube[0];
-		coord.presentY=coord.cube[1];
-		coord.targetX=coord.glass[0];
-		coord.targetY=coord.glass[1];
-		calculateAngleDistance();
-	}
-	
-	else if(object_counter==4){
-		updateLastPresent();
-		coord.presentX=coord.glass[0];
-		coord.presentY=coord.glass[1];
-		coord.targetX=coord.box[0];
-		coord.targetY=coord.box[1];
-		calculateAngleDistance();
-	}
-	
-	printf("I counter %d \r\n", object_counter);
-	object_counter++;
-}
-void updateNextPosLasse(void){
-	//static uint8_t i = 1;
-	if (object_counter==1)
-	{
-		coord.targetX=coord.sock[0];
-		coord.targetY=coord.sock[1];
-		calculateAngleDistance();
-	}
-	
-	else if(object_counter==2){
-		updateLastPresent();
-		coord.presentX=coord.sock[0];
-		coord.presentY=coord.sock[1];
-		coord.targetX=coord.box[0];
-		coord.targetY=coord.box[1];
-		calculateAngleDistance();
-	}
-	
-	else if(object_counter==3){
-		updateLastPresent();
-		coord.presentX=coord.box[0];
-		coord.presentY=coord.box[1];
-		coord.targetX=coord.cube[0];
-		coord.targetY=coord.cube[1];
-		calculateAngleDistance();
-	}
-	
-	else if(object_counter==4){
-		updateLastPresent();
-		coord.presentX=coord.cube[0];
-		coord.presentY=coord.cube[1];
-		coord.targetX=coord.box[0];
-		coord.targetY=coord.box[1];
-		calculateAngleDistance();
-	}
-	else if(object_counter==5){
-		updateLastPresent();
-		coord.presentX=coord.box[0];
-		coord.presentY=coord.box[1];
-		coord.targetX=coord.glass[0];
-		coord.targetY=coord.glass[1];
-		calculateAngleDistance();
-	}
-	else if(object_counter==6){
-		updateLastPresent();
-		coord.presentX=coord.glass[0];
-		coord.presentY=coord.glass[1];
-		coord.targetX=coord.box[0];
-		coord.targetY=coord.box[1];
-		calculateAngleDistance();
-	}
-	else
-	{
-		printf("\n close now!\r\n");
-		nextState = CLOSE;
-	}
-	printf("\nObject counter: %d\r\n", object_counter);
-	object_counter++;
-}
-
-void updateLastPresent(void)
+void updateLastPresent()
 {
 	coord.lastX=coord.presentX;
 	coord.lastY=coord.presentY;

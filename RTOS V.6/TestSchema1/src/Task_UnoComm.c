@@ -49,7 +49,7 @@ uint8_t number_of_rotations = 0;	// Used for
 void task_unoComm(void *pvParameters)
 {
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 300;
+	const portTickType xTimeIncrement = 400;
 
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 
@@ -119,10 +119,12 @@ void task_unoComm(void *pvParameters)
 				// If Arlo can collect all items and there are no more objects to pick up or if it cannot collect them all
 				if ((arlo_get_collect_status() == 1 && objects_left == 0) || (arlo_get_collect_status() == 0))
 				{
+					printf("Skall lämna allt nu!!!!!!!!!!!!!!\r\n");
 					next_state = DROP_OFF;
 				}
 				else
 				{
+					printf("NÄÄÄÄÄÄÄÄÄSTTTTTTTTTTTTAAAAAAAA!!!!!!!!!!!!!!\r\n");
 					printf("\n pick_up_process_finished=true\r\n");
 					pick_up_process_finished=true;
 					next_state = PICK_UP_START;
