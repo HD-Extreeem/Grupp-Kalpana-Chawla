@@ -45,6 +45,7 @@ Bool process_running=false;
 
 Bool liftProcessFinished = false;
 Bool liftStart = false;
+Bool requestedByUno = false;
 
 int pulse_counter=0;
 
@@ -59,16 +60,17 @@ states currentState = START;
 states nextState;
 
 Bool pick_up_process_finished = false;
-
+Bool arloIsDone = false;
+Bool comAlreadyOn = false;
+Bool arloNeedsToDrive=false;
 Bool drop_off_process_finished = false;
 Pick_Up_Status pick_up_status_t=0;
-Find_Object_Status find_object_status_t = 0;
 Drop_Off_Status drop_off_status_t = 0;
 
 void task_move(void *pvParameters)
 {
 	portTickType xLastWakeTime;
-	const portTickType xTimeIncrement = 100; //Time given for the task to complete work...
+	const portTickType xTimeIncrement = 300; //Time given for the task to complete work...
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 	while (1)
 	{
@@ -119,6 +121,7 @@ void task_move(void *pvParameters)
 			// Kollar ifall ny data finns efter varje 40ms*20pulser=800ms
 			if (newData)
 			{
+				printf("NewData!\r\n");
 				//vTaskSuspend(xTaskCoordinate);
 				newData = false;
 				updateLastPresent();
@@ -126,36 +129,30 @@ void task_move(void *pvParameters)
 				nextState = MOVE;
 			}
 			
-			if ((liftStart && find_object_status_t==0) && (liftStart && drop_off_status_t == 0))
+			if (liftStart && !comAlreadyOn)
 			{
 				printf("Startar kommunikationen med UNO!\r\n");
 				pick_up_status_t = PICK_UP_RUNNING;
 				liftStart=false;
+				comAlreadyOn=true;
 				nextState = COMM;
 				vTaskResume(xTaskCom);
 			}
-			else
+			else if (comAlreadyOn)
 			{
+				printf("Moving in else state\r\n");
+				nextState = COMM;
+			}
+			else{
 				nextState = MOVE;
 			}
+		
 			break;
 			/************************************************************************/
 			/*                               MOVE!!!                                */
 			/************************************************************************/
 			case MOVE:
 			printf("MOVE");
-			// 			check++;
-			// 			if (check==40)
-			// 			{
-			// 				angle =90;
-			// 				referenceValue = referenceValue - angle/2;
-			// 			}
-			//
-			// 			if (check==90)
-			// 			{
-			// 				angle =-90;
-			// 				referenceValue = referenceValue - angle/2;
-			// 			}
 			totalPulses = (distance*direction/1.45);
 			if (totMovement+2>=totalPulses)
 			{
@@ -171,6 +168,10 @@ void task_move(void *pvParameters)
 				distance=0;
 				reset_Counter();
 				liftStart=true;
+				if (arloNeedsToDrive)
+				{
+					arloIsDone=true;
+				}
 				nextState = NAVI;
 				//wait=0;
 			}
@@ -211,6 +212,10 @@ void task_move(void *pvParameters)
 				angle=0;
 				totalPulses=0;
 				totMovement=0;
+				if (arloNeedsToDrive)
+				{
+					arloIsDone=true;
+				}
 				nextState = NAVI;
 			}
 			else
@@ -233,10 +238,13 @@ void task_move(void *pvParameters)
 			if (pick_up_process_finished)
 			{
 				printf("Pick up process finished\r\n");
+				
+				printf("FINISHED!!!!!!!!!!!\r\n");
 				//vTaskSuspend(xTaskCom);
 				// status = arlo_get_pick_up_status();
 				//status=0;
 				//flag_i=1;
+				comAlreadyOn=false;
 				process_running=false;
 				pick_up_process_finished=false;
 				// nextState = STARTGL;
@@ -244,10 +252,12 @@ void task_move(void *pvParameters)
 			}
 			else if (distance!=0)
 			{
+				printf("I want to move!!\r\n");
 				nextState = MOVE;
 			}
 			else if(angle!=0)
 			{
+				printf("I want to move my angle!!\r\n");
 				nextState = ROTATE;
 			}
 			else

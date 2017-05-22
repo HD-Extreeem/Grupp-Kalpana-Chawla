@@ -27,7 +27,7 @@ void twi_init()
 
 void twi_send_packet(uint8_t *tx_buffer, uint8_t recipient_addr)
 {
-	printf("Sending: %d, %d, %d\r\n", tx_buffer[0], tx_buffer[1], tx_buffer[2]);
+	printf("Sending: %x, %x, %x\r\n", tx_buffer[0], tx_buffer[1], tx_buffer[2]);
 	
 	uint8_t data_length = 0;
 	if (recipient_addr == SLAVE_ADDR_ARM)
@@ -74,7 +74,7 @@ void twi_request_packet(uint8_t *rx_buffer, uint8_t recipient_addr)
 	while (twi_master_read(TWI_PORT, &rx_packet) != TWI_SUCCESS);
 	// indicate();
 	
-	printf("Receiving: %d, %d, %d\r\n", rx_buffer[0], rx_buffer[1], rx_buffer[2]);
+	printf("Receiving: %x, %x, %x\r\n", rx_buffer[0], rx_buffer[1], rx_buffer[2]);
 }
 
 void twi_arm_init(TWI_CMD_Init_Req twi_cmd_init_req_t, uint8_t *tx_buffer, uint8_t *rx_buffer)
@@ -138,12 +138,6 @@ void twi_control_arm(uint8_t *tx_buffer, uint8_t *rx_buffer)
 		case TWI_CMD_ERROR:
 		twi_reset_arm(tx_buffer, rx_buffer);
 		break;
-		case TWI_CMD_FIND_OBJECT:
-		twi_find_object(tx_buffer, rx_buffer);
-		break;
-		case TWI_CMD_FIND_OBJECT_STATUS:
-		twi_check_find_object_status(tx_buffer, rx_buffer);
-		break;
 		default:
 		// Do nothing
 		break;
@@ -162,14 +156,6 @@ void twi_indicate()
 void twi_start_pick_up(uint8_t *tx_buffer, uint8_t *rx_buffer)
 {
 	tx_buffer[0] = TWI_CMD_PICK_UP_START;
-	
-	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
-	/* No need to get data back */
-}
-
-void twi_find_object(uint8_t *tx_buffer, uint8_t *rx_buffer)
-{
-	tx_buffer[0] = TWI_CMD_FIND_OBJECT;
 	
 	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
 	/* No need to get data back */
@@ -202,16 +188,6 @@ void twi_check_pick_up_status(uint8_t *tx_buffer, uint8_t *rx_buffer)
 void twi_check_drop_off_status(uint8_t *tx_buffer, uint8_t *rx_buffer)
 {
 	tx_buffer[0] = TWI_CMD_DROP_OFF_STATUS;
-	
-	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
-	twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);
-	
-	/* Do something with the received data */
-}
-
-void twi_check_find_object_status(uint8_t *tx_buffer, uint8_t *rx_buffer)
-{
-	tx_buffer[0] = TWI_CMD_FIND_OBJECT_STATUS;
 	
 	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
 	twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);

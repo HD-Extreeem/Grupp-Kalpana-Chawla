@@ -1,9 +1,7 @@
 /**
-   UnoReceiver.ino
+   LarzKristerzKran.ino
    Author: Namra Gill (crane code) and Jonas Eiselt (TWI-code)
    Created: 2017-05-21
-   
-   Modified by ??
 */
 
 #include <Servo.h>
@@ -27,6 +25,7 @@ int next;
 
 int flagDrive = 0;
 int objectsLeft = 3;
+int detectionTries = 0;
 
 enum States {Wait, SensorDetection, GrabObject, DropObject, LiftUp};
 States state = Wait;
@@ -117,9 +116,10 @@ void setup()
   servoArm.write(70);
   servoBottom.write(150);
 
-  // liftDown();
+  liftDown();
 
-  // liftUp();
+  //liftUp();
+  //while(1);
 
   Wire.begin(DEVICE_ADDRESS);
   Wire.onReceive(receiveEvent);
@@ -131,21 +131,35 @@ void setup()
 void loop()
 {
   /* Om en pick-up-object-req har kommit in OCH Om objekt inte har plockats upp */
-  if (twi_cmd_t == TWI_CMD_PICK_UP_START && pick_up_status_t == PICK_UP_IDLE)
+  if (twi_cmd_t == TWI_CMD_PICK_UP_START && pick_up_status_t != PICK_UP_DONE)
   {
     Serial.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     Serial.println("Pick-up of an object has been requested");
     Serial.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    
     state = SensorDetection;
+
+  }
+  else if (twi_cmd_t ==  TWI_CMD_PICK_UP_STATUS && pick_up_status_t != PICK_UP_DONE && flagDrive == 0)
+  {
+    pick_up_status_t = PICK_UP_BACKWARD;
+    Serial.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    Serial.println("Pick-up status has been requested");
+    Serial.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    Serial.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    Serial.println("GOING BACKWARD.....................");
+    Serial.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    flagDrive = 1;
+    state = Wait;
   }
   /* Om en pick-up-obj-status-req har kommit in OCH Om objekt inte har plockats upp */
-  else if (twi_cmd_t == TWI_CMD_PICK_UP_STATUS && pick_up_status_t == PICK_UP_DONE_DRIVE && flagDrive == 0)
+  else if (twi_cmd_t == TWI_CMD_PICK_UP_STATUS && pick_up_status_t != PICK_UP_DONE && flagDrive == 1)
   {
     Serial.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     Serial.println("Pick-up status has been requested");
     Serial.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-
+    Serial.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    Serial.println("GOING FORWARD.....................");
+    Serial.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     /* Öppna arm */
     openArm();
 
@@ -153,22 +167,27 @@ void loop()
     pick_up_status_t = PICK_UP_FORWARD;
     state = Wait;
 
-    flagDrive = 1;
+    flagDrive = 2;
   }
-  else if (twi_cmd_t == TWI_CMD_PICK_UP_STATUS && pick_up_status_t == PICK_UP_DONE_DRIVE && flagDrive == 1)
+  else if (twi_cmd_t == TWI_CMD_PICK_UP_STATUS && pick_up_status_t != PICK_UP_DONE && flagDrive == 2)
   {
     Serial.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     Serial.println("Grabbing objects has been requested");
     Serial.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    
+
     state = GrabObject;
   }
-  else if (twi_cmd_t == TWI_CMD_DROP_OFF_START && drop_off_status_t == DROP_OFF_IDLE)
+  else if (twi_cmd_t == TWI_CMD_DROP_OFF_START && drop_off_status_t != DROP_OFF_DONE)
   {
     Serial.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     Serial.println("Dropping off objects has been requested");
     Serial.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-    
+  }
+  else if (twi_cmd_t == TWI_CMD_DROP_OFF_STATUS && drop_off_status_t != DROP_OFF_DONE)
+  {
+    Serial.println("\n~~~~~~~~~~~~~~~~~~");
+    Serial.println("Dropping off object");
+    Serial.println("~~~~~~~~~~~~~~~~~~~~\n");
     state = DropObject;
   }
 
@@ -179,6 +198,7 @@ void loop()
   {
     case SensorDetection:
       sensor(true);
+      detectionTries = detectionTries + 1;
       if (distance_cm <= 30)
       {
         Serial.println("Object was detected!");
@@ -186,8 +206,8 @@ void loop()
         /* Vi vill att Arlo ska köra bakåt OCH vänta tills Arlo kört färdigt */
         state = Wait;
         detectionTries = 0;
-        
-        pick_up_status_t = PICK_UP_BACKWARD;
+        flagDrive = 0;
+        Serial.println("GOING FORWARD!");
       }
       else
       {
@@ -200,7 +220,7 @@ void loop()
           /* Arlo kommer sedan skicka kommandot TWI_CMD_PICK_UP_START när den har roterat 10 grader */
           pick_up_status_t = PICK_UP_FAILED;
         }
-        else 
+        else
         {
           state = SensorDetection;
         }
@@ -273,9 +293,9 @@ void loop()
 /****************************************************************/
 
 /*
- * Metod för att höja kran till sin högsta nivå. Anropas från setup när 
- * kommunikation ej har initierats -> OK att ha en while-loop då!
- */
+   Metod för att höja kran till sin högsta nivå. Anropas från setup när
+   kommunikation ej har initierats -> OK att ha en while-loop då!
+*/
 void liftUp()
 {
   buttonState2 = 1;
@@ -303,7 +323,6 @@ void liftDown()
 {
   buttonState = 1;
 
-  Serial.println("Starting detection");
   digitalWrite(9, LOW);
   digitalWrite(12, LOW); //hissar neråt
   Serial.println("Going down");

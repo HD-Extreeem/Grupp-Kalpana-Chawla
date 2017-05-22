@@ -191,34 +191,6 @@ void arlo_pick_up_object(Object object_t)
 }
 
 /* Comment here */
-void arlo_find_object(Object object_t)
-{
-	tx_arm_buffer[0] = TWI_CMD_FIND_OBJECT;
-	tx_arm_buffer[1] = object_t;
-	tx_arm_buffer[2] = TWI_NO_DATA;
-	
-	twi_control_arm(tx_arm_buffer, rx_arm_buffer);
-}
-
-/* Comment here */
-Find_Object_Status arlo_get_find_object_status()
-{
-	uint8_t tx_buffer[TX_ARM_LENGTH] = {0};
-	tx_buffer[0] = TWI_CMD_FIND_OBJECT_STATUS;
-	tx_buffer[1] = TWI_NO_DATA;
-	tx_buffer[2] = TWI_NO_DATA;
-	twi_send_packet(tx_buffer, SLAVE_ADDR_ARM);
-	
-	uint8_t rx_buffer[RX_ARM_LENGTH] = {0};
-	twi_request_packet(rx_buffer, SLAVE_ADDR_ARM);
-	
-	Find_Object_Status find_object_status_t = rx_buffer[1];
-	printf("Find object status: %d\r\n", find_object_status_t);
-	
-	return find_object_status_t;
-}
-
-/* Comment here */
 void arlo_drop_object(Object object_t)
 {
 	tx_arm_buffer[0] = TWI_CMD_DROP_OFF_START;
@@ -250,6 +222,15 @@ Drop_Off_Status arlo_get_drop_off_status()
 	printf("Drop off status: %d\r\n", drop_off_status_t);
 	
 	return drop_off_status_t;
+}
+
+void arlo_done_drive(Pick_Up_Status pick_up_status_t)
+{
+	tx_arm_buffer[0] = TWI_CMD_PICK_UP_STATUS;
+	tx_arm_buffer[1] = pick_up_status_t;
+	tx_arm_buffer[2] = TWI_NO_DATA;
+	
+	twi_control_arm(tx_arm_buffer, rx_arm_buffer);
 }
 
 void arlo_get_object_positions(int16_t *object_buffer)
