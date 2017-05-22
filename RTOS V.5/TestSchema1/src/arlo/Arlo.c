@@ -20,6 +20,18 @@ uint8_t rx_nav_buffer[RX_NAV_LENGTH] = {0};
 
 uint8_t arlo_collect_status = 0; // 1 = Arlo can collect all objects without driving to box
 
+int16_t sock_x = 0;
+int16_t sock_y = 0;
+
+int16_t cube_x = 0;
+int16_t cube_y = 0;
+
+int16_t glass_x = 0;
+int16_t glass_y = 0;
+
+int16_t box_x = 0;
+int16_t box_y = 0;
+
 /* Comment here */
 void arlo_init()
 {
@@ -87,8 +99,8 @@ void arlo_nav_init(int16_t *object_buffer)
 	// object_buffer[0] = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
 	// object_buffer[1] = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 	
-	int16_t sock_x = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
-	int16_t sock_y = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
+	sock_x = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	sock_y = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 	
 	/* Get coordinate for cube */
 	twi_nav_init(0x53, tx_nav_buffer, rx_nav_buffer);
@@ -97,8 +109,8 @@ void arlo_nav_init(int16_t *object_buffer)
 	// object_buffer[2] = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
 	// object_buffer[3] = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 	
-	int16_t cube_x = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
-	int16_t cube_y = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
+	cube_x = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	cube_y = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 	
 	/* Get coordinate for glass */
 	twi_nav_init(0x54, tx_nav_buffer, rx_nav_buffer);
@@ -107,8 +119,8 @@ void arlo_nav_init(int16_t *object_buffer)
 	// object_buffer[4] = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
 	// object_buffer[5] = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 	
-	int16_t glass_x = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
-	int16_t glass_y = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
+	glass_x = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	glass_y = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 	
 	/* Get coordinate for box */
 	twi_nav_init(0x55, tx_nav_buffer, rx_nav_buffer);
@@ -117,8 +129,8 @@ void arlo_nav_init(int16_t *object_buffer)
 	// object_buffer[4] = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
 	// object_buffer[5] = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 	
-	int16_t box_x = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
-	int16_t box_y = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
+	box_x = ((rx_nav_buffer[1] << 8) | (rx_nav_buffer[2] << 0));
+	box_y = ((rx_nav_buffer[3] << 8) | (rx_nav_buffer[4] << 0));
 
 	object_buffer[0] = sock_x;
 	object_buffer[1] = sock_y;
@@ -240,7 +252,17 @@ Drop_Off_Status arlo_get_drop_off_status()
 	return drop_off_status_t;
 }
 
-void arlo_get_object_positions(uint16_t *object_buffer)
+void arlo_get_object_positions(int16_t *object_buffer)
 {
+	object_buffer[0] = sock_x;
+	object_buffer[1] = sock_y;
 	
+	object_buffer[2] = cube_x;
+	object_buffer[3] = cube_y;
+	
+	object_buffer[4] = glass_x;
+	object_buffer[5] = glass_y;
+	
+	object_buffer[6] = box_x;
+	object_buffer[7] = box_y;
 }
