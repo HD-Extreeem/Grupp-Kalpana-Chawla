@@ -5173,7 +5173,7 @@ int main (void)
    81832:	4622      	mov	r2, r4
    81834:	462b      	mov	r3, r5
    81836:	47c0      	blx	r8
-		printf("Test med Double (x1, y1): %d, %d\r\n", coord.presentX, coord.presentY);
+		printf("Test med Double (x1, y1): %f, %f\r\n", coord.presentX, coord.presentY);
    81838:	e9d7 2300 	ldrd	r2, r3, [r7]
    8183c:	e9d7 0102 	ldrd	r0, r1, [r7, #8]
    81840:	e9cd 0100 	strd	r0, r1, [sp]
@@ -10408,8 +10408,8 @@ int main (void)
    84db4:	20656c62 	.word	0x20656c62
    84db8:	2c317828 	.word	0x2c317828
    84dbc:	29317920 	.word	0x29317920
-   84dc0:	6425203a 	.word	0x6425203a
-   84dc4:	6425202c 	.word	0x6425202c
+   84dc0:	6625203a 	.word	0x6625203a
+   84dc4:	6625202c 	.word	0x6625202c
    84dc8:	00000a0d 	.word	0x00000a0d
    84dcc:	00000043 	.word	0x00000043
 
