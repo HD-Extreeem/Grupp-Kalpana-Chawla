@@ -39,7 +39,7 @@ void arlo_init()
 	twi_init();
 	
 	/* Initializes arm */
-	arlo_arm_init();
+	//arlo_arm_init();
 	
 	/* Initializes nav-system */
 	int16_t object_buffer[8] = {0};

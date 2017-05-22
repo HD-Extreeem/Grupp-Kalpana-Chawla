@@ -14,8 +14,8 @@
 void task_move(void *pvParameters);
 void move(void);
 typedef struct{
-	double presentX,presentY,lastX,lastY,targetX,targetY;
-	double sock[2],cube[2],glass[2],box[2];
+	int16_t presentX,presentY,lastX,lastY,targetX,targetY;
+	int16_t sock[2],cube[2],glass[2],box[2];
 }coordinates;
 
 coordinates coord;

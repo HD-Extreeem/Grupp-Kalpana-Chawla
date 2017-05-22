@@ -32,11 +32,12 @@ int main (void)
 	configureConsole();
 	attach_interupt();
 	PWM_init();
-	
+	delay_s(5);
 	/* Arlo robot initialization */
 	arlo_init();
-	coordinatesInit();
 	
+	coordinatesInit();
+
 	/* Test nav system */
 // 	while(1)
 // 	{

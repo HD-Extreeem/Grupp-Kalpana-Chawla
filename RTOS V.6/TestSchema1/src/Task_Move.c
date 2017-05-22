@@ -348,14 +348,25 @@ void coordinatesInit (void)
 	coord.lastX = 0;
 	coord.lastY = -100;
 
-	coord.sock[0] = object_buffer[0];
-	coord.sock[1] = object_buffer[1];
+// 	coord.sock[0] = object_buffer[0];
+// 	coord.sock[1] = object_buffer[1];
+// 
+// 	coord.cube[0] = object_buffer[2];
+// 	coord.cube[1] = object_buffer[3];
+// 
+// 	coord.glass[0] = object_buffer[4];
+// 	coord.glass[1] = object_buffer[5];
+	
+	coord.sock[0] = 66;
+	coord.sock[1] = 91;
 
-	coord.cube[0] = object_buffer[2];
-	coord.cube[1] = object_buffer[3];
+	coord.cube[0] = 160;
+	coord.cube[1] = 247;
 
-	coord.glass[0] = object_buffer[4];
-	coord.glass[1] = object_buffer[5];
+	coord.glass[0] = 85;
+	coord.glass[1] = 338;
+	
+	
 
 	coord.box[0] = 0;
 	coord.box[1] = 0;
@@ -470,7 +481,6 @@ void updateLastPresent()
 	coord.lastX=coord.presentX;
 	coord.lastY=coord.presentY;
 }
-
 void calculateAngleDistance(void){
 	printf("NAVI");
 	angle = calcluteRotationAngle(coord.lastX,coord.lastY,coord.presentX,coord.presentY,coord.targetX,coord.targetY);
