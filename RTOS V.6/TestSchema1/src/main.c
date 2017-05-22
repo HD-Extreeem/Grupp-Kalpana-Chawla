@@ -39,15 +39,19 @@ int main (void)
 	coordinatesInit();
 
 	/* Test nav system */
-// 	while(1)
-// 	{
-// 		arlo_get_position(pos_buffer);
-// 		
-// 		printf("Position (x1, y1): %d, %d\r\n", pos_buffer[0], pos_buffer[1]);
-// 		printf("Position (x2, y2): %d, %d\r\n", pos_buffer[2], pos_buffer[3]);
-// 		
-// 		delay_ms(800);
-// 	}
+	while(1)
+	{
+		arlo_get_position(pos_buffer);
+		
+		printf("Position (x1, y1): %d, %d\r\n", pos_buffer[0], pos_buffer[1]);
+		coord.presentX=(double)pos_buffer[0];
+		coord.presentY=(double)pos_buffer[1];
+		printf("Position coord present (x1, y1): %d, %d\r\n", coord.presentX, coord.presentY);
+		printf("Test med Double (x1, y1): %d, %d\r\n", coord.presentX, coord.presentY);
+		//printf("Position (x2, y2): %d, %d\r\n", pos_buffer[2], pos_buffer[3]);
+		
+		delay_ms(800);
+	}
 	
 	/* Print info in terminal Window */
 	printf("-- %s\n\r", BOARD_NAME);

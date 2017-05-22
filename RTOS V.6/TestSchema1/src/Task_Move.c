@@ -84,7 +84,7 @@ void task_move(void *pvParameters)
 			{
 				updateNextPosition(); // Grönwall&Larz
 				
-				if (object_counter > 4)
+				if (object_counter > 5)
 				{
 					nextState = CLOSE;
 				}
@@ -112,7 +112,7 @@ void task_move(void *pvParameters)
 			case NAVI:
 			
 			// Kollar efter ny data efter 20 pulser
-			if (pulse_counter >= 18 || pulse_counter == 0)
+			if (pulse_counter >= 20 || pulse_counter == 0)
 			{
 				pulse_counter = 0;
 				vTaskResume(xTaskCoordinate);
@@ -131,12 +131,12 @@ void task_move(void *pvParameters)
 			
 			if (liftStart && !comAlreadyOn)
 			{
-				printf("Startar kommunikationen med UNO!\r\n");
-				pick_up_status_t = PICK_UP_RUNNING;
+				//printf("Startar kommunikationen med UNO!\r\n");
+				//pick_up_status_t = PICK_UP_RUNNING;
 				liftStart=false;
 				comAlreadyOn=true;
-				nextState = COMM;
-				vTaskResume(xTaskCom);
+				nextState = START;
+				//vTaskResume(xTaskCom);
 			}
 			else if (comAlreadyOn)
 			{
@@ -169,10 +169,11 @@ void task_move(void *pvParameters)
 				pulse_counter=0;				
 				reset_Counter();
 				liftStart=true;
-				if (arloNeedsToDrive)
-				{
-					arloIsDone=true;
-				}
+				pick_up_process_finished=true;
+ 				if (arloNeedsToDrive)
+ 				{
+ 					arloIsDone=true;
+ 				}
 				nextState = NAVI;
 				//wait=0;
 			}
@@ -380,38 +381,38 @@ void updateNextPosition()
 		if (object_counter == 1)
 		{
 			printf("Driving to sock!\r\n");
-			coord.targetX=coord.sock[0];
-			coord.targetY=coord.sock[1];
+			coord.targetX=(double)coord.sock[0];
+			coord.targetY=(double)coord.sock[1];
 			calculateAngleDistance();
 		}	
 		else if (object_counter == 2)
 		{
 			printf("Driving to cube!\r\n");
-			updateLastPresent();
-			coord.presentX=coord.sock[0];
-			coord.presentY=coord.sock[1];
-			coord.targetX=coord.cube[0];
-			coord.targetY=coord.cube[1];
+			//updateLastPresent();
+			coord.presentX=(double)coord.sock[0];
+			coord.presentY=(double)coord.sock[1];
+			coord.targetX=(double)coord.cube[0];
+			coord.targetY=(double)coord.cube[1];
 			calculateAngleDistance();
 		}
 		else if (object_counter == 3)
 		{
 			printf("Driving to glass!\r\n");
-			updateLastPresent();
-			coord.presentX=coord.cube[0];
-			coord.presentY=coord.cube[1];
-			coord.targetX=coord.glass[0];
-			coord.targetY=coord.glass[1];
+			//updateLastPresent();
+			coord.presentX=(double)coord.cube[0];
+			coord.presentY=(double)coord.cube[1];
+			coord.targetX=(double)coord.glass[0];
+			coord.targetY=(double)coord.glass[1];
 			calculateAngleDistance();
 		}
 		else if(object_counter == 4)
 		{
 			printf("Driving to box!\r\n");
-			updateLastPresent();
-			coord.presentX=coord.glass[0];
-			coord.presentY=coord.glass[1];
-			coord.targetX=coord.box[0];
-			coord.targetY=coord.box[1];
+			//updateLastPresent();
+			coord.presentX=(double)coord.glass[0];
+			coord.presentY=(double)coord.glass[1];
+			coord.targetX=(double)coord.box[0];
+			coord.targetY=(double)coord.box[1];
 			calculateAngleDistance();
 		}
 		printf("I counter %d \r\n",object_counter);
@@ -478,8 +479,8 @@ void updateNextPosition()
 
 void updateLastPresent()
 {
-	coord.lastX=coord.presentX;
-	coord.lastY=coord.presentY;
+	coord.lastX=(double)coord.presentX;
+	coord.lastY=(double)coord.presentY;
 }
 void calculateAngleDistance(void){
 	printf("NAVI");

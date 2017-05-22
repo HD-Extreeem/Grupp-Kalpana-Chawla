@@ -12,7 +12,7 @@
 #include "Task_GetCordinates.h"
 #include "task.h"
 #include "Task_Move.h"
-int16_t coord_arr[2];
+
 extern Bool newData;
 
 void task_getCordinates(void *pvParameters)
@@ -23,9 +23,10 @@ void task_getCordinates(void *pvParameters)
 	xLastWakeTime = xTaskGetTickCount();//Initialise the xLastWakeTime variable with the current time.
 	while (1) 
 	{	
+		int16_t coord_arr[2]={0};
 		arlo_get_position(coord_arr);
-		coord.presentX=coord_arr[0];
-		coord.presentY=coord_arr[1];
+		coord.presentX=(double)coord_arr[0];
+		coord.presentY=(double)coord_arr[1];
 		printf("\n x : %d\r\n", coord.presentX);
 		printf("y : %d\r\n", coord.presentY);
 		//newData=true;
