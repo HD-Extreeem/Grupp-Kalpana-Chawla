@@ -136,7 +136,7 @@ void task_move(void *pvParameters)
 				//pick_up_status_t = PICK_UP_RUNNING;
 				liftStart=false;
 				comAlreadyOn=true;
-				nextState = START;
+				//nextState = START;
 				//vTaskResume(xTaskCom);
 			}
 			else if (comAlreadyOn)
@@ -276,7 +276,7 @@ void task_move(void *pvParameters)
 			case WAIT:
 				if (!newData)
 				{
-					nextState=NAVI;
+					nextState=START;
 				}
 				else
 				{
@@ -404,8 +404,8 @@ void updateNextPosition()
 		{
 			printf("Driving to cube!\r\n");
 			updateLastPresent();
-			coord.presentX=(double)coord.sock[0];
-			coord.presentY=(double)coord.sock[1];
+			//coord.presentX=(double)coord.sock[0];
+			//coord.presentY=(double)coord.sock[1];
 			coord.lastX=(double) 0;
 			coord.lastY=(double) 0;
 			coord.targetX=(double)coord.cube[0];
@@ -416,8 +416,8 @@ void updateNextPosition()
 		{
 			printf("Driving to glass!\r\n");
 			updateLastPresent();
-			coord.presentX=(double)coord.cube[0];
-			coord.presentY=(double)coord.cube[1];
+			//coord.presentX=(double)coord.cube[0];
+			//coord.presentY=(double)coord.cube[1];
 			coord.lastX=(double)coord.sock[0];
 			coord.lastY=(double)coord.sock[1];
 			coord.targetX=(double)coord.glass[0];
@@ -428,8 +428,8 @@ void updateNextPosition()
 		{
 			printf("Driving to box!\r\n");
 			updateLastPresent();
-			coord.presentX=(double)coord.glass[0];
-			coord.presentY=(double)coord.glass[1];
+			//coord.presentX=(double)coord.glass[0];
+			//coord.presentY=(double)coord.glass[1];
 			coord.lastX=(double)coord.cube[0];
 			coord.lastY=(double)coord.cube[1];
 			coord.targetX=(double)coord.box[0];

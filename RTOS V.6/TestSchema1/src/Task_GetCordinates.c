@@ -14,6 +14,7 @@
 #include "Task_Move.h"
 
 extern Bool newData;
+uint8_t get_count = 0;
 
 void task_getCordinates(void *pvParameters)
 {
@@ -23,16 +24,20 @@ void task_getCordinates(void *pvParameters)
 	xLastWakeTime = xTaskGetTickCount();//Initialise the xLastWakeTime variable with the current time.
 	while (1) 
 	{	
-		int16_t coord_arr[2]={0};
-		arlo_get_position(coord_arr);
-		coord.presentX=coord_arr[0];
-		coord.presentY=coord_arr[1];
+		
+			int16_t coord_arr[2]={0};
+			arlo_get_position(coord_arr);
+			coord.presentX=coord_arr[0];
+			coord.presentY=coord_arr[1];
+			
 		printf("\n x : %d\r\n", coord.presentX);
 		printf("y : %d\r\n", coord.presentY);
-		//updateLastPresent();
-		//calculateAngleDistance();
-		newData=false;
-		vTaskSuspend(NULL);
+		
+			
+			newData=false;
+			vTaskSuspend(NULL);
+	
+		
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
 	}
 }
