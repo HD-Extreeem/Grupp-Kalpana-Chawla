@@ -44,8 +44,7 @@ void arlo_init()
 	/* Initializes nav-system */
 	int16_t object_buffer[8] = {0};
 	arlo_nav_init(object_buffer);
-	delay_ms(1000);
-	arlo_nav_init(object_buffer);
+
 	
 	printf("Position for sock: %d, %d\r\n", object_buffer[0], object_buffer[1]);
 	printf("Position for cube: %d, %d\r\n", object_buffer[2], object_buffer[3]);

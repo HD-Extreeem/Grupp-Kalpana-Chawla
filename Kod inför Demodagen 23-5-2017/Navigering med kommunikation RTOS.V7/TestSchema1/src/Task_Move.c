@@ -122,9 +122,9 @@ void task_move(void *pvParameters)
 			{
 				printf("Startar kommunikationen med UNO!\r\n");
 				liftStart=false;
-				comAlreadyOn=true;
-				nextState = COMM;
-				vTaskResume(xTaskCom);
+				//comAlreadyOn=true;
+				nextState = START;
+				//vTaskResume(xTaskCom);
 			}
 			//Annars kör den 
 			else{

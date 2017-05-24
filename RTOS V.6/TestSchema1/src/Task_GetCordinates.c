@@ -23,23 +23,23 @@ void task_getCordinates(void *pvParameters)
 	xLastWakeTime = xTaskGetTickCount();//Initialise the xLastWakeTime variable with the current time.
 	while (1) 
 	{	
-		if (get_count<4)
-		{
+// 		if (get_count<4)
+// 		{
 			int16_t coord_arr[2]={0};
 			arlo_get_position(coord_arr);
 			coord.presentX=coord_arr[0];
 			coord.presentY=coord_arr[1];
 			//printf("\n x : %d\r\n", coord.presentX);
 			//printf("y : %d\r\n", coord.presentY);
-			get_count++;
-		}
+			//get_count++;
+		//}
 		
-		else if (get_count>=5)
-		{
+// 		else if (get_count>=5)
+// 		{
 			newData=false;
-			get_count=0;
+			//get_count=0;
 			vTaskSuspend(NULL);
-		}
+		//}
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
 	}
 }

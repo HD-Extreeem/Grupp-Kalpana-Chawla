@@ -34,7 +34,7 @@ double calculateDistance (double Xa, double Ya, double Xb, double Yb){
 	double deltaX = Xb - Xa;
 	double deltaY = Yb - Ya;
 	distance = sqrt((deltaX*deltaX) + (deltaY*deltaY));
-	return (distance-50);
+	return (distance-51);
 }
 
 /** Calculates the azimuth angle from position A to position B

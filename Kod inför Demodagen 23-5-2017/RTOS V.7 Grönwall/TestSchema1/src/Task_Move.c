@@ -138,6 +138,12 @@ void task_move(void *pvParameters)
 			/************************************************************************/
 			case MOVE:
 			printf("MOVE");
+// 			if (pulse_counter>=15)
+// 			{
+// 				pulse_counter=0;
+// 				
+// 			}
+			
 			totalPulses = (distance*direction/1.45);
 			if (totMovement+2>=totalPulses)
 			{

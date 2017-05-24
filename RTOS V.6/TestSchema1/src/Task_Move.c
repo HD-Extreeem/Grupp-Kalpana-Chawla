@@ -359,9 +359,9 @@ void coordinatesInit (void)
 	int16_t object_buffer[8] = {0};
 	arlo_get_object_positions(object_buffer);
 	
-	coord.presentX = 0;
+	coord.presentX = 200;
 	coord.presentY = 0;
-	coord.lastX = 0;
+	coord.lastX = 200;
 	coord.lastY = -100;
 
 	coord.sock[0] = object_buffer[0];
@@ -406,7 +406,7 @@ void updateNextPosition()
 			updateLastPresent();
 			//coord.presentX=(double)coord.sock[0];
 			//coord.presentY=(double)coord.sock[1];
-			coord.lastX=(double) 0;
+			coord.lastX=(double) 200;
 			coord.lastY=(double) 0;
 			coord.targetX=(double)coord.cube[0];
 			coord.targetY=(double)coord.cube[1];

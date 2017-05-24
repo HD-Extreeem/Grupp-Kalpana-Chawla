@@ -27,8 +27,11 @@ void task_getCordinates(void *pvParameters)
 		
 		int16_t coord_arr[2]={0};
 		arlo_get_position(coord_arr);
-		vTaskDelay(500);
+		vTaskDelay(200);
 		arlo_get_position(coord_arr);
+		vTaskDelay(200);
+		arlo_get_position(coord_arr);
+		
 		coord.presentX=coord_arr[0];
 		coord.presentY=coord_arr[1];
 		
@@ -36,8 +39,6 @@ void task_getCordinates(void *pvParameters)
 		printf("y : %d\r\n", coord.presentY);
 		newData=false;
 		vTaskSuspend(NULL);
-		
-		
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle.
 	}
 }
