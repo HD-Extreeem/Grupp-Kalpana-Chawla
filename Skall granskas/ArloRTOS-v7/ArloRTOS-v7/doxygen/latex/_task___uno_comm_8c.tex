@@ -1,0 +1,103 @@
+\hypertarget{_task___uno_comm_8c}{\section{src/\-Task\-\_\-\-Uno\-Comm.c File Reference}
+\label{_task___uno_comm_8c}\index{src/\-Task\-\_\-\-Uno\-Comm.\-c@{src/\-Task\-\_\-\-Uno\-Comm.\-c}}
+}
+
+
+This source file handle the whole process of communication between robotic platform and mounted lift platform Status is being requested from mounted lift and checks if finished or still running pick up/drop off.  
+
+
+{\ttfamily \#include $<$asf.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}Task\-\_\-\-Uno\-Comm.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$Free\-R\-T\-O\-S.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}task.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}arlo/\-Arlo.\-h\char`\"{}}\\*
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries states} \{ \\*
+{\bfseries S\-T\-A\-R\-T}, 
+{\bfseries B\-E\-F\-O\-R\-E\-\_\-\-R\-O\-T\-A\-T\-E}, 
+{\bfseries R\-O\-T\-A\-T\-E}, 
+{\bfseries M\-O\-V\-E}, 
+\\*
+{\bfseries C\-O\-M\-M}, 
+{\bfseries N\-A\-V\-I}, 
+{\bfseries C\-L\-O\-S\-E}, 
+{\bfseries W\-A\-I\-T}, 
+\\*
+{\bfseries P\-I\-C\-K\-\_\-\-U\-P\-\_\-\-S\-T\-A\-R\-T}, 
+{\bfseries P\-I\-C\-K\-\_\-\-U\-P\-\_\-\-D\-O}, 
+{\bfseries D\-R\-O\-P\-\_\-\-O\-F\-F}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{_task___uno_comm_8c_a4ff3c2d54efd35c030d2615edce4f11b}{task\-\_\-uno\-Comm} (void $\ast$pv\-Parameters)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{_task___uno_comm_8c_a63177970cacb40efba67ce501ea89210}{int {\bfseries angle} = 0}\label{_task___uno_comm_8c_a63177970cacb40efba67ce501ea89210}
+
+\item 
+\hypertarget{_task___uno_comm_8c_afb9412686cd344ad61757c1c19ba8a87}{int {\bfseries distance} = 0}\label{_task___uno_comm_8c_afb9412686cd344ad61757c1c19ba8a87}
+
+\item 
+\hypertarget{_task___uno_comm_8c_aa45d0df7f660f2b09cff157b89e9b43d}{Bool {\bfseries com\-\_\-process\-\_\-finished}}\label{_task___uno_comm_8c_aa45d0df7f660f2b09cff157b89e9b43d}
+
+\item 
+\hypertarget{_task___uno_comm_8c_ad8893b025a5a5d943c36ef224df42472}{Pick\-\_\-\-Up\-\_\-\-Status {\bfseries pick\-\_\-up\-\_\-status\-\_\-t}}\label{_task___uno_comm_8c_ad8893b025a5a5d943c36ef224df42472}
+
+\item 
+\hypertarget{_task___uno_comm_8c_ae0896a6d244305fe6ac2619d8e538964}{Drop\-\_\-\-Off\-\_\-\-Status {\bfseries drop\-\_\-off\-\_\-status\-\_\-t}}\label{_task___uno_comm_8c_ae0896a6d244305fe6ac2619d8e538964}
+
+\item 
+\hypertarget{_task___uno_comm_8c_adbe2c8c21f7a830fb742178e3e749fce}{uint8\-\_\-t {\bfseries object\-\_\-counter} = 1}\label{_task___uno_comm_8c_adbe2c8c21f7a830fb742178e3e749fce}
+
+\item 
+\hypertarget{_task___uno_comm_8c_a3de2bb661e0711507cf5173bf6477d40}{states {\bfseries current\-\_\-state} = P\-I\-C\-K\-\_\-\-U\-P\-\_\-\-S\-T\-A\-R\-T}\label{_task___uno_comm_8c_a3de2bb661e0711507cf5173bf6477d40}
+
+\item 
+\hypertarget{_task___uno_comm_8c_a5c6b677e1a9feef9438b70d5378bef87}{states {\bfseries next\-\_\-state}}\label{_task___uno_comm_8c_a5c6b677e1a9feef9438b70d5378bef87}
+
+\item 
+\hypertarget{_task___uno_comm_8c_a291de1873ea5430465ac1c13c04cfdf4}{Bool {\bfseries arlo\-Needs\-To\-Drive}}\label{_task___uno_comm_8c_a291de1873ea5430465ac1c13c04cfdf4}
+
+\item 
+\hypertarget{_task___uno_comm_8c_a7a5d8b43fbeff33e15779fd8312c0645}{Bool {\bfseries arlo\-Is\-Done}}\label{_task___uno_comm_8c_a7a5d8b43fbeff33e15779fd8312c0645}
+
+\item 
+\hypertarget{_task___uno_comm_8c_ae48d3211893ebc8c7a519671693c90ad}{uint8\-\_\-t {\bfseries already\-\_\-dropped} = 0}\label{_task___uno_comm_8c_ae48d3211893ebc8c7a519671693c90ad}
+
+\item 
+\hypertarget{_task___uno_comm_8c_ab7bd3b589c043fc671c5bc78b10d3e82}{uint8\-\_\-t {\bfseries objects\-\_\-left} = 3}\label{_task___uno_comm_8c_ab7bd3b589c043fc671c5bc78b10d3e82}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This source file handle the whole process of communication between robotic platform and mounted lift platform Status is being requested from mounted lift and checks if finished or still running pick up/drop off. \begin{DoxyAuthor}{Author}
+Desiree(structure), Hadi Deknache and Jonas Eiselt (Code in structure)
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2017-\/04-\/20 16\-:25\-:09 
+\end{DoxyDate}
+
+
+\subsection{Function Documentation}
+\hypertarget{_task___uno_comm_8c_a4ff3c2d54efd35c030d2615edce4f11b}{\index{Task\-\_\-\-Uno\-Comm.\-c@{Task\-\_\-\-Uno\-Comm.\-c}!task\-\_\-uno\-Comm@{task\-\_\-uno\-Comm}}
+\index{task\-\_\-uno\-Comm@{task\-\_\-uno\-Comm}!Task_UnoComm.c@{Task\-\_\-\-Uno\-Comm.\-c}}
+\subsubsection[{task\-\_\-uno\-Comm}]{\setlength{\rightskip}{0pt plus 5cm}void task\-\_\-uno\-Comm (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{pv\-Parameters}
+\end{DoxyParamCaption}
+)}}\label{_task___uno_comm_8c_a4ff3c2d54efd35c030d2615edce4f11b}
+Task to be run when communication starts Check pick up status from mounted lift on Arlo and checks Drop off status if finished
+
+
+\begin{DoxyParams}{Parameters}
+{\em pv\-Parameters} & parameter to be used if passed through initializing task \\
+\hline
+\end{DoxyParams}
+State machine used for controlling different states for mounted lift communication 

@@ -1,0 +1,30 @@
+\hypertarget{group__sysclk__group}{\section{System Clock Management}
+\label{group__sysclk__group}\index{System Clock Management@{System Clock Management}}
+}
+See sysclk\-\_\-quickstart.
+
+The {\itshape sysclk} A\-P\-I covers the {\itshape system clock} and all clocks derived from it. The system clock is a chip-\/internal clock on which all {\itshape synchronous clocks}, i.\-e. C\-P\-U and bus/peripheral clocks, are based. The system clock is typically generated from one of a variety of sources, which may include crystal and R\-C oscillators as well as P\-L\-Ls. The clocks derived from the system clock are sometimes also known as {\itshape synchronous clocks}, since they always run synchronously with respect to each other, as opposed to {\itshape generic clocks} which may run from different oscillators or P\-L\-Ls.
+
+Most applications should simply call sysclk\-\_\-init() to initialize everything related to the system clock and its source (oscillator, P\-L\-L or D\-F\-L\-L), and leave it at that. More advanced applications, and platform-\/specific drivers, may require additional services from the clock system, some of which may be platform-\/specific.\hypertarget{group__sysclk__group_sysclk_group_platform}{}\subsection{Platform Dependencies}\label{group__sysclk__group_sysclk_group_platform}
+The sysclk A\-P\-I is partially chip-\/ or platform-\/specific. While all platforms provide mostly the same functionality, there are some variations around how different bus types and clock tree structures are handled.
+
+The following functions are available on all platforms with the same parameters and functionality. These functions may be called freely by portable applications, drivers and services\-:
+\begin{DoxyItemize}
+\item sysclk\-\_\-init()
+\item sysclk\-\_\-set\-\_\-source()
+\item sysclk\-\_\-get\-\_\-main\-\_\-hz()
+\item sysclk\-\_\-get\-\_\-cpu\-\_\-hz()
+\item sysclk\-\_\-get\-\_\-peripheral\-\_\-bus\-\_\-hz()
+\end{DoxyItemize}
+
+The following functions are available on all platforms, but there may be variations in the function signature (i.\-e. parameters) and behavior. These functions are typically called by platform-\/specific parts of drivers, and applications that aren't intended to be portable\-:
+\begin{DoxyItemize}
+\item sysclk\-\_\-enable\-\_\-peripheral\-\_\-clock()
+\item sysclk\-\_\-disable\-\_\-peripheral\-\_\-clock()
+\item sysclk\-\_\-enable\-\_\-module()
+\item sysclk\-\_\-disable\-\_\-module()
+\item sysclk\-\_\-module\-\_\-is\-\_\-enabled()
+\item sysclk\-\_\-set\-\_\-prescalers()
+\end{DoxyItemize}
+
+All other functions should be considered platform-\/specific. Enabling/disabling clocks to specific peripherals as well as determining the speed of these clocks should be done by calling functions provided by the driver for that peripheral. 
