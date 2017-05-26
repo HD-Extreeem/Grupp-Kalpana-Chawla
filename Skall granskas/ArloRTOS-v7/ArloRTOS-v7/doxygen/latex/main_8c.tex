@@ -1,0 +1,44 @@
+\hypertarget{main_8c}{\section{src/main.c File Reference}
+\label{main_8c}\index{src/main.\-c@{src/main.\-c}}
+}
+
+
+This source file is the main source file, which configures needed settings for P\-W\-M, interrupts, pins and communication with Arlo robot platform initialize task for communication and navigation.  
+
+
+{\ttfamily \#include $<$asf.\-h$>$}\\*
+{\ttfamily \#include $<$inttypes.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}Task\-\_\-\-Navi\-Control.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Task\-\_\-\-Get\-Coordinates.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Task\-\_\-\-Uno\-Comm.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}console\-Functions.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Step\-Counter\-\_\-\-I\-S\-R.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Pwm\-Functions.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}conf\-\_\-board.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}arlo/\-Arlo.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{int {\bfseries main} (void)}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{main_8c_a8e076509b8a7e22ff9406a67d0f27e7a}{x\-Task\-Handle {\bfseries x\-Task\-Navi\-Control} = N\-U\-L\-L}\label{main_8c_a8e076509b8a7e22ff9406a67d0f27e7a}
+
+\item 
+\hypertarget{main_8c_a773f7e0e175f80fb7b41818dcfbc8bf9}{x\-Task\-Handle {\bfseries x\-Task\-Com} = N\-U\-L\-L}\label{main_8c_a773f7e0e175f80fb7b41818dcfbc8bf9}
+
+\item 
+\hypertarget{main_8c_abe649fe0fbdd0d4bca5e238ac0e0e75b}{x\-Task\-Handle {\bfseries x\-Task\-Coordinate} = N\-U\-L\-L}\label{main_8c_abe649fe0fbdd0d4bca5e238ac0e0e75b}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This source file is the main source file, which configures needed settings for P\-W\-M, interrupts, pins and communication with Arlo robot platform initialize task for communication and navigation. Désirée Jönsson, Jonas Eiselt, Hadi Deknache \& Yurdaer Dalkic
+
+\begin{DoxyDate}{Date}
+2017-\/04-\/20 
+\end{DoxyDate}
