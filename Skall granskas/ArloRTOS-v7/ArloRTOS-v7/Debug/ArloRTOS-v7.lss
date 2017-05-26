@@ -17,21 +17,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   6 .comment      0000005b  00000000  00000000  00018a0d  2**0
                   CONTENTS, READONLY
-  7 .debug_info   00017186  00000000  00000000  00018a68  2**0
+  7 .debug_info   00017184  00000000  00000000  00018a68  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00004053  00000000  00000000  0002fbee  2**0
+  8 .debug_abbrev 00004053  00000000  00000000  0002fbec  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_loc    0000974e  00000000  00000000  00033c41  2**0
+  9 .debug_loc    0000974e  00000000  00000000  00033c3f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_aranges 000010a0  00000000  00000000  0003d38f  2**0
+ 10 .debug_aranges 000010a0  00000000  00000000  0003d38d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000f40  00000000  00000000  0003e42f  2**0
+ 11 .debug_ranges 00000f40  00000000  00000000  0003e42d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_macro  0001ce98  00000000  00000000  0003f36f  2**0
+ 12 .debug_macro  0001ce98  00000000  00000000  0003f36d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   000191c0  00000000  00000000  0005c207  2**0
+ 13 .debug_line   000191c0  00000000  00000000  0005c205  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    0006a3a5  00000000  00000000  000753c7  2**0
+ 14 .debug_str    0006a3a5  00000000  00000000  000753c5  2**0
                   CONTENTS, READONLY, DEBUGGING
  15 .debug_frame  00003174  00000000  00000000  000df76c  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -3616,8 +3616,8 @@ void task_unoComm(void *pvParameters)
    8125e:	b083      	sub	sp, #12
 	//Variable which checks last run
 	portTickType xLastWakeTime;
-	//Period used for task to run 300 ms
-	const portTickType xTimeIncrement = 300;
+	//Period used for task to run 200 ms
+	const portTickType xTimeIncrement = 200;
 
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
    81260:	4b5d      	ldr	r3, [pc, #372]	; (813d8 <task_unoComm+0x17c>)
@@ -3651,9 +3651,9 @@ void task_unoComm(void *pvParameters)
    81278:	d079      	beq.n	8136e <task_unoComm+0x112>
    8127a:	e0a3      	b.n	813c4 <task_unoComm+0x168>
 			/*	Case PICK_UP_START, starts communication with mounted lift			*/
-			/*	by sending a request to lift										*/			
+			/*	by sending a request to lift										*/
 			/************************************************************************/
-			
+
 			case PICK_UP_START:
 			arlo_pick_up_object(OBJECT);
    8127c:	2005      	movs	r0, #5
@@ -3673,7 +3673,7 @@ void task_unoComm(void *pvParameters)
 			pick_up_status_t = arlo_get_pick_up_status();
    8128a:	47b0      	blx	r6
    8128c:	7028      	strb	r0, [r5, #0]
-			
+
 			switch (pick_up_status_t)
    8128e:	3802      	subs	r0, #2
    81290:	2806      	cmp	r0, #6
@@ -3792,7 +3792,7 @@ void task_unoComm(void *pvParameters)
    81322:	2200      	movs	r2, #0
    81324:	4b31      	ldr	r3, [pc, #196]	; (813ec <task_unoComm+0x190>)
    81326:	701a      	strb	r2, [r3, #0]
-					
+
 				}
 				//Pick up finished and should countinue for next destination
 				com_process_finished=true;
@@ -3841,7 +3841,7 @@ void task_unoComm(void *pvParameters)
    8135a:	2200      	movs	r2, #0
    8135c:	4b23      	ldr	r3, [pc, #140]	; (813ec <task_unoComm+0x190>)
    8135e:	701a      	strb	r2, [r3, #0]
-					
+
 				}
 				//Pick up finished and should continue for next destination
 				com_process_finished=true;
@@ -3865,7 +3865,7 @@ void task_unoComm(void *pvParameters)
    81370:	781b      	ldrb	r3, [r3, #0]
    81372:	b98b      	cbnz	r3, 81398 <task_unoComm+0x13c>
 			{
-				//This angle and settings is only used for lift for Grönwalls to rotate and drop off items
+				//This angle and settings is only used for lift for Grï¿½nwalls to rotate and drop off items
 				angle=180;
    81374:	22b4      	movs	r2, #180	; 0xb4
    81376:	4b27      	ldr	r3, [pc, #156]	; (81414 <task_unoComm+0x1b8>)
@@ -3878,7 +3878,7 @@ void task_unoComm(void *pvParameters)
    81380:	20c8      	movs	r0, #200	; 0xc8
    81382:	4b25      	ldr	r3, [pc, #148]	; (81418 <task_unoComm+0x1bc>)
    81384:	4798      	blx	r3
-				
+
 				//Requesting drop off
 				arlo_drop_object(OBJECT);
    81386:	2005      	movs	r0, #5
@@ -3912,7 +3912,7 @@ void task_unoComm(void *pvParameters)
    813a4:	2201      	movs	r2, #1
    813a6:	4b18      	ldr	r3, [pc, #96]	; (81408 <task_unoComm+0x1ac>)
    813a8:	701a      	strb	r2, [r3, #0]
-					
+
 					//Reseting status since it have dropped off item
 					drop_off_status_t = 0;
    813aa:	2000      	movs	r0, #0
@@ -3921,7 +3921,7 @@ void task_unoComm(void *pvParameters)
 					already_dropped = 0;
    813b0:	4b17      	ldr	r3, [pc, #92]	; (81410 <task_unoComm+0x1b4>)
    813b2:	7018      	strb	r0, [r3, #0]
-					
+
 					//Reseting to beginning since finished
 					next_state = PICK_UP_START;
    813b4:	4b0d      	ldr	r3, [pc, #52]	; (813ec <task_unoComm+0x190>)
@@ -3948,15 +3948,16 @@ void task_unoComm(void *pvParameters)
    813c4:	4b09      	ldr	r3, [pc, #36]	; (813ec <task_unoComm+0x190>)
    813c6:	781b      	ldrb	r3, [r3, #0]
    813c8:	7023      	strb	r3, [r4, #0]
-		
+
 		// Wait for the next cycle after have finished everything
-		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	
+		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
    813ca:	f10d 0006 	add.w	r0, sp, #6
-   813ce:	f44f 7196 	mov.w	r1, #300	; 0x12c
-   813d2:	4b15      	ldr	r3, [pc, #84]	; (81428 <task_unoComm+0x1cc>)
-   813d4:	4798      	blx	r3
+   813ce:	21c8      	movs	r1, #200	; 0xc8
+   813d0:	4b15      	ldr	r3, [pc, #84]	; (81428 <task_unoComm+0x1cc>)
+   813d2:	4798      	blx	r3
 	}
-   813d6:	e74a      	b.n	8126e <task_unoComm+0x12>
+   813d4:	e74b      	b.n	8126e <task_unoComm+0x12>
+   813d6:	bf00      	nop
    813d8:	00082b69 	.word	0x00082b69
    813dc:	20070a30 	.word	0x20070a30
    813e0:	00080199 	.word	0x00080199
@@ -4531,7 +4532,7 @@ void move (void)
    816e2:	4b3c      	ldr	r3, [pc, #240]	; (817d4 <move+0x274>)
    816e4:	e9c3 4500 	strd	r4, r5, [r3]
 	//total error to correct for PID-control
-	controlValue =(K*(proportionalError+integral+ derivate)); 
+	controlValue =(K*(proportionalError+integral+ derivate));
    816e8:	e9dd 0106 	ldrd	r0, r1, [sp, #24]
    816ec:	4652      	mov	r2, sl
    816ee:	465b      	mov	r3, fp
@@ -4656,7 +4657,7 @@ void move (void)
    8180a:	4925      	ldr	r1, [pc, #148]	; (818a0 <move+0x340>)
    8180c:	e9c1 2300 	strd	r2, r3, [r1]
 	}
-	
+
 	rightWheel(1500 + ((speed+controlValue)*direction));//set new speed for rightWheel
    81810:	f8df b0a8 	ldr.w	fp, [pc, #168]	; 818bc <move+0x35c>
    81814:	4e23      	ldr	r6, [pc, #140]	; (818a4 <move+0x344>)
@@ -4705,7 +4706,7 @@ void move (void)
    8187e:	47a0      	blx	r4
    81880:	4b0d      	ldr	r3, [pc, #52]	; (818b8 <move+0x358>)
    81882:	4798      	blx	r3
-	
+
 }
    81884:	b009      	add	sp, #36	; 0x24
    81886:	e8bd 8ff0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, fp, pc}
@@ -4744,7 +4745,7 @@ void coordinatesInit (void)
    818d6:	4668      	mov	r0, sp
    818d8:	4b19      	ldr	r3, [pc, #100]	; (81940 <coordinatesInit+0x78>)
    818da:	4798      	blx	r3
-	
+
 	//Robot platform present positions x and y coordinates
 	coord.presentX = 200;
    818dc:	4c19      	ldr	r4, [pc, #100]	; (81944 <coordinatesInit+0x7c>)
@@ -4786,7 +4787,7 @@ void coordinatesInit (void)
    81920:	f9bd 000a 	ldrsh.w	r0, [sp, #10]
    81924:	47a8      	blx	r5
    81926:	e9c4 010e 	strd	r0, r1, [r4, #56]	; 0x38
-	
+
 	coord.box[0] = 50; //X coordinate box (hardcooded)
    8192a:	2200      	movs	r2, #0
    8192c:	4b07      	ldr	r3, [pc, #28]	; (8194c <coordinatesInit+0x84>)
@@ -4795,7 +4796,7 @@ void coordinatesInit (void)
    81932:	2200      	movs	r2, #0
    81934:	4b06      	ldr	r3, [pc, #24]	; (81950 <coordinatesInit+0x88>)
    81936:	e9c4 2312 	strd	r2, r3, [r4, #72]	; 0x48
-	
+
 	//coord.box[0] = object_buffer[6]; // X coordinate box
 	//coord.box[1] = object_buffer[7]; //Y coordinate box
 }
@@ -4874,6 +4875,7 @@ void calculateAngleDistance(void){
    819e8:	47d0      	blx	sl
    819ea:	4b05      	ldr	r3, [pc, #20]	; (81a00 <calculateAngleDistance+0xac>)
    819ec:	6018      	str	r0, [r3, #0]
+}
    819ee:	b008      	add	sp, #32
    819f0:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
    819f4:	00080f69 	.word	0x00080f69
@@ -5196,9 +5198,9 @@ void task_NaviControl(void *pvParameters)
    81bda:	f8ad 0006 	strh.w	r0, [sp, #6]
 				rightWheel(1500);
 				leftWheel(1500);
-				
+
 				reset_Counter(); //resets counter for encoders
-				angle=0; 
+				angle=0;
 				totalPulses=0;
    81bde:	2400      	movs	r4, #0
    81be0:	2500      	movs	r5, #0
@@ -5224,7 +5226,7 @@ void task_NaviControl(void *pvParameters)
    81bf4:	21c8      	movs	r1, #200	; 0xc8
    81bf6:	4b8f      	ldr	r3, [pc, #572]	; (81e34 <task_NaviControl+0x264>)
    81bf8:	4798      	blx	r3
-		
+
 		switch (currentState)
    81bfa:	4b8f      	ldr	r3, [pc, #572]	; (81e38 <task_NaviControl+0x268>)
    81bfc:	781b      	ldrb	r3, [r3, #0]
@@ -5249,7 +5251,7 @@ void task_NaviControl(void *pvParameters)
 				updateNextPosition(); // Updates data position for next run
    81c20:	4b87      	ldr	r3, [pc, #540]	; (81e40 <task_NaviControl+0x270>)
    81c22:	4798      	blx	r3
-				
+
 				//Checks if driven to every position yet
 				if (object_counter > 5)
    81c24:	4b87      	ldr	r3, [pc, #540]	; (81e44 <task_NaviControl+0x274>)
@@ -5519,11 +5521,11 @@ void task_NaviControl(void *pvParameters)
    81d98:	f240 50dc 	movw	r0, #1500	; 0x5dc
    81d9c:	4b36      	ldr	r3, [pc, #216]	; (81e78 <task_NaviControl+0x2a8>)
    81d9e:	4798      	blx	r3
-				
+
 				reset_Counter(); //resets counter for encoders
    81da0:	4b3c      	ldr	r3, [pc, #240]	; (81e94 <task_NaviControl+0x2c4>)
    81da2:	4798      	blx	r3
-				angle=0; 
+				angle=0;
    81da4:	2200      	movs	r2, #0
    81da6:	4b38      	ldr	r3, [pc, #224]	; (81e88 <task_NaviControl+0x2b8>)
    81da8:	601a      	str	r2, [r3, #0]
@@ -5556,7 +5558,7 @@ void task_NaviControl(void *pvParameters)
    81dca:	4b1f      	ldr	r3, [pc, #124]	; (81e48 <task_NaviControl+0x278>)
    81dcc:	701a      	strb	r2, [r3, #0]
    81dce:	e094      	b.n	81efa <task_NaviControl+0x32a>
-				
+
 			}
 			//else continues the rotation of the wheels
 			else
@@ -19208,10 +19210,10 @@ int main (void)
    880d0:	2d207325 	.word	0x2d207325
    880d4:	000d0a2d 	.word	0x000d0a2d
    880d8:	2079614d 	.word	0x2079614d
-   880dc:	32203432 	.word	0x32203432
+   880dc:	32203632 	.word	0x32203632
    880e0:	00373130 	.word	0x00373130
-   880e4:	343a3132 	.word	0x343a3132
-   880e8:	32323a31 	.word	0x32323a31
+   880e4:	333a3931 	.word	0x333a3931
+   880e8:	39343a37 	.word	0x39343a37
    880ec:	00000000 	.word	0x00000000
    880f0:	6976614e 	.word	0x6976614e
    880f4:	746e6f43 	.word	0x746e6f43
@@ -19516,7 +19518,7 @@ void system_init_flash(uint32_t ul_clk)
 2007015c:	0000005a                                Z...
 
 20070160 <dT>:
-20070160:	9999999a 3fb99999                       .......?
+20070160:	9999999a 3fc99999                       .......?
 
 20070168 <speed>:
 20070168:	000000c8                                ....

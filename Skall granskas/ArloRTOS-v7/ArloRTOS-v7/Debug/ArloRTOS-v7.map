@@ -9941,7 +9941,7 @@ OUTPUT(ArloRTOS-v7.elf elf32-littlearm)
  .comment       0x00000000       0x5c src/ASF/sam/utils/syscalls/gcc/syscalls.o
  .comment       0x00000000       0x5c src/main.o
 
-.debug_info     0x00000000    0x17186
+.debug_info     0x00000000    0x17184
  .debug_info    0x00000000     0x1119 src/arlo/Arlo.o
  .debug_info    0x00001119      0x1bb src/ASF/common/utils/stdio/read.o
  .debug_info    0x000012d4     0x1574 src/ASF/sam/drivers/pwm/pwm.o
@@ -9951,29 +9951,29 @@ OUTPUT(ArloRTOS-v7.elf elf32-littlearm)
  .debug_info    0x000059fc      0x4da src/MathFunctions.o
  .debug_info    0x00005ed6     0x13d6 src/PwmFunctions.o
  .debug_info    0x000072ac     0x132f src/StepCounter_ISR.o
- .debug_info    0x000085db      0xcde src/Task_UnoComm.o
- .debug_info    0x000092b9     0x1bfa src/ASF/sam/drivers/usart/usart.o
- .debug_info    0x0000aeb3      0x1c0 src/ASF/common/utils/stdio/write.o
- .debug_info    0x0000b073      0x889 src/ASF/sam/drivers/uart/uart.o
- .debug_info    0x0000b8fc      0xbeb src/Task_GetCoordinates.o
- .debug_info    0x0000c4e7     0x12e1 src/Task_NaviControl.o
- .debug_info    0x0000d7c8      0x2b7 src/ASF/thirdparty/freertos/freertos-7.3.0/source/list.o
- .debug_info    0x0000da7f      0x3a1 src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/port.o
- .debug_info    0x0000de20      0x38d src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/memmang/heap_4.o
- .debug_info    0x0000e1ad      0xea7 src/ASF/thirdparty/freertos/freertos-7.3.0/source/queue.o
- .debug_info    0x0000f054     0x178e src/ASF/thirdparty/freertos/freertos-7.3.0/source/tasks.o
- .debug_info    0x000107e2      0xb44 src/ASF/thirdparty/freertos/freertos-7.3.0/source/timers.o
- .debug_info    0x00011326      0x134 src/ASF/common/services/delay/sam/cycle_counter.o
- .debug_info    0x0001145a      0x796 src/ASF/common/services/clock/sam3x/sysclk.o
- .debug_info    0x00011bf0      0x78c src/ASF/sam/boards/arduino_due_x/init.o
- .debug_info    0x0001237c     0x1385 src/ASF/sam/drivers/pio/pio.o
- .debug_info    0x00013701      0xe52 src/ASF/sam/drivers/pio/pio_handler.o
- .debug_info    0x00014553     0x1080 src/ASF/sam/drivers/pmc/pmc.o
- .debug_info    0x000155d3      0x124 src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
- .debug_info    0x000156f7      0x3bd src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
- .debug_info    0x00015ab4      0x4c6 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
- .debug_info    0x00015f7a      0x43f src/ASF/sam/utils/syscalls/gcc/syscalls.o
- .debug_info    0x000163b9      0xdcd src/main.o
+ .debug_info    0x000085db      0xcdc src/Task_UnoComm.o
+ .debug_info    0x000092b7     0x1bfa src/ASF/sam/drivers/usart/usart.o
+ .debug_info    0x0000aeb1      0x1c0 src/ASF/common/utils/stdio/write.o
+ .debug_info    0x0000b071      0x889 src/ASF/sam/drivers/uart/uart.o
+ .debug_info    0x0000b8fa      0xbeb src/Task_GetCoordinates.o
+ .debug_info    0x0000c4e5     0x12e1 src/Task_NaviControl.o
+ .debug_info    0x0000d7c6      0x2b7 src/ASF/thirdparty/freertos/freertos-7.3.0/source/list.o
+ .debug_info    0x0000da7d      0x3a1 src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/gcc/sam/port.o
+ .debug_info    0x0000de1e      0x38d src/ASF/thirdparty/freertos/freertos-7.3.0/source/portable/memmang/heap_4.o
+ .debug_info    0x0000e1ab      0xea7 src/ASF/thirdparty/freertos/freertos-7.3.0/source/queue.o
+ .debug_info    0x0000f052     0x178e src/ASF/thirdparty/freertos/freertos-7.3.0/source/tasks.o
+ .debug_info    0x000107e0      0xb44 src/ASF/thirdparty/freertos/freertos-7.3.0/source/timers.o
+ .debug_info    0x00011324      0x134 src/ASF/common/services/delay/sam/cycle_counter.o
+ .debug_info    0x00011458      0x796 src/ASF/common/services/clock/sam3x/sysclk.o
+ .debug_info    0x00011bee      0x78c src/ASF/sam/boards/arduino_due_x/init.o
+ .debug_info    0x0001237a     0x1385 src/ASF/sam/drivers/pio/pio.o
+ .debug_info    0x000136ff      0xe52 src/ASF/sam/drivers/pio/pio_handler.o
+ .debug_info    0x00014551     0x1080 src/ASF/sam/drivers/pmc/pmc.o
+ .debug_info    0x000155d1      0x124 src/ASF/sam/utils/cmsis/sam3x/source/templates/exceptions.o
+ .debug_info    0x000156f5      0x3bd src/ASF/sam/utils/cmsis/sam3x/source/templates/gcc/startup_sam3x.o
+ .debug_info    0x00015ab2      0x4c6 src/ASF/sam/utils/cmsis/sam3x/source/templates/system_sam3x.o
+ .debug_info    0x00015f78      0x43f src/ASF/sam/utils/syscalls/gcc/syscalls.o
+ .debug_info    0x000163b7      0xdcd src/main.o
 
 .debug_abbrev   0x00000000     0x4053
  .debug_abbrev  0x00000000      0x2b3 src/arlo/Arlo.o
