@@ -1,7 +1,7 @@
 /*
 * @file StepCounter_ISR.h
 *
-* @brief header file for StepCounter_ISR
+* @ Header file which handle interrupt and initialize and attach interrupts
 * 
 * @author Desiree Jönsson, Hadi Deknache and Yurdaer Dalkic
 *

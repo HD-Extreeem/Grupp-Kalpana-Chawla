@@ -1,10 +1,15 @@
 /*
  * @file MathFunctions.h
  *
+<<<<<<< HEAD
  * @breif Header file to MathFunctions.c
  *   This header file contains mathematical functions that can be used for navigation.
  *   Angle unit is degree and distance unit is cm.
  * 
+=======
+* @ This header file contains mathematical functions that can be used for navigation.
+* Angle unit is degree and distance unit is cm.
+>>>>>>> master
  * @author Yurdaer Dalkic
  *
  * @date 2017-04-29 20:30:40 
