@@ -6,7 +6,7 @@
 *
 *  @author: Hadi Deknache & Yurdaer Dalkic & Jonas Eiselt(Code in structure) and Desiree Jönsson & Jonas Eiselt (Structure)
 *
-*  @date 2017-04-20	
+*  @date 2017-04-20
 */
 
 #include <asf.h>
@@ -32,7 +32,7 @@ double totMovement = 0; //Variable to store totalmovement during the transportat
 double integral=0; // Variable to use for calculated I-part for PID-control
 double derivate=0; // Variable to use for calculated I-part for PID-control
 double prevD=0;	 //Variable for last error to hold
-double dT=0.1;	 // Variable for sample time
+double dT=0.2;	 // Variable for sample time
 double Td=0.053; //Gain for d-part
 double Ti=0.215; //Gain for I-part
 int16_t sum=0;   //Sum of error
@@ -66,7 +66,7 @@ void task_NaviControl(void *pvParameters)
 	while (1)
 	{
 		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); // Wait for the next cycle after have finished everything
-		
+
 		switch (currentState)
 		{
 			/************************************************************************/
@@ -79,7 +79,7 @@ void task_NaviControl(void *pvParameters)
 			if (arlo_get_collect_status() == 1)
 			{
 				updateNextPosition(); // Updates data position for next run
-				
+
 				//Checks if driven to every position yet
 				if (object_counter > 5)
 				{
@@ -106,7 +106,7 @@ void task_NaviControl(void *pvParameters)
 					nextState = BEFORE_ROTATE;
 				}
 			}
-			
+
 			break;
 			/************************************************************************/
 			/*								Navi									*/
@@ -132,7 +132,7 @@ void task_NaviControl(void *pvParameters)
 			else{
 				nextState = MOVE;
 			}
-			
+
 			break;
 			/************************************************************************/
 			/*							       MOVE									*/
@@ -197,9 +197,9 @@ void task_NaviControl(void *pvParameters)
 				//  stop wheels
 				rightWheel(1500);
 				leftWheel(1500);
-				
+
 				reset_Counter(); //resets counter for encoders
-				angle=0; 
+				angle=0;
 				totalPulses=0;
 				totMovement=0;
 				//checks if command came from communication to continue communication
@@ -213,7 +213,7 @@ void task_NaviControl(void *pvParameters)
 				{
 					nextState = MOVE;
 				}
-				
+
 			}
 			//else continues the rotation of the wheels
 			else
@@ -253,7 +253,7 @@ void task_NaviControl(void *pvParameters)
 			{
 				nextState = COMM;
 			}
-			
+
 			break;
 			/************************************************************************/
 			/*							       WAIT									*/
@@ -271,7 +271,7 @@ void task_NaviControl(void *pvParameters)
 			{
 				nextState = WAIT;
 			}
-			
+
 			break;
 			/************************************************************************/
 			/*                        end of state machine			                */
@@ -328,7 +328,7 @@ void move (void)
 	//calculates the error of the error in the future to correct
 	derivate = ((Td/dT) * (proportionalError-prevD));
 	//total error to correct for PID-control
-	controlValue =(K*(proportionalError+integral+ derivate)); 
+	controlValue =(K*(proportionalError+integral+ derivate));
 	//stores the previous error
 	prevD=proportionalError;
 	//	Check if almost reached the destination to slow down and make a smoother brake
@@ -351,10 +351,10 @@ void move (void)
 	{
 		controlValue=-70;
 	}
-	
+
 	rightWheel(1500 + ((speed+controlValue)*direction));//set new speed for rightWheel
 	leftWheel( 1500 + ((speed-controlValue)*direction));//set new speed for leftWheel
-	
+
 }
 /** This method initialize the coordinates for the objects and where Arlo stands
 *	Positions of objects is got from the positioning system
@@ -363,7 +363,7 @@ void coordinatesInit (void)
 {
 	int16_t object_buffer[8] = {0}; //arrayy used to be stored coordinates objects
 	arlo_get_object_positions(object_buffer); //request coordinates fromn positionings system
-	
+
 	//Robot platform present positions x and y coordinates
 	coord.presentX = 200;
 	coord.presentY = 0;
@@ -379,10 +379,10 @@ void coordinatesInit (void)
 
 	coord.glass[0] = object_buffer[4];//X coordinate glass
 	coord.glass[1] = object_buffer[5];//Y coordinate glass
-	
+
 	coord.box[0] = 50; //X coordinate box (hardcooded)
 	coord.box[1] = -10; //Y coordinate box (hardcooded)
-	
+
 	//coord.box[0] = object_buffer[6]; // X coordinate box
 	//coord.box[1] = object_buffer[7]; //Y coordinate box
 }

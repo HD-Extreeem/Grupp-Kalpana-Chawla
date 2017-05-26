@@ -3,7 +3,7 @@
 *
 * @brief This source file handle the whole process of communication between robotic platform and mounted lift platform
 *		 Status is being requested from mounted lift and checks if finished or still running pick up/drop off
-*		 
+*
 *
 * @author Desiree(structure), Hadi Deknache and Jonas Eiselt (Code in structure)
 *
@@ -65,8 +65,8 @@ void task_unoComm(void *pvParameters)
 {
 	//Variable which checks last run
 	portTickType xLastWakeTime;
-	//Period used for task to run 300 ms
-	const portTickType xTimeIncrement = 300;
+	//Period used for task to run 200 ms
+	const portTickType xTimeIncrement = 200;
 
 	xLastWakeTime = xTaskGetTickCount(); // Initialize the xLastWakeTime variable with the current time.
 
@@ -75,13 +75,13 @@ void task_unoComm(void *pvParameters)
 		/** State machine used for controlling different states for mounted lift communication**/
 		switch (current_state)
 		{
-			
+
 			/************************************************************************/
 			/*                      PICK_UP_START									*/
 			/*	Case PICK_UP_START, starts communication with mounted lift			*/
-			/*	by sending a request to lift										*/			
+			/*	by sending a request to lift										*/
 			/************************************************************************/
-			
+
 			case PICK_UP_START:
 			arlo_pick_up_object(OBJECT);
 			next_state = PICK_UP_DO;
@@ -93,7 +93,7 @@ void task_unoComm(void *pvParameters)
 			/************************************************************************/
 			case PICK_UP_DO:
 			pick_up_status_t = arlo_get_pick_up_status();
-			
+
 			switch (pick_up_status_t)
 			{
 				/************************************************************************/
@@ -131,7 +131,7 @@ void task_unoComm(void *pvParameters)
 					arlo_done_drive(PICK_UP_DONE_DRIVE);
 					next_state = PICK_UP_START;
 				}
-				
+
 				break;
 				/************************************************************************/
 				/*							PICK_UP_BACKWARD							*/
@@ -157,14 +157,14 @@ void task_unoComm(void *pvParameters)
 				/*	mounted lift state have picked up the object						*/
 				/************************************************************************/
 				case PICK_UP_RUNNING:
-				
+
 				break;
 				/************************************************************************/
 				/*							PICK_UP_DONE_DRIVE							*/
 				/*	Never sent from our mounted lift 									*/
 				/************************************************************************/
 				case PICK_UP_DONE_DRIVE:
-				
+
 				break;
 				/************************************************************************/
 				/*							PICK_UP_IDLE								*/
@@ -183,7 +183,7 @@ void task_unoComm(void *pvParameters)
 				else
 				{
 					next_state = PICK_UP_START;
-					
+
 				}
 				//Pick up finished and should countinue for next destination
 				com_process_finished=true;
@@ -206,7 +206,7 @@ void task_unoComm(void *pvParameters)
 				else
 				{
 					next_state = PICK_UP_START;
-					
+
 				}
 				//Pick up finished and should continue for next destination
 				com_process_finished=true;
@@ -219,7 +219,7 @@ void task_unoComm(void *pvParameters)
 			}
 			break;
 			/************************************************************************/
-			/*                              DROP_OFF CASE							*/ 
+			/*                              DROP_OFF CASE							*/
 			/*	This case handle the drop off process for robot platform			*/
 			/*	Communication between robotic platform and mounted lift				*/
 			/*	Waiting for drop off to finish										*/
@@ -229,11 +229,11 @@ void task_unoComm(void *pvParameters)
 			// Runs once when starting to request drop off for mounted platform
 			if (already_dropped == 0)
 			{
-				//This angle and settings is only used for lift for Grönwalls to rotate and drop off items
+				//This angle and settings is only used for lift for Grï¿½nwalls to rotate and drop off items
 				angle=180;
 				arloNeedsToDrive=true;
 				vTaskDelay(200);
-				
+
 				//Requesting drop off
 				arlo_drop_object(OBJECT);
 				//Set variable to drop off since started
@@ -249,11 +249,11 @@ void task_unoComm(void *pvParameters)
 				{
 					//Changing variable to finished
 					com_process_finished=true;
-					
+
 					//Reseting status since it have dropped off item
 					drop_off_status_t = 0;
 					already_dropped = 0;
-					
+
 					//Reseting to beginning since finished
 					next_state = PICK_UP_START;
 					//Suspending task
@@ -272,8 +272,8 @@ void task_unoComm(void *pvParameters)
 		}
 		// Current state is next state for switching between states
 		current_state = next_state;
-		
+
 		// Wait for the next cycle after have finished everything
-		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);	
+		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement);
 	}
 }
