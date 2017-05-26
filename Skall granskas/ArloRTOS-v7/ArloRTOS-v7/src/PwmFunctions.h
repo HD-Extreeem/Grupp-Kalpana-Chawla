@@ -2,9 +2,6 @@
  *	@file PwmFunctions.h
  *
  *	@brief Header file to PwmFunctions.c
- *  The header file configure two PWM pins on Arduino Due, pin 8 and pin 9.
- *  The PWM signal has period time 8 ms and duty cycle is between 0.8 ms and 2.2 ms.
- *
  * 
  *  @author Yurdaer Dalkic & Hadi Deknache
  *

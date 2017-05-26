@@ -31,13 +31,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  13 .debug_line   000191c0  00000000  00000000  0005c205  2**0
                   CONTENTS, READONLY, DEBUGGING
-<<<<<<< HEAD
- 14 .debug_str    0006a3a5  00000000  00000000  000753c5  2**0
-=======
- 14 .debug_str    0006a400  00000000  00000000  000753c5  2**0
->>>>>>> master
+ 14 .debug_str    0006a3f1  00000000  00000000  000753c5  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00003174  00000000  00000000  000df7c8  2**2
+ 15 .debug_frame  00003174  00000000  00000000  000df7b8  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1417,20 +1413,12 @@ Disassembly of section .text:
    80cc8:	000850a1 	.word	0x000850a1
 
 00080ccc <calculateDistance>:
-*	@param Xb the x coordinate for B
-*	@param Ya the y coordinate for A
-*	@param Yb the y coordinate for B
-*	@return distance the distance between A and B
-**/
-double calculateDistance (double Xa, double Ya, double Xb, double Yb){
    80ccc:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
    80cd0:	b082      	sub	sp, #8
    80cd2:	4606      	mov	r6, r0
    80cd4:	460f      	mov	r7, r1
    80cd6:	4614      	mov	r4, r2
    80cd8:	461d      	mov	r5, r3
-	double distance;
-	double deltaX = Xb - Xa;
    80cda:	f8df 9070 	ldr.w	r9, [pc, #112]	; 80d4c <calculateDistance+0x80>
    80cde:	e9dd 010a 	ldrd	r0, r1, [sp, #40]	; 0x28
    80ce2:	4632      	mov	r2, r6
@@ -1438,14 +1426,12 @@ double calculateDistance (double Xa, double Ya, double Xb, double Yb){
    80ce6:	47c8      	blx	r9
    80ce8:	4606      	mov	r6, r0
    80cea:	460f      	mov	r7, r1
-	double deltaY = Yb - Ya;
    80cec:	e9dd 010c 	ldrd	r0, r1, [sp, #48]	; 0x30
    80cf0:	4622      	mov	r2, r4
    80cf2:	462b      	mov	r3, r5
    80cf4:	47c8      	blx	r9
    80cf6:	4604      	mov	r4, r0
    80cf8:	460d      	mov	r5, r1
-	distance = sqrt((deltaX*deltaX) + (deltaY*deltaY));
    80cfa:	f8df 8054 	ldr.w	r8, [pc, #84]	; 80d50 <calculateDistance+0x84>
    80cfe:	4630      	mov	r0, r6
    80d00:	4639      	mov	r1, r7
@@ -1473,11 +1459,9 @@ double calculateDistance (double Xa, double Ya, double Xb, double Yb){
    80d30:	47d0      	blx	sl
    80d32:	4b04      	ldr	r3, [pc, #16]	; (80d44 <calculateDistance+0x78>)
    80d34:	4798      	blx	r3
-	return (distance-50); //Return this if mounted lift is Grönwalls or Lasse Stefanz or Lars Kristerz
    80d36:	2200      	movs	r2, #0
    80d38:	4b03      	ldr	r3, [pc, #12]	; (80d48 <calculateDistance+0x7c>)
    80d3a:	47c8      	blx	r9
-}
    80d3c:	b002      	add	sp, #8
    80d3e:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
    80d42:	bf00      	nop
@@ -1488,19 +1472,11 @@ double calculateDistance (double Xa, double Ya, double Xb, double Yb){
    80d54:	00084575 	.word	0x00084575
 
 00080d58 <calculateAzimuthAngle>:
-*	@param Xb the x coordinate for B
-*	@param Ya the y coordinate for A
-*	@param Yb the y coordinate for B
-*	@return azimutAngle the azimuth angle from A to B
-**/
-double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
    80d58:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
    80d5c:	4604      	mov	r4, r0
    80d5e:	460d      	mov	r5, r1
    80d60:	4616      	mov	r6, r2
    80d62:	461f      	mov	r7, r3
-	double azimutAngle = 0;
-	double deltaX = Xb-Xa;
    80d64:	f8df 81f4 	ldr.w	r8, [pc, #500]	; 80f5c <calculateAzimuthAngle+0x204>
    80d68:	e9dd 0106 	ldrd	r0, r1, [sp, #24]
    80d6c:	4622      	mov	r2, r4
@@ -1508,16 +1484,12 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
    80d70:	47c0      	blx	r8
    80d72:	4604      	mov	r4, r0
    80d74:	460d      	mov	r5, r1
-	double deltaY = Yb-Ya;
    80d76:	e9dd 0108 	ldrd	r0, r1, [sp, #32]
    80d7a:	4632      	mov	r2, r6
    80d7c:	463b      	mov	r3, r7
    80d7e:	47c0      	blx	r8
    80d80:	4606      	mov	r6, r0
    80d82:	460f      	mov	r7, r1
-	
-	// if A and B has same coordinates
-	if ( (deltaX == 0) && (deltaY == 0) )
    80d84:	4620      	mov	r0, r4
    80d86:	4629      	mov	r1, r5
    80d88:	2200      	movs	r2, #0
@@ -1533,12 +1505,6 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
    80d9e:	47a0      	blx	r4
    80da0:	2800      	cmp	r0, #0
    80da2:	f040 80aa 	bne.w	80efa <calculateAzimuthAngle+0x1a2>
-		azimutAngle = 0;
-	}
-	// if A and B has same x coordinate
-	else if (deltaX == 0)
-	{
-		if (deltaY>0)
    80da6:	4630      	mov	r0, r6
    80da8:	4639      	mov	r1, r7
    80daa:	2200      	movs	r2, #0
@@ -1547,17 +1513,9 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
    80db0:	47a0      	blx	r4
    80db2:	2800      	cmp	r0, #0
    80db4:	f000 80a5 	beq.w	80f02 <calculateAzimuthAngle+0x1aa>
-		{
-			azimutAngle = 0;
    80db8:	2000      	movs	r0, #0
    80dba:	2100      	movs	r1, #0
    80dbc:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-			azimutAngle = 180;
-		}
-		
-	}
-	// if A and B has same y coordinate
-	else if (deltaY == 0)
    80dc0:	4630      	mov	r0, r6
    80dc2:	4639      	mov	r1, r7
    80dc4:	2200      	movs	r2, #0
@@ -1565,8 +1523,6 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
    80dc8:	f8df c16c 	ldr.w	ip, [pc, #364]	; 80f38 <calculateAzimuthAngle+0x1e0>
    80dcc:	47e0      	blx	ip
    80dce:	b160      	cbz	r0, 80dea <calculateAzimuthAngle+0x92>
-	{
-		if (deltaX>0)
    80dd0:	4620      	mov	r0, r4
    80dd2:	4629      	mov	r1, r5
    80dd4:	2200      	movs	r2, #0
@@ -1575,17 +1531,9 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
    80dda:	47a0      	blx	r4
    80ddc:	2800      	cmp	r0, #0
    80dde:	f000 8094 	beq.w	80f0a <calculateAzimuthAngle+0x1b2>
-		{
-			azimutAngle = 90;
    80de2:	2000      	movs	r0, #0
    80de4:	4956      	ldr	r1, [pc, #344]	; (80f40 <calculateAzimuthAngle+0x1e8>)
    80de6:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-		}
-		
-	}
-	else
-	{   // angle is between 0 to 90 degree
-		if ( (deltaX > 0) && (deltaY > 0 ) )
    80dea:	4620      	mov	r0, r4
    80dec:	4629      	mov	r1, r5
    80dee:	2200      	movs	r2, #0
@@ -1600,8 +1548,6 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
    80e02:	f8df c138 	ldr.w	ip, [pc, #312]	; 80f3c <calculateAzimuthAngle+0x1e4>
    80e06:	47e0      	blx	ip
    80e08:	b1b0      	cbz	r0, 80e38 <calculateAzimuthAngle+0xe0>
-		{
-			azimutAngle =  radianToDegree (atan (deltaX/deltaY));
    80e0a:	4620      	mov	r0, r4
    80e0c:	4629      	mov	r1, r5
    80e0e:	4632      	mov	r2, r6
@@ -1610,26 +1556,11 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
    80e14:	47a0      	blx	r4
    80e16:	4b4c      	ldr	r3, [pc, #304]	; (80f48 <calculateAzimuthAngle+0x1f0>)
    80e18:	4798      	blx	r3
-*	@param radian the angle value in radian
-*	@return degree the angle value in degree
-**/
-double radianToDegree (double radian){
-	double degree;
-	degree =  radian*(180/M_PI);
    80e1a:	a343      	add	r3, pc, #268	; (adr r3, 80f28 <calculateAzimuthAngle+0x1d0>)
    80e1c:	e9d3 2300 	ldrd	r2, r3, [r3]
    80e20:	4c4a      	ldr	r4, [pc, #296]	; (80f4c <calculateAzimuthAngle+0x1f4>)
    80e22:	47a0      	blx	r4
-	}
-	else
-	{   // angle is between 0 to 90 degree
-		if ( (deltaX > 0) && (deltaY > 0 ) )
-		{
-			azimutAngle =  radianToDegree (atan (deltaX/deltaY));
    80e24:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-		}
-		// the angle is between 90 to 180 degree
-		else if ( (deltaX > 0) && (deltaY < 0 ) )
    80e28:	4620      	mov	r0, r4
    80e2a:	4629      	mov	r1, r5
    80e2c:	2200      	movs	r2, #0
@@ -1644,8 +1575,6 @@ double radianToDegree (double radian){
    80e40:	f8df c11c 	ldr.w	ip, [pc, #284]	; 80f60 <calculateAzimuthAngle+0x208>
    80e44:	47e0      	blx	ip
    80e46:	b190      	cbz	r0, 80e6e <calculateAzimuthAngle+0x116>
-		{
-			azimutAngle = (radianToDegree (atan (deltaX/deltaY))  + 180);
    80e48:	4620      	mov	r0, r4
    80e4a:	4629      	mov	r1, r5
    80e4c:	4632      	mov	r2, r6
@@ -1654,30 +1583,15 @@ double radianToDegree (double radian){
    80e52:	47a0      	blx	r4
    80e54:	4b3c      	ldr	r3, [pc, #240]	; (80f48 <calculateAzimuthAngle+0x1f0>)
    80e56:	4798      	blx	r3
-*	@param radian the angle value in radian
-*	@return degree the angle value in degree
-**/
-double radianToDegree (double radian){
-	double degree;
-	degree =  radian*(180/M_PI);
    80e58:	a333      	add	r3, pc, #204	; (adr r3, 80f28 <calculateAzimuthAngle+0x1d0>)
    80e5a:	e9d3 2300 	ldrd	r2, r3, [r3]
    80e5e:	4c3b      	ldr	r4, [pc, #236]	; (80f4c <calculateAzimuthAngle+0x1f4>)
    80e60:	47a0      	blx	r4
-			azimutAngle =  radianToDegree (atan (deltaX/deltaY));
-		}
-		// the angle is between 90 to 180 degree
-		else if ( (deltaX > 0) && (deltaY < 0 ) )
-		{
-			azimutAngle = (radianToDegree (atan (deltaX/deltaY))  + 180);
    80e62:	2200      	movs	r2, #0
    80e64:	4b3a      	ldr	r3, [pc, #232]	; (80f50 <calculateAzimuthAngle+0x1f8>)
    80e66:	4c3b      	ldr	r4, [pc, #236]	; (80f54 <calculateAzimuthAngle+0x1fc>)
    80e68:	47a0      	blx	r4
    80e6a:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-		}
-		// the angle is between 180 to 270 degree
-		else if ( (deltaX < 0) && (deltaY < 0 ) )
    80e6e:	4620      	mov	r0, r4
    80e70:	4629      	mov	r1, r5
    80e72:	2200      	movs	r2, #0
@@ -1692,8 +1606,6 @@ double radianToDegree (double radian){
    80e86:	f8df c0d8 	ldr.w	ip, [pc, #216]	; 80f60 <calculateAzimuthAngle+0x208>
    80e8a:	47e0      	blx	ip
    80e8c:	b1d0      	cbz	r0, 80ec4 <calculateAzimuthAngle+0x16c>
-		{
-			azimutAngle = (radianToDegree (atan (deltaX/deltaY) ) + 180);
    80e8e:	4620      	mov	r0, r4
    80e90:	4629      	mov	r1, r5
    80e92:	4632      	mov	r2, r6
@@ -1702,30 +1614,15 @@ double radianToDegree (double radian){
    80e98:	47a0      	blx	r4
    80e9a:	4b2b      	ldr	r3, [pc, #172]	; (80f48 <calculateAzimuthAngle+0x1f0>)
    80e9c:	4798      	blx	r3
-*	@param radian the angle value in radian
-*	@return degree the angle value in degree
-**/
-double radianToDegree (double radian){
-	double degree;
-	degree =  radian*(180/M_PI);
    80e9e:	a322      	add	r3, pc, #136	; (adr r3, 80f28 <calculateAzimuthAngle+0x1d0>)
    80ea0:	e9d3 2300 	ldrd	r2, r3, [r3]
    80ea4:	4c29      	ldr	r4, [pc, #164]	; (80f4c <calculateAzimuthAngle+0x1f4>)
    80ea6:	47a0      	blx	r4
-			azimutAngle = (radianToDegree (atan (deltaX/deltaY))  + 180);
-		}
-		// the angle is between 180 to 270 degree
-		else if ( (deltaX < 0) && (deltaY < 0 ) )
-		{
-			azimutAngle = (radianToDegree (atan (deltaX/deltaY) ) + 180);
    80ea8:	2200      	movs	r2, #0
    80eaa:	4b29      	ldr	r3, [pc, #164]	; (80f50 <calculateAzimuthAngle+0x1f8>)
    80eac:	4c29      	ldr	r4, [pc, #164]	; (80f54 <calculateAzimuthAngle+0x1fc>)
    80eae:	47a0      	blx	r4
    80eb0:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-		}
-		// the angle is between 270 to 360 degree
-		else if ( (deltaX < 0) && (deltaY > 0 ) )
    80eb4:	4620      	mov	r0, r4
    80eb6:	4629      	mov	r1, r5
    80eb8:	2200      	movs	r2, #0
@@ -1740,8 +1637,6 @@ double radianToDegree (double radian){
    80ecc:	f8df c06c 	ldr.w	ip, [pc, #108]	; 80f3c <calculateAzimuthAngle+0x1e4>
    80ed0:	47e0      	blx	ip
    80ed2:	b318      	cbz	r0, 80f1c <calculateAzimuthAngle+0x1c4>
-		{
-			azimutAngle = (radianToDegree (atan (deltaX/deltaY) ) + 360);
    80ed4:	4620      	mov	r0, r4
    80ed6:	4629      	mov	r1, r5
    80ed8:	4632      	mov	r2, r6
@@ -1750,71 +1645,29 @@ double radianToDegree (double radian){
    80ede:	47a0      	blx	r4
    80ee0:	4b19      	ldr	r3, [pc, #100]	; (80f48 <calculateAzimuthAngle+0x1f0>)
    80ee2:	4798      	blx	r3
-*	@param radian the angle value in radian
-*	@return degree the angle value in degree
-**/
-double radianToDegree (double radian){
-	double degree;
-	degree =  radian*(180/M_PI);
    80ee4:	a310      	add	r3, pc, #64	; (adr r3, 80f28 <calculateAzimuthAngle+0x1d0>)
    80ee6:	e9d3 2300 	ldrd	r2, r3, [r3]
    80eea:	4c18      	ldr	r4, [pc, #96]	; (80f4c <calculateAzimuthAngle+0x1f4>)
    80eec:	47a0      	blx	r4
-			azimutAngle = (radianToDegree (atan (deltaX/deltaY) ) + 180);
-		}
-		// the angle is between 270 to 360 degree
-		else if ( (deltaX < 0) && (deltaY > 0 ) )
-		{
-			azimutAngle = (radianToDegree (atan (deltaX/deltaY) ) + 360);
    80eee:	2200      	movs	r2, #0
    80ef0:	4b19      	ldr	r3, [pc, #100]	; (80f58 <calculateAzimuthAngle+0x200>)
    80ef2:	4c18      	ldr	r4, [pc, #96]	; (80f54 <calculateAzimuthAngle+0x1fc>)
    80ef4:	47a0      	blx	r4
    80ef6:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-	double deltaY = Yb-Ya;
-	
-	// if A and B has same coordinates
-	if ( (deltaX == 0) && (deltaY == 0) )
-	{
-		azimutAngle = 0;
    80efa:	2000      	movs	r0, #0
    80efc:	2100      	movs	r1, #0
    80efe:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-		{
-			azimutAngle = 0;
-		}
-		else
-		{
-			azimutAngle = 180;
    80f02:	2000      	movs	r0, #0
    80f04:	4912      	ldr	r1, [pc, #72]	; (80f50 <calculateAzimuthAngle+0x1f8>)
    80f06:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-		{
-			azimutAngle = 90;
-		}
-		else
-		{
-			azimutAngle = 270;
    80f0a:	a109      	add	r1, pc, #36	; (adr r1, 80f30 <calculateAzimuthAngle+0x1d8>)
    80f0c:	e9d1 0100 	ldrd	r0, r1, [r1]
    80f10:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
-*	@param Ya the y coordinate for A
-*	@param Yb the y coordinate for B
-*	@return azimutAngle the azimuth angle from A to B
-**/
-double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
-	double azimutAngle = 0;
    80f14:	2000      	movs	r0, #0
    80f16:	2100      	movs	r1, #0
    80f18:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
    80f1c:	2000      	movs	r0, #0
    80f1e:	2100      	movs	r1, #0
-			azimutAngle = (radianToDegree (atan (deltaX/deltaY) ) + 360);
-		}
-	}
-	
-	return azimutAngle;
-}
    80f20:	e8bd 81f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, pc}
    80f24:	f3af 8000 	nop.w
    80f28:	1a63c1f8 	.word	0x1a63c1f8
@@ -1835,25 +1688,16 @@ double calculateAzimuthAngle (double Xa, double Ya, double Xb, double Yb){
    80f64:	f3af 8000 	nop.w
 
 00080f68 <calcluteRotationAngle>:
-*	@param Ya the y coordinate for A
-*	@param Yb the x coordinate for B
-*	@param Yc the y coordinate for C
-*	@return rotationAngle the rotation angle from A to target C
-**/
-double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double Xc, double Yc){
    80f68:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
    80f6c:	b084      	sub	sp, #16
    80f6e:	e9dd 450c 	ldrd	r4, r5, [sp, #48]	; 0x30
    80f72:	e9dd 890e 	ldrd	r8, r9, [sp, #56]	; 0x38
-	
-	double AoB = calculateAzimuthAngle(Xa, Ya, Xb, Yb);
    80f76:	e9cd 4500 	strd	r4, r5, [sp]
    80f7a:	e9cd 8902 	strd	r8, r9, [sp, #8]
    80f7e:	f8df a08c 	ldr.w	sl, [pc, #140]	; 8100c <calcluteRotationAngle+0xa4>
    80f82:	47d0      	blx	sl
    80f84:	4606      	mov	r6, r0
    80f86:	460f      	mov	r7, r1
-	double BoC = calculateAzimuthAngle(Xb, Yb, Xc, Yc);
    80f88:	e9dd 2310 	ldrd	r2, r3, [sp, #64]	; 0x40
    80f8c:	e9cd 2300 	strd	r2, r3, [sp]
    80f90:	e9dd 2312 	ldrd	r2, r3, [sp, #72]	; 0x48
@@ -1863,21 +1707,17 @@ double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double
    80f9c:	4642      	mov	r2, r8
    80f9e:	464b      	mov	r3, r9
    80fa0:	47d0      	blx	sl
-	double rotationAngle = BoC-AoB;
    80fa2:	4632      	mov	r2, r6
    80fa4:	463b      	mov	r3, r7
    80fa6:	4c12      	ldr	r4, [pc, #72]	; (80ff0 <calcluteRotationAngle+0x88>)
    80fa8:	47a0      	blx	r4
    80faa:	4604      	mov	r4, r0
    80fac:	460d      	mov	r5, r1
-	if (rotationAngle > 180)
    80fae:	2200      	movs	r2, #0
    80fb0:	4b10      	ldr	r3, [pc, #64]	; (80ff4 <calcluteRotationAngle+0x8c>)
    80fb2:	4e11      	ldr	r6, [pc, #68]	; (80ff8 <calcluteRotationAngle+0x90>)
    80fb4:	47b0      	blx	r6
    80fb6:	b138      	cbz	r0, 80fc8 <calcluteRotationAngle+0x60>
-	{
-		rotationAngle =  rotationAngle - 360;
    80fb8:	4620      	mov	r0, r4
    80fba:	4629      	mov	r1, r5
    80fbc:	2200      	movs	r2, #0
@@ -1886,8 +1726,6 @@ double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double
    80fc2:	47a0      	blx	r4
    80fc4:	4604      	mov	r4, r0
    80fc6:	460d      	mov	r5, r1
-	}
-	if (rotationAngle < -180)
    80fc8:	4620      	mov	r0, r4
    80fca:	4629      	mov	r1, r5
    80fcc:	2200      	movs	r2, #0
@@ -1895,8 +1733,6 @@ double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double
    80fd0:	4e0c      	ldr	r6, [pc, #48]	; (81004 <calcluteRotationAngle+0x9c>)
    80fd2:	47b0      	blx	r6
    80fd4:	b138      	cbz	r0, 80fe6 <calcluteRotationAngle+0x7e>
-	{
-		rotationAngle =  rotationAngle + 360;
    80fd6:	4620      	mov	r0, r4
    80fd8:	4629      	mov	r1, r5
    80fda:	2200      	movs	r2, #0
@@ -1905,8 +1741,6 @@ double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double
    80fe0:	47a0      	blx	r4
    80fe2:	4604      	mov	r4, r0
    80fe4:	460d      	mov	r5, r1
-	}
-	return rotationAngle;
    80fe6:	4620      	mov	r0, r4
    80fe8:	4629      	mov	r1, r5
    80fea:	b004      	add	sp, #16
@@ -1921,48 +1755,27 @@ double calcluteRotationAngle (double Xa, double Ya, double Xb, double Yb, double
    8100c:	00080d59 	.word	0x00080d59
 
 00081010 <initPin21>:
-	
-}
-
-/* This method initialize channel instance and configure PWM channel 4 for pin 9,
-selecting clock A as its source clock, setting the period at 8 ms and setting the duty cycle at 0% */
-void initPin21(void){
    81010:	b538      	push	{r3, r4, r5, lr}
-	
-	pio_configure_pin(PIN_21, PIO_TYPE_PIO_PERIPH_B);
    81012:	2055      	movs	r0, #85	; 0x55
    81014:	f04f 5180 	mov.w	r1, #268435456	; 0x10000000
    81018:	4b0b      	ldr	r3, [pc, #44]	; (81048 <initPin21+0x38>)
    8101a:	4798      	blx	r3
-	/*Pwm channel configuration such as channel, alignments, period, duty etc...*/
-	PWM_pin_21.channel = PWM_CHANNEL_4;
    8101c:	4b0b      	ldr	r3, [pc, #44]	; (8104c <initPin21+0x3c>)
    8101e:	2404      	movs	r4, #4
    81020:	601c      	str	r4, [r3, #0]
-	PWM_pin_21.ul_prescaler = PWM_CMR_CPRE_CLKA;
    81022:	220b      	movs	r2, #11
    81024:	605a      	str	r2, [r3, #4]
-	PWM_pin_21.polarity = PWM_LOW;
    81026:	2200      	movs	r2, #0
    81028:	729a      	strb	r2, [r3, #10]
-	PWM_pin_21.alignment = PWM_ALIGN_LEFT;
    8102a:	811a      	strh	r2, [r3, #8]
-	PWM_pin_21.ul_period = 7500;
    8102c:	f641 514c 	movw	r1, #7500	; 0x1d4c
    81030:	6119      	str	r1, [r3, #16]
-	PWM_pin_21.ul_duty = 0;
    81032:	60da      	str	r2, [r3, #12]
-	
-	/*Initializing channel after setting things up*/
-	pwm_channel_init(PWM, &PWM_pin_21);
    81034:	4d06      	ldr	r5, [pc, #24]	; (81050 <initPin21+0x40>)
    81036:	4628      	mov	r0, r5
    81038:	4619      	mov	r1, r3
    8103a:	4b06      	ldr	r3, [pc, #24]	; (81054 <initPin21+0x44>)
    8103c:	4798      	blx	r3
-	
-	/*Enabling pwm channel after initializing everything correct*/
-	pwm_channel_enable(PWM, PWM_CHANNEL_4);
    8103e:	4628      	mov	r0, r5
    81040:	4621      	mov	r1, r4
    81042:	4b05      	ldr	r3, [pc, #20]	; (81058 <initPin21+0x48>)
@@ -1975,47 +1788,27 @@ void initPin21(void){
    81058:	000806e5 	.word	0x000806e5
 
 0008105c <initPin22>:
-}
-
-/* This method initialize channel instance and configure PWM channel 5 for pin 8,
-selecting clock A as its source clock, setting the period at 8 ms and setting the duty cycle at 0% */
-void initPin22(void){
    8105c:	b538      	push	{r3, r4, r5, lr}
-	
-	pio_configure_pin(PIN_22, PIO_TYPE_PIO_PERIPH_B);
    8105e:	2056      	movs	r0, #86	; 0x56
    81060:	f04f 5180 	mov.w	r1, #268435456	; 0x10000000
    81064:	4b0b      	ldr	r3, [pc, #44]	; (81094 <initPin22+0x38>)
    81066:	4798      	blx	r3
-	/*Pwm channel configuration such as channel, alignments, period, duty etc...*/
-	PWM_pin_22.channel = PWM_CHANNEL_5;
    81068:	4b0b      	ldr	r3, [pc, #44]	; (81098 <initPin22+0x3c>)
    8106a:	2405      	movs	r4, #5
    8106c:	601c      	str	r4, [r3, #0]
-	PWM_pin_22.ul_prescaler = PWM_CMR_CPRE_CLKA;
    8106e:	220b      	movs	r2, #11
    81070:	605a      	str	r2, [r3, #4]
-	PWM_pin_22.polarity = PWM_LOW;
    81072:	2200      	movs	r2, #0
    81074:	729a      	strb	r2, [r3, #10]
-	PWM_pin_22.alignment = PWM_ALIGN_LEFT;
    81076:	811a      	strh	r2, [r3, #8]
-	PWM_pin_22.ul_period = 7500;
    81078:	f641 514c 	movw	r1, #7500	; 0x1d4c
    8107c:	6119      	str	r1, [r3, #16]
-	PWM_pin_22.ul_duty = 0;
    8107e:	60da      	str	r2, [r3, #12]
-	
-	/*Initializing channel after setting things up*/
-	pwm_channel_init(PWM, &PWM_pin_22);
    81080:	4d06      	ldr	r5, [pc, #24]	; (8109c <initPin22+0x40>)
    81082:	4628      	mov	r0, r5
    81084:	4619      	mov	r1, r3
    81086:	4b06      	ldr	r3, [pc, #24]	; (810a0 <initPin22+0x44>)
    81088:	4798      	blx	r3
-	
-	/*Enabling pwm channel after initializing everything correct*/
-	pwm_channel_enable(PWM, PWM_CHANNEL_5);
    8108a:	4628      	mov	r0, r5
    8108c:	4621      	mov	r1, r4
    8108e:	4b05      	ldr	r3, [pc, #20]	; (810a4 <initPin22+0x48>)
@@ -2028,60 +1821,33 @@ void initPin22(void){
    810a4:	000806e5 	.word	0x000806e5
 
 000810a8 <PWM_init>:
-pwm_channel_t PWM_pin_21;
-pwm_channel_t PWM_pin_22;
-
-
-/* This method configure PWM clock   */
-void PWM_init(void){
    810a8:	b530      	push	{r4, r5, lr}
    810aa:	b085      	sub	sp, #20
-	
-	//Enable the module clock for the PWM peripheral
-	pmc_enable_periph_clk(ID_PWM);
    810ac:	2024      	movs	r0, #36	; 0x24
    810ae:	4b0d      	ldr	r3, [pc, #52]	; (810e4 <PWM_init+0x3c>)
    810b0:	4798      	blx	r3
-	
-	/*Disable PWM channels for appropriate configuration*/
-	pwm_channel_disable(PWM,PWM_CHANNEL_4);
    810b2:	4c0d      	ldr	r4, [pc, #52]	; (810e8 <PWM_init+0x40>)
    810b4:	4620      	mov	r0, r4
    810b6:	2104      	movs	r1, #4
    810b8:	4d0c      	ldr	r5, [pc, #48]	; (810ec <PWM_init+0x44>)
    810ba:	47a8      	blx	r5
-	pwm_channel_disable(PWM,PWM_CHANNEL_5);
    810bc:	4620      	mov	r0, r4
    810be:	2105      	movs	r1, #5
    810c0:	47a8      	blx	r5
-	
-	/*Setup clock for PWM module*/
-	pwm_clock_t PWMDAC_clock_config = {
    810c2:	4b0b      	ldr	r3, [pc, #44]	; (810f0 <PWM_init+0x48>)
    810c4:	9301      	str	r3, [sp, #4]
    810c6:	2300      	movs	r3, #0
    810c8:	9302      	str	r3, [sp, #8]
    810ca:	4b0a      	ldr	r3, [pc, #40]	; (810f4 <PWM_init+0x4c>)
    810cc:	9303      	str	r3, [sp, #12]
-		.ul_clka = 1000000,
-		.ul_clkb = 0,
-		.ul_mck = sysclk_get_cpu_hz()
-	};
-	pwm_init(PWM, &PWMDAC_clock_config);
    810ce:	4620      	mov	r0, r4
    810d0:	a901      	add	r1, sp, #4
    810d2:	4b09      	ldr	r3, [pc, #36]	; (810f8 <PWM_init+0x50>)
    810d4:	4798      	blx	r3
-	
-	//Methods for initializing PWM for pin 8 and 9
-	initPin21();
    810d6:	4b09      	ldr	r3, [pc, #36]	; (810fc <PWM_init+0x54>)
    810d8:	4798      	blx	r3
-	initPin22();
    810da:	4b09      	ldr	r3, [pc, #36]	; (81100 <PWM_init+0x58>)
    810dc:	4798      	blx	r3
-	
-}
    810de:	b005      	add	sp, #20
    810e0:	bd30      	pop	{r4, r5, pc}
    810e2:	bf00      	nop
@@ -2095,14 +1861,7 @@ void PWM_init(void){
    81100:	0008105d 	.word	0x0008105d
 
 00081104 <leftWheel>:
-/** This method changes the duty cycle of PWM signal on pin 9. 
-*	The duty cycle is limited between 0.8 ms and 2.2 ms  
-*
-*	@param duty for wheel to be active
-**/
-void leftWheel(uint32_t duty){
    81104:	b508      	push	{r3, lr}
-	if(duty<800){
    81106:	f5b0 7f48 	cmp.w	r0, #800	; 0x320
    8110a:	d305      	bcc.n	81118 <leftWheel+0x14>
    8110c:	f640 0298 	movw	r2, #2200	; 0x898
@@ -2110,14 +1869,7 @@ void leftWheel(uint32_t duty){
    81112:	bf38      	it	cc
    81114:	4602      	movcc	r2, r0
    81116:	e001      	b.n	8111c <leftWheel+0x18>
-		duty=800;
    81118:	f44f 7248 	mov.w	r2, #800	; 0x320
-	}
-	else if(duty>2200){
-		duty=2200;
-	}
-	// Change the duty cycle of the PWM channel
-	pwm_channel_update_duty(PWM, &PWM_pin_21, duty );
    8111c:	4802      	ldr	r0, [pc, #8]	; (81128 <leftWheel+0x24>)
    8111e:	4903      	ldr	r1, [pc, #12]	; (8112c <leftWheel+0x28>)
    81120:	4b03      	ldr	r3, [pc, #12]	; (81130 <leftWheel+0x2c>)
@@ -2129,15 +1881,7 @@ void leftWheel(uint32_t duty){
    81130:	000806c1 	.word	0x000806c1
 
 00081134 <rightWheel>:
-/** This method changes the duty cycle of PWM signal on pin 8. 
-*	The duty cycle is limited between 0.8 ms and 2.2 ms 
-*
-*	@param duty for wheel to be active 
-**/
-void rightWheel(uint32_t duty){
    81134:	b508      	push	{r3, lr}
-	
-	if(duty<800){
    81136:	f5b0 7f48 	cmp.w	r0, #800	; 0x320
    8113a:	d305      	bcc.n	81148 <rightWheel+0x14>
    8113c:	f640 0298 	movw	r2, #2200	; 0x898
@@ -2145,14 +1889,7 @@ void rightWheel(uint32_t duty){
    81142:	bf38      	it	cc
    81144:	4602      	movcc	r2, r0
    81146:	e001      	b.n	8114c <rightWheel+0x18>
-		duty=800;
    81148:	f44f 7248 	mov.w	r2, #800	; 0x320
-	}
-	else if(duty>2200){
-		duty=2200;
-	}
-	// Change the duty cycle of the PWM channel
-	pwm_channel_update_duty(PWM, &PWM_pin_22, duty );
    8114c:	4802      	ldr	r0, [pc, #8]	; (81158 <rightWheel+0x24>)
    8114e:	4903      	ldr	r1, [pc, #12]	; (8115c <rightWheel+0x28>)
    81150:	4b03      	ldr	r3, [pc, #12]	; (81160 <rightWheel+0x2c>)
@@ -2164,22 +1901,13 @@ void rightWheel(uint32_t duty){
    81160:	000806c1 	.word	0x000806c1
 
 00081164 <pin12_edge_handler>:
-	increases a counter if rising edge
-	@param id for for which port
-	@param index for which pin triggered
-**/
-void pin12_edge_handler(const uint32_t id, const uint32_t index)
-{
    81164:	b508      	push	{r3, lr}
-	if (pio_get(PIOC, PIO_TYPE_PIO_INPUT, PIO_PC12)){
    81166:	4806      	ldr	r0, [pc, #24]	; (81180 <pin12_edge_handler+0x1c>)
    81168:	f04f 5120 	mov.w	r1, #671088640	; 0x28000000
    8116c:	f44f 5280 	mov.w	r2, #4096	; 0x1000
    81170:	4b04      	ldr	r3, [pc, #16]	; (81184 <pin12_edge_handler+0x20>)
    81172:	4798      	blx	r3
    81174:	b118      	cbz	r0, 8117e <pin12_edge_handler+0x1a>
-		//increase the counter value
-		counter_2++;
    81176:	4b04      	ldr	r3, [pc, #16]	; (81188 <pin12_edge_handler+0x24>)
    81178:	881a      	ldrh	r2, [r3, #0]
    8117a:	3201      	adds	r2, #1
@@ -2190,23 +1918,13 @@ void pin12_edge_handler(const uint32_t id, const uint32_t index)
    81188:	20078d74 	.word	0x20078d74
 
 0008118c <pin14_edge_handler>:
-	increases a counter if rising edge
-	@param id for for which port
-	@param index for which pin triggered
-**/
-void pin14_edge_handler(const uint32_t id, const uint32_t index)
-{
    8118c:	b508      	push	{r3, lr}
-	// Checks if pin 51 is high
-	if (pio_get(PIOB, PIO_TYPE_PIO_INPUT, PIO_PB14)){
    8118e:	4806      	ldr	r0, [pc, #24]	; (811a8 <pin14_edge_handler+0x1c>)
    81190:	f04f 5120 	mov.w	r1, #671088640	; 0x28000000
    81194:	f44f 4280 	mov.w	r2, #16384	; 0x4000
    81198:	4b04      	ldr	r3, [pc, #16]	; (811ac <pin14_edge_handler+0x20>)
    8119a:	4798      	blx	r3
    8119c:	b118      	cbz	r0, 811a6 <pin14_edge_handler+0x1a>
-		//Increase the counter value
-		counter_1++;
    8119e:	4b04      	ldr	r3, [pc, #16]	; (811b0 <pin14_edge_handler+0x24>)
    811a0:	881a      	ldrh	r2, [r3, #0]
    811a2:	3201      	adds	r2, #1
@@ -2217,41 +1935,24 @@ void pin14_edge_handler(const uint32_t id, const uint32_t index)
    811b0:	20078d76 	.word	0x20078d76
 
 000811b4 <attach_interrupt>:
-/*
-* Runs once, when program starts.
-* Configures pins to attach interrupts and when to trigger interrupts
-*/
-void attach_interrupt(void)
-{
    811b4:	b570      	push	{r4, r5, r6, lr}
    811b6:	b082      	sub	sp, #8
-
-	//Enable the module clock to the PIOB peripheral
-	pmc_enable_periph_clk(ID_PIOB);
    811b8:	200c      	movs	r0, #12
    811ba:	4c1a      	ldr	r4, [pc, #104]	; (81224 <attach_interrupt+0x70>)
    811bc:	47a0      	blx	r4
-	//Enable the module clock to the PIOC peripheral
-	pmc_enable_periph_clk(ID_PIOC);
    811be:	200d      	movs	r0, #13
    811c0:	47a0      	blx	r4
-	//Set pin 12 direction on PIOC as input, with pullup
-	pio_set_input(PIOC,PIO_PC12,PIO_PULLUP);
    811c2:	4d19      	ldr	r5, [pc, #100]	; (81228 <attach_interrupt+0x74>)
    811c4:	4628      	mov	r0, r5
    811c6:	f44f 5180 	mov.w	r1, #4096	; 0x1000
    811ca:	2201      	movs	r2, #1
    811cc:	4e17      	ldr	r6, [pc, #92]	; (8122c <attach_interrupt+0x78>)
    811ce:	47b0      	blx	r6
-	//Set pin 14 direction on PIOB as input, with pullup
-	pio_set_input(PIOB,PIO_PB14,PIO_PULLUP);
    811d0:	4c17      	ldr	r4, [pc, #92]	; (81230 <attach_interrupt+0x7c>)
    811d2:	4620      	mov	r0, r4
    811d4:	f44f 4180 	mov.w	r1, #16384	; 0x4000
    811d8:	2201      	movs	r2, #1
    811da:	47b0      	blx	r6
-	//Configure the input pin 12 interrupt mode and handler pin51
-	pio_handler_set(PIOC, ID_PIOC, PIO_PC12, PIO_IT_RISE_EDGE, pin12_edge_handler);
    811dc:	4b15      	ldr	r3, [pc, #84]	; (81234 <attach_interrupt+0x80>)
    811de:	9300      	str	r3, [sp, #0]
    811e0:	4628      	mov	r0, r5
@@ -2260,8 +1961,6 @@ void attach_interrupt(void)
    811e8:	2370      	movs	r3, #112	; 0x70
    811ea:	4e13      	ldr	r6, [pc, #76]	; (81238 <attach_interrupt+0x84>)
    811ec:	47b0      	blx	r6
-	//Configure the input pin 14 interrupt mode and handler pin53
-	pio_handler_set(PIOB, ID_PIOB, PIO_PB14, PIO_IT_RISE_EDGE, pin14_edge_handler);
    811ee:	4b13      	ldr	r3, [pc, #76]	; (8123c <attach_interrupt+0x88>)
    811f0:	9300      	str	r3, [sp, #0]
    811f2:	4620      	mov	r0, r4
@@ -2269,33 +1968,18 @@ void attach_interrupt(void)
    811f6:	f44f 4280 	mov.w	r2, #16384	; 0x4000
    811fa:	2370      	movs	r3, #112	; 0x70
    811fc:	47b0      	blx	r6
-	//Enable the interrupt for the configured input pin 12
-	pio_enable_interrupt(PIOC,PIO_PC12);
    811fe:	4628      	mov	r0, r5
    81200:	f44f 5180 	mov.w	r1, #4096	; 0x1000
    81204:	4d0e      	ldr	r5, [pc, #56]	; (81240 <attach_interrupt+0x8c>)
    81206:	47a8      	blx	r5
-	//Enable the interrupt for the configured input pin 12
-	pio_enable_interrupt(PIOB,PIO_PB14);
    81208:	4620      	mov	r0, r4
    8120a:	f44f 4180 	mov.w	r1, #16384	; 0x4000
    8120e:	47a8      	blx	r5
-
-    \param [in]      IRQn  External interrupt number. Value cannot be negative.
- */
-__STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
-{
-  NVIC->ISER[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn) & 0x1F)); /* enable interrupt */
    81210:	4b0c      	ldr	r3, [pc, #48]	; (81244 <attach_interrupt+0x90>)
    81212:	f44f 5200 	mov.w	r2, #8192	; 0x2000
    81216:	601a      	str	r2, [r3, #0]
    81218:	f44f 5280 	mov.w	r2, #4096	; 0x1000
    8121c:	601a      	str	r2, [r3, #0]
-	//Enable interrupt handling from the PIOC module:
-	NVIC_EnableIRQ(PIOC_IRQn);
-	//Enable interrupt handling from the PIOB module:
-	NVIC_EnableIRQ(PIOB_IRQn);
-}
    8121e:	b002      	add	sp, #8
    81220:	bd70      	pop	{r4, r5, r6, pc}
    81222:	bf00      	nop
@@ -2310,16 +1994,9 @@ __STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
    81244:	e000e100 	.word	0xe000e100
 
 00081248 <reset_Counter>:
-
-/*
-* Method for reset of counter when needed for pid control and rotation
-*/
-void reset_Counter(void){
-	counter_1=0;
    81248:	2300      	movs	r3, #0
    8124a:	4a02      	ldr	r2, [pc, #8]	; (81254 <reset_Counter+0xc>)
    8124c:	8013      	strh	r3, [r2, #0]
-	counter_2=0;
    8124e:	4a02      	ldr	r2, [pc, #8]	; (81258 <reset_Counter+0x10>)
    81250:	8013      	strh	r3, [r2, #0]
    81252:	4770      	bx	lr
@@ -2802,67 +2479,27 @@ void task_unoComm(void *pvParameters)
    81506:	bf00      	nop
 
 00081508 <task_getCoordinates>:
-
-/** Task request data from positioning system asking for new coordinates for Arlo robot platform
-*	@param pvParameters parameter to be sent if needed
-**/
-void task_getCoordinates(void *pvParameters)
-{
    81508:	b5f0      	push	{r4, r5, r6, r7, lr}
    8150a:	b083      	sub	sp, #12
-	//Variable which checks last run
-	portTickType xLastWakeTime;
-	//Period time set to 200 ms
-	const portTickType xTimeIncrement = 200;
-
-	xLastWakeTime = xTaskGetTickCount();//Initialize the xLastWakeTime variable with the current time.
    8150c:	4b0e      	ldr	r3, [pc, #56]	; (81548 <task_getCoordinates+0x40>)
    8150e:	4798      	blx	r3
    81510:	f8ad 0006 	strh.w	r0, [sp, #6]
-	while (1)
-	{
-		//Array for storing positioning data
-		int16_t coord_arr[2]={0};
-		//Request data through I2C from positioning system
-		arlo_get_position(coord_arr);
    81514:	4f0d      	ldr	r7, [pc, #52]	; (8154c <task_getCoordinates+0x44>)
-		//Store data for usage
-		coord.presentX=coord_arr[0];
    81516:	4d0e      	ldr	r5, [pc, #56]	; (81550 <task_getCoordinates+0x48>)
-		coord.presentY=coord_arr[1];
-		//Data got 
-		newData=false;
    81518:	4e0e      	ldr	r6, [pc, #56]	; (81554 <task_getCoordinates+0x4c>)
-
-	xLastWakeTime = xTaskGetTickCount();//Initialize the xLastWakeTime variable with the current time.
-	while (1)
-	{
-		//Array for storing positioning data
-		int16_t coord_arr[2]={0};
    8151a:	2400      	movs	r4, #0
    8151c:	a802      	add	r0, sp, #8
    8151e:	f840 4d08 	str.w	r4, [r0, #-8]!
-		//Request data through I2C from positioning system
-		arlo_get_position(coord_arr);
    81522:	4668      	mov	r0, sp
    81524:	47b8      	blx	r7
-		//Store data for usage
-		coord.presentX=coord_arr[0];
    81526:	f8bd 3000 	ldrh.w	r3, [sp]
    8152a:	802b      	strh	r3, [r5, #0]
-		coord.presentY=coord_arr[1];
    8152c:	f8bd 3002 	ldrh.w	r3, [sp, #2]
    81530:	806b      	strh	r3, [r5, #2]
-		//Data got 
-		newData=false;
    81532:	7034      	strb	r4, [r6, #0]
-		//Suspending task 
-		vTaskSuspend(NULL);
    81534:	4620      	mov	r0, r4
    81536:	4b08      	ldr	r3, [pc, #32]	; (81558 <task_getCoordinates+0x50>)
    81538:	4798      	blx	r3
-		// Wait for the next cycle.
-		vTaskDelayUntil(&xLastWakeTime, xTimeIncrement); 
    8153a:	f10d 0006 	add.w	r0, sp, #6
    8153e:	21c8      	movs	r1, #200	; 0xc8
    81540:	4b06      	ldr	r3, [pc, #24]	; (8155c <task_getCoordinates+0x54>)
@@ -7787,63 +7424,36 @@ void task_NaviControl(void *pvParameters)
    83e56:	4770      	bx	lr
 
 00083e58 <main>:
-xTaskHandle xTaskNaviControl=NULL;
-xTaskHandle xTaskCom = NULL;
-xTaskHandle xTaskCoordinate=NULL;
-
-int main (void)
-{
    83e58:	b530      	push	{r4, r5, lr}
    83e5a:	b085      	sub	sp, #20
-	sysclk_init();
    83e5c:	4b2e      	ldr	r3, [pc, #184]	; (83f18 <main+0xc0>)
    83e5e:	4798      	blx	r3
-	/* Board initialization, for communication and printouts */
-	board_init();
    83e60:	4b2e      	ldr	r3, [pc, #184]	; (83f1c <main+0xc4>)
    83e62:	4798      	blx	r3
-	delay_s(3);
    83e64:	4d2e      	ldr	r5, [pc, #184]	; (83f20 <main+0xc8>)
    83e66:	4628      	mov	r0, r5
    83e68:	4c2e      	ldr	r4, [pc, #184]	; (83f24 <main+0xcc>)
    83e6a:	47a0      	blx	r4
-	/* Serial communication initialization, for printouts */
-	configureConsole();
    83e6c:	4b2e      	ldr	r3, [pc, #184]	; (83f28 <main+0xd0>)
    83e6e:	4798      	blx	r3
-	/* Interrupt initialization */
-	attach_interrupt();
    83e70:	4b2e      	ldr	r3, [pc, #184]	; (83f2c <main+0xd4>)
    83e72:	4798      	blx	r3
-	/* PWM initialize */
-	PWM_init();
    83e74:	4b2e      	ldr	r3, [pc, #184]	; (83f30 <main+0xd8>)
    83e76:	4798      	blx	r3
-	delay_s(3);
    83e78:	4628      	mov	r0, r5
    83e7a:	47a0      	blx	r4
-	/* Arlo robot initialization */
-	arlo_init();
    83e7c:	4b2d      	ldr	r3, [pc, #180]	; (83f34 <main+0xdc>)
    83e7e:	4798      	blx	r3
-	coordinatesInit();
    83e80:	4b2d      	ldr	r3, [pc, #180]	; (83f38 <main+0xe0>)
    83e82:	4798      	blx	r3
-	
-	/* Print info in terminal Window */
-	printf("-- %s\n\r", BOARD_NAME);
    83e84:	482d      	ldr	r0, [pc, #180]	; (83f3c <main+0xe4>)
    83e86:	492e      	ldr	r1, [pc, #184]	; (83f40 <main+0xe8>)
    83e88:	4c2e      	ldr	r4, [pc, #184]	; (83f44 <main+0xec>)
    83e8a:	47a0      	blx	r4
-	printf("-- Compiled: %s %s --\n\r", __DATE__, __TIME__);
    83e8c:	482e      	ldr	r0, [pc, #184]	; (83f48 <main+0xf0>)
    83e8e:	492f      	ldr	r1, [pc, #188]	; (83f4c <main+0xf4>)
    83e90:	4a2f      	ldr	r2, [pc, #188]	; (83f50 <main+0xf8>)
    83e92:	47a0      	blx	r4
-	
-	/* Create the task with the highest priority the task_Move*/
-	if (xTaskCreate(task_NaviControl, (const signed char * const) "NaviControl", TASK_NaviControl_STACK_SIZE, NULL, TASK_NaviControl_STACK_PRIORITY, &xTaskNaviControl) != pdPASS) 
    83e94:	2306      	movs	r3, #6
    83e96:	9300      	str	r3, [sp, #0]
    83e98:	4b2e      	ldr	r3, [pc, #184]	; (83f54 <main+0xfc>)
@@ -7858,15 +7468,9 @@ int main (void)
    83eac:	47a0      	blx	r4
    83eae:	2801      	cmp	r0, #1
    83eb0:	d002      	beq.n	83eb8 <main+0x60>
-	{
-		printf("Failed to test task_Move task\r\n");
    83eb2:	482c      	ldr	r0, [pc, #176]	; (83f64 <main+0x10c>)
    83eb4:	4b23      	ldr	r3, [pc, #140]	; (83f44 <main+0xec>)
    83eb6:	4798      	blx	r3
-	}
-	
-	/* Create the task with the second highest priority the task_GetCordinates*/
-	if (xTaskCreate(task_getCoordinates, (const signed char * const) "Get", TASK_GET_STACK_SIZE, NULL, TASK_GET_STACK_PRIORITY, &xTaskCoordinate) != pdPASS) 
    83eb8:	2304      	movs	r3, #4
    83eba:	9300      	str	r3, [sp, #0]
    83ebc:	4b2a      	ldr	r3, [pc, #168]	; (83f68 <main+0x110>)
@@ -7881,15 +7485,9 @@ int main (void)
    83ed0:	47a0      	blx	r4
    83ed2:	2801      	cmp	r0, #1
    83ed4:	d002      	beq.n	83edc <main+0x84>
-	{
-		printf("Failed to test GetCordinates task\r\n");
    83ed6:	4827      	ldr	r0, [pc, #156]	; (83f74 <main+0x11c>)
    83ed8:	4b1a      	ldr	r3, [pc, #104]	; (83f44 <main+0xec>)
    83eda:	4798      	blx	r3
-	}
-	
-	/* Create the task with the least priority the task task_UnoComm */
-	if (xTaskCreate(task_unoComm, (const signed char * const) "UNO", TASK_UNO_STACK_SIZE, NULL, TASK_UNO_STACK_PRIORITY, &xTaskCom) != pdPASS) 
    83edc:	2303      	movs	r3, #3
    83ede:	9300      	str	r3, [sp, #0]
    83ee0:	4b25      	ldr	r3, [pc, #148]	; (83f78 <main+0x120>)
@@ -7904,29 +7502,18 @@ int main (void)
    83ef4:	47a0      	blx	r4
    83ef6:	2801      	cmp	r0, #1
    83ef8:	d002      	beq.n	83f00 <main+0xa8>
-	{
-		printf("Failed to test UnoComm task\r\n");
    83efa:	4822      	ldr	r0, [pc, #136]	; (83f84 <main+0x12c>)
    83efc:	4b11      	ldr	r3, [pc, #68]	; (83f44 <main+0xec>)
    83efe:	4798      	blx	r3
-	}
-	
-	//* Suspending communication since no needed during driving */
-	vTaskSuspend(xTaskCom);
    83f00:	4b1d      	ldr	r3, [pc, #116]	; (83f78 <main+0x120>)
    83f02:	6818      	ldr	r0, [r3, #0]
    83f04:	4c20      	ldr	r4, [pc, #128]	; (83f88 <main+0x130>)
    83f06:	47a0      	blx	r4
-	vTaskSuspend(xTaskCoordinate);
    83f08:	4b17      	ldr	r3, [pc, #92]	; (83f68 <main+0x110>)
    83f0a:	6818      	ldr	r0, [r3, #0]
    83f0c:	47a0      	blx	r4
-	
-	/* Start the FreeRTOS scheduler running all tasks indefinitely*/
-	vTaskStartScheduler();
    83f0e:	4b1f      	ldr	r3, [pc, #124]	; (83f8c <main+0x134>)
    83f10:	4798      	blx	r3
-}
    83f12:	2000      	movs	r0, #0
    83f14:	b005      	add	sp, #20
    83f16:	bd30      	pop	{r4, r5, pc}
@@ -14258,15 +13845,10 @@ int main (void)
    880d0:	2d207325 	.word	0x2d207325
    880d4:	000d0a2d 	.word	0x000d0a2d
    880d8:	2079614d 	.word	0x2079614d
-   880dc:	32203632 	.word	0x32203632
+   880dc:	32203432 	.word	0x32203432
    880e0:	00373130 	.word	0x00373130
-<<<<<<< HEAD
-   880e4:	333a3931 	.word	0x333a3931
-   880e8:	39343a37 	.word	0x39343a37
-=======
-   880e4:	353a3931 	.word	0x353a3931
-   880e8:	31303a31 	.word	0x31303a31
->>>>>>> master
+   880e4:	343a3132 	.word	0x343a3132
+   880e8:	32323a31 	.word	0x32323a31
    880ec:	00000000 	.word	0x00000000
    880f0:	6976614e 	.word	0x6976614e
    880f4:	746e6f43 	.word	0x746e6f43

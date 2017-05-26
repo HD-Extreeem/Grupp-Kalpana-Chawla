@@ -1,7 +1,7 @@
 /*
 *  @file StepCounter_ISR.c
 *
-*  @ Source file which handle interrupt and initialize and attach interrupts
+*  @brief Source file which handle interrupt and initialize and attach interrupts
 * 
 *  @author Desiree J�nsson och Jonas Eiselt(Skelettet),Hadi Deknache och Yurdaer Dalkic (kod)
 *
