@@ -1,13 +1,13 @@
 /*
  *  @file Task_UnoComm.h
  *
-* @ This header file handle the whole process of communication between robotic platform and mounted lift platform
-*		 Status is being requested from mounted lift and checks if finished or still running pick up/drop off
-*
- *  @author: Desiree Jönsson
+ *  @brief This header file handle the whole process of communication between robotic platform and mounted lift platform
+ *		 Status is being requested from mounted lift and checks if finished or still running pick up/drop off
+ *
+ *  @author: Desiree Jï¿½nsson
  *
  *	@date 2017-04-20 16:25:25
- */ 
+ */
 
 
 #ifndef TASK_UNOCOMM_H_

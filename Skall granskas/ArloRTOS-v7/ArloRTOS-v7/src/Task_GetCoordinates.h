@@ -1,9 +1,11 @@
 /*
- * @file Task_GetCoordinates.h
+ *  @file Task_GetCoordinates.h
  *
- * @brief Header file for handle the positioning, updates positioning for Arlo platform
- * Created: 2017-04-20 14:12:19
- *  Author: D�sir�e J�nsson och Jonas Eiselt
+ *  @brief Header file for handle the positioning, updates positioning for Arlo platform
+ *
+ *  @author: D�sir�e J�nsson och Jonas Eiselt
+ *
+ *  @date 2017-04-20 14:12:19
  */
 
 

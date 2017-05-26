@@ -1,12 +1,12 @@
 /*
 *	@file Task_NaviControl.h
 *
-*  @brief This header file Handles the navigation of robotic platform which controls wheel based on a PID-control
+* @brief This header file Handles the navigation of robotic platform which controls wheel based on a PID-control
 *		  Task consist of state machine which loop through the process of finding and communicates with mounted lift platform
 *
 *	@author Hadi Deknache & Yurdaer Dalkic(code in structure),
 *	Desiree J?nsson & Jonas Eiselt(structure)
-*	
+*
 *	@date 2017-04-20 14:11:43
 *
 */
