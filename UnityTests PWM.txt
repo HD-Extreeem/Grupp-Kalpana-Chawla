@@ -1,0 +1,15 @@
+
+
+../tests/test_pwm.c:0:pwm_enable:PASS
+../tests/test_pwm.c:10:pwm_disable:PASS
+
+../tests/test_pwm.c:20:pwm_duty:PASS
+
+
+
+-----------------------
+
+
+3 Tests 0 Failures 0 Ignored 
+
+OK
